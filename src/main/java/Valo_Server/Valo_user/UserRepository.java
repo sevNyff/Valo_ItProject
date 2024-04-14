@@ -1,4 +1,4 @@
-package Server.user;
+package Valo_Server.Valo_user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

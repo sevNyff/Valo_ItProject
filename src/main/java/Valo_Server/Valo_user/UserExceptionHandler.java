@@ -1,4 +1,4 @@
-package Server.user;
+package Valo_Server.Valo_user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import Server.helper.ErrorResponse;
+import Valo_Server.Valo_helper.ErrorResponse;
 
 /**
  * What to do when the Server.user sends an invalid request, generating a UserException?

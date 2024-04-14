@@ -1,11 +1,11 @@
-package Server.helper;
+package Valo_Server.Valo_helper;
 
 
 import java.util.List;
 
-import Server.user.User;
-import Server.user.UserController;
-import Server.user.UserRepository;
+import Valo_Server.Valo_user.User;
+import Valo_Server.Valo_user.UserController;
+import Valo_Server.Valo_user.UserRepository;
 
 /**
  * A class that provides Server.helper functions for dealing with tokens

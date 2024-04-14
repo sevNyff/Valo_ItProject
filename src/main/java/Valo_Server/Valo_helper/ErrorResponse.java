@@ -1,4 +1,4 @@
-package Server.helper;
+package Valo_Server.Valo_helper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

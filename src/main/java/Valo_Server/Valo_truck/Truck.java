@@ -1,4 +1,4 @@
-package Server.truck;
+package Valo_Server.Valo_truck;
 
 import javax.persistence.*;
 import java.util.ArrayList;

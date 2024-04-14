@@ -1,4 +1,4 @@
-package Server.user;
+package Valo_Server.Valo_user;
 
 
 import java.time.LocalDateTime;
@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.springframework.web.bind.annotation.*;
 
-import Server.helper.Token;
+import Valo_Server.Valo_helper.Token;
 
 @RestController
 @CrossOrigin(origins = "*") // Allow cross-origin requests (necessary for web clients)

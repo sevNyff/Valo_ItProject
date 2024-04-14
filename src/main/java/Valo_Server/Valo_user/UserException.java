@@ -1,4 +1,4 @@
-package Server.user;
+package Valo_Server.Valo_user;
 
 @SuppressWarnings("serial")
 public class UserException extends RuntimeException {

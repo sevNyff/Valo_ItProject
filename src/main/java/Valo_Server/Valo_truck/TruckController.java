@@ -1,6 +1,6 @@
-package Server.truck;
+package Valo_Server.Valo_truck;
 
-import Server.helper.Token;
+import Valo_Server.Valo_helper.Token;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

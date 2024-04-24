@@ -16,12 +16,12 @@ public class Package {
     private String token;
     @Column(name = "weight")
     private Integer packageWeight;
-    @Column(name = "delivery address")
+    @Column(name = "delivery_address")
     private String deliveryAddress;
     @ManyToOne
-    @JoinColumn(name = "TourID")
+    @JoinColumn(name = "tourID")
     @JsonBackReference
-    private Tour tour;
+    private Tour tours;
 
     public Package(Integer packageWeight, String deliveryAddress){
         this.packageWeight = packageWeight;

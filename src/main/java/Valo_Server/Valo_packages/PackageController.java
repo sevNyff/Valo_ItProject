@@ -43,7 +43,7 @@ public class PackageController {
         return repository.findAll();
     }
 
-    @GetMapping("tours/{ID}")
+    @GetMapping("packages/{ID}")
     Package one(@PathVariable String ID) {
         return repository.findById(ID)
                 .orElseThrow(() -> new PackageException("\"" + ID + "\" does not exist"));

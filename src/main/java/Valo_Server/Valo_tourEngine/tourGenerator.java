@@ -1,11 +1,11 @@
 package Valo_Server.Valo_tourEngine;
 
-import java.util.List;
+import Valo_Server.Valo_truck.Truck;
 
 public class tourGenerator {
 
-    public List<String> generateTour(List<String> destinations){
-        return destinations;
+    public static Truck generateTour(Truck truck){
+        return truck;
     }
 
 

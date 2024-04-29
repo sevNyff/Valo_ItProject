@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Valo</title>
     <link rel="stylesheet" href="../resources/styles.css" />
-    <script type="text/javascript" src="truckplanning.js"></script>
+    <script type="text/javascript" src="homeScript.js"></script>
   </head>
   <body>
     <!-- Navigation Bar -->
@@ -21,12 +21,29 @@
         </ul>
       </div>
       <div class="right-section">
-        <a href="../Valo_Login/login.html" class="a-navbar-right">Login</a>
+        <a href="#" class="a-navbar-right">Login</a>
       </div>
     </nav>
     <!-- Website Content -->
-    <div class="module" id="module"></div>
-    <div class="space-after-module"></div>
+    <div class="module" id="module-login"></div>
+    <div class="div-login">
+        <h1 class="h1-login">Register</h1>
+        
+        <div class="loginform__group field">
+            <input type="input" class="loginform__field" placeholder="Username" name="username" id='username' required />
+            <label for="username" class="loginform__label">Username</label>
+            
+            <input type="input" class="loginform__field" placeholder="Password" name="password" id='password' required />
+            <label for="password" class="loginform__label">Password</label>
+            
+          </div>
+          <div class="login_register"><p class="p_login">Already have an account? </p> 
+            <a class="a_login" href="../Valo_Login/login.html"> Login</a>
+        </div>
+        <button class="button-register" >Register</button>
+        
+        
+      </div>
 
     <!-- Footer-->
     <footer class="footer">
@@ -49,8 +66,9 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2024 Your Website Name. All rights reserved.</p>
+        <p>&copy; 2024 Valo. All rights reserved.</p>
       </div>
     </footer>
   </body>
+  
 </html>

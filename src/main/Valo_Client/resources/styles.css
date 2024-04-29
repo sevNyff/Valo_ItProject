@@ -250,7 +250,7 @@ for less code and because the login and register are almost the same, the same c
 }
 
 .h1-login {
-  color: #333;
+  color: -webkit-linear-gradient(#eee, #333);
   font-weight: lighter;
   text-transform: uppercase;
   letter-spacing: 10px;
@@ -260,7 +260,7 @@ for less code and because the login and register are almost the same, the same c
   
 }
 #module-login {
-  background-image:linear-gradient(45deg, #ffe4c4 0%, rgb(255, 255, 255) 90%)
+  background-image: linear-gradient(35deg, #333 50%, #ffffff 50%)
 }
 /*Form styles from https://codepen.io/lucasyem/pen/ZEEYKdj adjusted*/
 
@@ -278,7 +278,7 @@ for less code and because the login and register are almost the same, the same c
   border-bottom: 2px solid #9b9b9b;
   outline: 0;
   font-size: 1.3rem;
-  color: #333;
+  color: #fff;
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
@@ -299,14 +299,14 @@ for less code and because the login and register are almost the same, the same c
   display: block;
   transition: 0.2s;
   font-size: 1rem;
-  color: #333;
+  color: #fff;
 }
 
 .loginform__field:focus {
   padding-bottom: 6px;  
   font-weight: 700;
   border-width: 3px;
-  border-image: linear-gradient(to right, #333, blueviolet);
+  border-image: linear-gradient(to right, #fff, blueviolet);
   border-image-slice: 1;
 }
 /* reset input */
@@ -319,11 +319,12 @@ for less code and because the login and register are almost the same, the same c
   align-items: center;
 }
 .p_login{
+  color: #fff;
   margin-right: 1rem;
 }
 .a_login{
   
-  color: #333;
+  color: #b086ff;
 }
 .button-login{
   width: 30%;

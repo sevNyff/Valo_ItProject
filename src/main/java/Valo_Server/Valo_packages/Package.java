@@ -1,15 +1,13 @@
 package Valo_Server.Valo_packages;
 
 import Valo_Server.Valo_tours.Tour;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "packages")
 public class Package {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="packageID")
     private Integer packageID;
     @Column(name = "token")
@@ -18,19 +16,19 @@ public class Package {
     private Integer packageWeight;
     @Column(name = "delivery_address")
     private String deliveryAddress;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tourID")
-    @JsonBackReference
     private Tour tours;
 
-    public Package(Integer packageWeight, String deliveryAddress){
+    public Package(){}
+    public Package(int packageWeight, String deliveryAddress){
         this.packageWeight = packageWeight;
         this.deliveryAddress = deliveryAddress;
     }
-    public Integer getPackageIDID() {
+    public Integer getPackageID() {
         return packageID;
     }
-    public void setPackageIDID(Integer packageID) {this.packageID = packageID;}
+    public void setPackageIDID(int packageID) {this.packageID = packageID;}
     public String getToken() {
         return token;
     }
@@ -40,11 +38,18 @@ public class Package {
     public Integer getPackageWeight() {
         return packageWeight;
     }
-    public void setPackageWeight(Integer packageWeight) {
+    public void setPackageWeight(int packageWeight) {
         this.packageWeight = packageWeight;
     }
     public String getDeliveryAddress() {return deliveryAddress;}
-    public void addPackage(Integer pck){this.deliveryAddress = deliveryAddress;}
+    public void setDeliveryAddress(String deliveryAddress){this.deliveryAddress = deliveryAddress;}
+    public Tour getTours() {return tours; }
+    public void setTours(Tour tours){this.tours = tours;}
+
+    @Override
+    public String toString() {
+        return "Package{" + "id=" + packageID + ", weight='" + packageWeight + '\'' + ", delivery address='" + deliveryAddress + '\'' + '}';
+    }
 
 }
 

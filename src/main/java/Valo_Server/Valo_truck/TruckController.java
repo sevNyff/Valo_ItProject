@@ -42,7 +42,7 @@ public class TruckController {
     }
 
     @GetMapping("tours/{TruckID}")
-    Truck one(@PathVariable String TruckID) {
+    Truck one(@PathVariable int TruckID) {
         return repository.findById(TruckID)
                 .orElseThrow(() -> new TruckException("\"" + TruckID + "\" does not exist"));
     }

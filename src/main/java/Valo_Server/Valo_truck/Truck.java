@@ -1,14 +1,12 @@
 package Valo_Server.Valo_truck;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "tours")
+@Table(name = "truck")
 public class Truck {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="TruckID")
     private Integer TruckID;
     @Column(name = "token")
@@ -18,14 +16,12 @@ public class Truck {
     @Column(name = "capacity")
     private Integer truckCapacity;
 
-    public Truck(String brandName, Integer truckCapacity){
-        this.brandName = brandName;
-        this.truckCapacity = truckCapacity;
+    public Truck(){
     }
     public Integer getID() {
         return TruckID;
     }
-    public void setID(Integer TruckID) {this.TruckID = TruckID;}
+    public void setID(int TruckID) {this.TruckID = TruckID;}
     public String getToken() {
         return token;
     }
@@ -41,7 +37,7 @@ public class Truck {
     public Integer getTruckCapacity() {
         return truckCapacity;
     }
-    public void setTruckCapacity(Integer truckCapacity) {this.truckCapacity = truckCapacity;}
+    public void setTruckCapacity(int truckCapacity) {this.truckCapacity = truckCapacity;}
 
 }
 

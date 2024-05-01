@@ -1,16 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Update login/register button text based on login status in localStorage
-    const loginButton = document.getElementById('loginRegisterButton');
-    const loginStatus = localStorage.getItem('loginStatus');
 
-    if (loginStatus === 'Logout') {
-        loginButton.textContent = 'Logout';
-    } else {
-        loginButton.textContent = 'Login';
-    }
-});
 
-function loginButtonClick() {
+function registerButtonClick() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
@@ -25,7 +15,7 @@ function loginButtonClick() {
         password: password
     };
 
-    fetch('http://localhost:8080/users/login', {
+    fetch('http://localhost:8080/users/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -41,29 +31,23 @@ function loginButtonClick() {
     })
     .then(data => {
         // Check if the response contains an error message indicating incorrect password
-        if (data.error && data.error_description.includes('Wrong password')) {
+        if (data.error && data.error_description.includes('already exists')) {
             // Display alert for incorrect password
-            alert('Password or username is wrong. Please try again.');
+            alert('User already exists');
             return; // Exit the function without setting the token
         }
+        
 
         // Alert success message (replace with your actual success handling)
-        alert('Login successful! Token saved.');
+        alert('Registration successful!');
 
         // Clear input fields after successful login
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
 
-        // Store token and login status in localStorage
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('userName', username);
-        localStorage.setItem('loginStatus', 'Logout');
-
-        // Update login/register button text to 'Logout'
-        document.getElementById('loginRegisterButton').textContent = 'Logout';
-
+        
         // Redirect to another page after login
-        // window.location.href = '../Valo_Home/home.html';
+        //window.location.href = '../Valo_Login/login.html';
     })
     .catch(error => {
         console.error('Error:', error);
@@ -72,3 +56,16 @@ function loginButtonClick() {
         alert('An error occurred, please try again.');
     });
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Update login/register button text based on login status in localStorage
+    const loginButton = document.getElementById('loginRegisterButton');
+    const loginStatus = localStorage.getItem('loginStatus');
+
+    if (loginStatus === 'Logout') {
+        loginButton.textContent = 'Logout';
+    } else {
+        loginButton.textContent = 'Login';
+    }
+});

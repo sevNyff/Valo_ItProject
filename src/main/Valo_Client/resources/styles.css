@@ -231,7 +231,7 @@ for less code and because the login and register are almost the same, the same c
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50vw;
+  width: 40vw;
   height: 50vh;
   
    /* Increased padding for better aesthetics */
@@ -250,13 +250,13 @@ for less code and because the login and register are almost the same, the same c
 }
 
 .h1-login {
-  color: -webkit-linear-gradient(#eee, #333);
+  color: #333;
   font-weight: lighter;
   text-transform: uppercase;
   letter-spacing: 10px;
   font-size: 5vw;
   margin-bottom: 20px; /* Added margin for spacing */
-  padding-bottom: 50px;
+  padding-bottom: 30px;
   
 }
 #module-login {

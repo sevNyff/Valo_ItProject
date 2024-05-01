@@ -1,9 +1,13 @@
-//navbar sizechange on scroll
-document.addEventListener('scroll', function() {
-    var navbar = document.querySelector('.navbar');
-    if (window.scrollY > 10) { // Adjust the scroll threshold as needed
-      navbar.classList.add('small');
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Update login/register button text based on login status in localStorage
+    const loginButton = document.getElementById('loginRegisterButton');
+    const loginStatus = localStorage.getItem('loginStatus');
+
+    if (loginStatus === 'Logout') {
+        loginButton.textContent = 'Logout';
     } else {
-      navbar.classList.remove('small');
+        loginButton.textContent = 'Login';
     }
-  });
+});

@@ -1,12 +1,7 @@
-function newPlanning(){
-    console.log(localStorage.getItem('userName'))
-    console.log(localStorage.getItem('token'))
-    console.log(localStorage.getItem('loginStatus'))
-}
- 
+
 
 //LOGIN FUNCTIONS
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     // Update login/register button text based on login status in localStorage
     const loginButton = document.getElementById('loginRegisterButton');
     const loginStatus = localStorage.getItem('loginStatus');

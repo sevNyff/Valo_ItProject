@@ -1,3 +1,14 @@
+document.addEventListener('DOMContentLoaded', function(){
+    const packagesTableBody = document.getElementById('packagesTableBody')
+})
+function getPackages(){
+    fetch('http://localhost:8080/packages')
+    //ergänzen sobald Severin die packages gemacht hat
+}
+
+
+
+
 
 //LOGIN FUNCTIONS
   document.addEventListener('DOMContentLoaded', function() {

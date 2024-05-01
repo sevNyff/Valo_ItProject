@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Valo</title>
     <link rel="stylesheet" href="../resources/styles.css" />
-    <script type="text/javascript" src="trucks.js"></script>
   </head>
   <body>
     <!-- Navigation Bar -->
@@ -25,8 +24,22 @@
       </div>
     </nav>
     <!-- Website Content -->
-    <div class="module" id="module"></div>
-    <div class="space-after-module"></div>
+    <div class="module" id="module-trucks"></div>
+    
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Capacity</th>
+            <!--<th>Available</th> wieder einklammern und hinzufügen-->
+          </tr>
+        </thead>
+        <tbody id="trucksTableBody"></tbody>
+        <!-- Package Data will bepopulated dynamically-->
+      </table>
+    </div>
 
     <!-- Footer-->
     <footer class="footer">

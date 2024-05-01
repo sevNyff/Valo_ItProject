@@ -340,6 +340,63 @@ for less code and because the login and register are almost the same, the same c
 
 /*End of Login Styling*/
 
+/*Table Styling*/
+
+#module-trucks {
+  background-image: linear-gradient(0deg, #333 10%, #ffffff 90%)
+}
+.table-container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+table {
+   
+  max-width: 800px;
+  margin: 50px auto; 
+  border-collapse: collapse; 
+  background-color: #fff; 
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+}
+
+th, td {
+  padding: 12px 20px; 
+  text-align: left; 
+  font-size: 3rem;
+  border-bottom: 1px solid #ddd;
+}
+
+thead {
+  background-color: #f1f2ed; 
+}
+
+
+tbody tr {
+  transition: background-color 0.3s ease; 
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; 
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1; 
+}
+
+/* Responsive table design */
+@media screen and (max-width: 600px) {
+  table {
+    width: 100%; 
+  }
+}
+
+
+
+/*End of Table Styling*/
+
+
 
 /*End of Page Styling*/
 

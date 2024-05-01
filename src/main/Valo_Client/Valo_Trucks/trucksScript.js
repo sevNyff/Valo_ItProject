@@ -1,4 +1,39 @@
 
+//Load Trucks into the table
+document.addEventListener('DOMContentLoaded', function(){
+    const trucksTableBody = document.getElementById('trucksTableBody');
+
+
+    function fetchTrucks(){
+        fetch('http://localhost:8080/trucks')
+        .then(response => response.json())
+        .then(trucks => {
+            trucksTableBody.innerHTML = '';
+
+            trucks.forEach(truck => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${truck.id}</td>
+                <td>${truck.brandName}</td>
+                <td>${truck.truckCapacity}</td>
+                `;     
+                trucksTableBody.appendChild(row);
+
+            });
+        
+        })
+        .catch(error => {
+           console.error('Error fetching trucks:', error)
+        })
+    
+    }
+
+    fetchTrucks();
+});
+
+
+
+
 
 //LOGIN FUNCTIONS
   document.addEventListener('DOMContentLoaded', function() {

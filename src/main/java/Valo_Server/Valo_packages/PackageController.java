@@ -26,10 +26,10 @@ public class PackageController {
     private PackageRepository packageRepository;
 
 
-    @PostMapping("/packages/save")
-    public String savePackage(@RequestBody Package aPackage) {
+    @PostMapping("/packages/save/{ID}")
+    public String savePackage(@RequestBody Package aPackage, @PathVariable int ID) {
         if (Token.validate(aPackage.getToken())) {
-            Tour tourTemp = tourRepository.getById(aPackage.getPackageID());
+            Tour tourTemp = tourRepository.getById(ID);
 
             List<Package> packages = new ArrayList<>();
             Package pck = new Package(aPackage.getPackageWeight(), aPackage.getDeliveryAddress());
@@ -38,7 +38,6 @@ public class PackageController {
             packages.add(pck);
             tourTemp.setPackages(packages);
             tourRepository.save(tourTemp);
-            packageRepository.save(aPackage);
 
             return "Package saved";
         } else {

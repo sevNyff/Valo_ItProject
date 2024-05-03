@@ -19,20 +19,6 @@ public class TourController {
     @Autowired
     private TourRepository tourRepository;
 
-    @Autowired
-    private PackageRepository packageRepository;
-
-    /*
-    @PostMapping("/tours/new")
-    Tour newTour(@RequestBody Tour tour) {
-        if (Token.validate(tour.getToken())) {
-            return repository.save(tour);
-        } else {
-            throw new TourException("Invalid token");
-        }
-    }
-
-     */
     @PostMapping("/tours/quit")
     Tour tourDelete(@RequestBody Tour tour) {
         // Villicht ned mid em token validate sondern mit de ID
@@ -43,16 +29,16 @@ public class TourController {
             throw new TourException("Invalid token");
         }
     }
+
     @PostMapping("/tours/save")
-    Tour tourSave(@RequestBody Tour tour) {
+    public int tourSave(@RequestBody Tour tour) {
         if (Token.validate(tour.getToken())) {
             System.out.println("Received Tour object: " + tour);
 
             Tour tourIn = new Tour(tour.getTruckID());
-            tourIn.setToken(tour.getToken());
 
             List<Package> packages = new ArrayList<>();
-            for (Package packageIn : tour.getPackages()){
+            for (Package packageIn : tour.getPackages()) {
                 Package pck = new Package(packageIn.getPackageWeight(), packageIn.getDeliveryAddress());
                 pck.setTours(tourIn);
                 packages.add(pck);
@@ -64,57 +50,19 @@ public class TourController {
 
             //tourGenerator.generateTour(tourIn);
 
-            return tourIn;
+            return tourIn.getID();
         } else {
             throw new TourException("Invalid token");
         }
     }
 
-    @PostMapping("/packages/save")
-    public String savePackage(@RequestBody Package aPackage) {
-        if (Token.validate(aPackage.getToken())) {
-            Tour tourTemp = tourRepository.getById(aPackage.getPackageID());
-
-            List<Package> packages = new ArrayList<>();
-            Package pck = new Package(aPackage.getPackageWeight(), aPackage.getDeliveryAddress());
-
-            pck.setTours(tourTemp);
-            packages.add(pck);
-            tourTemp.setPackages(packages);
-            tourRepository.save(tourTemp);
-            packageRepository.save(aPackage);
-
-            return "Package saved";
-        } else {
-            throw new PackageException("Invalid token");
-        }
-    }
-
-
-
     @GetMapping("/tours")
     List<Tour> allTours() {
         return tourRepository.findAll();
     }
-    @GetMapping("/packages")
-    List<Package> allpackages() {
-        return packageRepository.findAll();
-    }
-
     @GetMapping("tours/{ID}")
     Tour oneTour(@PathVariable int ID) {
         return tourRepository.findById(ID)
                 .orElseThrow(() -> new TourException("\"" + ID + "\" does not exist"));
     }
-
-    @GetMapping("packages/{ID}")
-    Package onePackage(@PathVariable int ID) {
-        return packageRepository.findById(ID)
-                .orElseThrow(() -> new PackageException("\"" + ID + "\" does not exist"));
-    }
-
-    /*
-    public static TourRepository getTourRepository() {return tourRepository;}
-    public static PackageRepository getPackageRepository() {return packageRepository;}
-     */
 }

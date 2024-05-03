@@ -4,6 +4,7 @@ import Valo_Server.Valo_helper.Token;
 import Valo_Server.Valo_tourEngine.tourGenerator;
 import Valo_Server.Valo_tours.Tour;
 import Valo_Server.Valo_tours.TourException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,16 +19,17 @@ public class TruckController {
     }
 
     @PostMapping("/trucks/new")
-    Truck newTour(@RequestBody Truck truck) {
+    public int newTruck(@RequestBody Truck truck) {
         if (Token.validate(truck.getToken())) {
-            return repository.save(truck);
+            Truck truck1 = new Truck(truck.getBrandName(), truck.getTruckCapacity());
+            repository.save(truck1);
+            return truck1.getID();
         } else {
             throw new TruckException("Invalid token");
         }
     }
     @PostMapping("/trucks/delete")
-    Truck quitGame(@RequestBody Truck truck) {
-        // Villicht ned mid em token validate sondern mit de ID
+    Truck deleteTruck(@RequestBody Truck truck) {
         if (Token.validate(truck.getToken())) {
             repository.delete(truck);
             return truck;
@@ -41,11 +43,11 @@ public class TruckController {
         return repository.findAll();
     }
 
-    @GetMapping("tours/{TruckID}")
+    @GetMapping("trucks/{TruckID}")
     Truck one(@PathVariable int TruckID) {
         return repository.findById(TruckID)
                 .orElseThrow(() -> new TruckException("\"" + TruckID + "\" does not exist"));
     }
 
-    public static TruckRepository getRepository() {return repository;}
+   public static TruckRepository getRepository() {return repository;}
 }

@@ -6,17 +6,19 @@ import javax.persistence.*;
 @Table(name = "truck")
 public class Truck {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name="TruckID")
     private Integer TruckID;
-    @Column(name = "token")
-    private String token;
     @Column(name = "Brand")
     private String brandName;
     @Column(name = "capacity")
     private Integer truckCapacity;
+    @Column(name = "token")
+    private String token;
 
-    public Truck(){
+    public Truck(String brandName, Integer truckCapacity){
+        this.truckCapacity = truckCapacity;
+        this.brandName = brandName;
     }
     public Integer getID() {
         return TruckID;

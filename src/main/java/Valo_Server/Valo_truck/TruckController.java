@@ -4,10 +4,13 @@ import Valo_Server.Valo_helper.Token;
 import Valo_Server.Valo_tourEngine.tourGenerator;
 import Valo_Server.Valo_tours.Tour;
 import Valo_Server.Valo_tours.TourException;
+import Valo_Server.Valo_user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*") // Allow cross-origin requests (necessary for web clients)
@@ -28,13 +31,15 @@ public class TruckController {
             throw new TruckException("Invalid token");
         }
     }
-    @PostMapping("/trucks/delete")
-    Truck deleteTruck(@RequestBody Truck truck) {
-        if (Token.validate(truck.getToken())) {
+    @GetMapping("/trucks/delete/{TruckID}")
+    public String deleteTruck(@PathVariable int TruckID) {
+        Optional<Truck> oldTruck = repository.findById(TruckID);
+        if (oldTruck.isPresent()) {
+            Truck truck = oldTruck.get();
             repository.delete(truck);
-            return truck;
+            return "Truck deleted";
         } else {
-            throw new TruckException("Invalid token");
+            throw new NoSuchElementException("No car found with ID " + TruckID);
         }
     }
 

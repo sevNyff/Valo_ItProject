@@ -37,6 +37,7 @@ public class BestFirst {
         System.out.print(totalRuntime);
     }
 
+
     private static void printPath(ArrayList<String> path) {
         System.out.print("Final solution: ");
         for (String node : path) System.out.printf("%s ", node);

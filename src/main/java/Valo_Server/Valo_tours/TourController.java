@@ -44,11 +44,12 @@ public class TourController {
                 packages.add(pck);
             }
             tourIn.setPackages(packages);
+
+            //tourIn = tourGenerator.generateTour(tourIn);
+
             tourRepository.save(tourIn);
 
             System.out.println("Tour saved");
-
-            //tourGenerator.generateTour(tourIn);
 
             return tourIn.getID();
         } else {

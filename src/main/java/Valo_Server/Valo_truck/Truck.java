@@ -16,6 +16,10 @@ public class Truck {
     @Column(name = "token")
     private String token;
 
+    public Truck() {
+        // Default constructor
+    }
+
     public Truck(String brandName, Integer truckCapacity){
         this.truckCapacity = truckCapacity;
         this.brandName = brandName;

@@ -3,6 +3,7 @@ package Valo_Server.Valo_tours;
 import javax.persistence.*;
 import java.util.List;
 import Valo_Server.Valo_packages.Package;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "tours")
@@ -14,6 +15,7 @@ public class Tour {
     @Column(name = "truck")
     private Integer truckID;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "tours", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Package> packages;
     @Column(name = "token")
     private String token;

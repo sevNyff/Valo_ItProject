@@ -225,7 +225,7 @@ button:active {
 /*Login Styling
 for less code and because the login and register are almost the same, the same classnames are used*/
 
-.div-login {
+.div-form {
   animation: fadeIn 0.75s ease; 
   position: absolute;
   top: 50%;
@@ -249,7 +249,7 @@ for less code and because the login and register are almost the same, the same c
    /* Background color for better visibility */
 }
 
-.h1-login {
+.h1-form {
   color: #333;
   font-weight: lighter;
   text-transform: uppercase;
@@ -264,14 +264,14 @@ for less code and because the login and register are almost the same, the same c
 }
 /*Form styles from https://codepen.io/lucasyem/pen/ZEEYKdj adjusted*/
 
-.loginform__group {
+.form__group {
   position: relative;
   padding: 15px 0 0;
   margin-top: 10px;
   width: 35%;
 }
 
-.loginform__field {
+.form__field {
   font-family: inherit;
   width: 100%;
   border: 0;
@@ -287,14 +287,14 @@ for less code and because the login and register are almost the same, the same c
     color: transparent;
   }
 
-  &:placeholder-shown ~ .loginform__label {
+  &:placeholder-shown ~ .form__label {
     font-size: 1.3rem;
     cursor: text;
     top: 20px;
   }
 }
 
-.loginform__label {
+.form__label {
   top: 0;
   display: block;
   transition: 0.2s;
@@ -302,7 +302,7 @@ for less code and because the login and register are almost the same, the same c
   color: #fff;
 }
 
-.loginform__field:focus {
+.form__field:focus {
   padding-bottom: 6px;  
   font-weight: 700;
   border-width: 3px;
@@ -310,7 +310,7 @@ for less code and because the login and register are almost the same, the same c
   border-image-slice: 1;
 }
 /* reset input */
-.loginform__field{
+.form__field{
   &:required,&:invalid { box-shadow:none; }
 }
 .login_register{
@@ -392,9 +392,33 @@ tbody tr:hover {
   }
 }
 
+.delete-button{
+  color: red;
+}
 
 
 /*End of Table Styling*/
+
+.addTruck-button{
+  position: fixed;
+  top: 150px;
+  right: 30px;
+  color: green;
+}
+
+.buttonDiv{
+  padding-top: 50px;
+  
+}
+.button-backToTrucks{
+  margin-right: 10px;
+  width: 150px;
+}
+.button-newTruck{
+  margin-left: 10px;
+  width: 150px;
+}
+
 
 
 

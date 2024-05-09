@@ -16,9 +16,18 @@ document.addEventListener('DOMContentLoaded', function(){
                 <td>${truck.id}</td>
                 <td>${truck.brandName}</td>
                 <td>${truck.truckCapacity}</td>
+                <td>
+                    <button class="delete-button" data-truck-id="${truck.id}">Delete</button>
+                </td>
                 `;     
                 trucksTableBody.appendChild(row);
 
+            });
+
+            // Attach event listeners to the "Delete" buttons
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            deleteButtons.forEach((button) => {
+            button.addEventListener('click', handleDeleteButtonClick);
             });
         
         })
@@ -28,9 +37,79 @@ document.addEventListener('DOMContentLoaded', function(){
     
     }
 
+// Function to handle the "Delete" button click
+function handleDeleteButtonClick(event) {
+    const truckId = event.target.dataset.truckId;
+
+    // Send a DELETE request to the server to delete the car
+    fetch(`http://localhost:8080/trucks/delete/${truckId}`, {
+      method: 'GET'
+    })
+      .then(response => response.text())
+      .then(message => {
+        // Handle the response from the server
+        alert(message); // Display a success message
+        // Remove the corresponding row from the table
+        const row = event.target.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the request
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      });
+  }
+
+
     fetchTrucks();
 });
 
+function changeToAddTruckPage(){
+    window.location.href = '../Valo_Trucks/addTruck.html';
+}
+
+function backToTrucksButtonClick(){
+    window.location.href = '../Valo_Trucks/trucks.html';
+}
+
+function newTruckButtonClick() {
+    var brandName = document.getElementById('brand').value;
+    var truckCapacity = document.getElementById('capacity').value;
+    var token = localStorage.getItem('token');
+
+    const truckData = {
+        brandName: brandName,
+        truckCapacity: truckCapacity,
+        token: token
+    };
+
+    // Send a POST request to the server to add a new truck
+    fetch('http://localhost:8080/trucks/new', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(truckData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error: ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Redirect to trucks.html after successfully adding a new truck
+        window.location.href = '../Valo_Trucks/trucks.html';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred, please try again.');
+    });
+}
+
+
+
+ 
 
 
 

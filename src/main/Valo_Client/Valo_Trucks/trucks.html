@@ -40,20 +40,10 @@
     <!-- Website Content -->
     <div class="module" id="module-trucks"></div>
 
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Brand</th>
-            <th>Capacity</th>
-            <th>Delete</th>
-            <!--<th>Available</th> wieder einklammern und hinzufügen-->
-          </tr>
-        </thead>
-        <tbody id="trucksTableBody"></tbody>
-        <!-- Package Data will bepopulated dynamically-->
-      </table>
+    
+        <div id="trucksContainer" class="trucks-container">
+          <!-- Truck cards will be dynamically added here -->
+        </div>
     </div>
     
     <button class="addTruck-button" onclick="changeToAddTruckPage()">Add Truck</button>

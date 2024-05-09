@@ -56,9 +56,5 @@ public class PackageController {
                 .orElseThrow(() -> new PackageException("\"" + ID + "\" does not exist"));
     }
 
-    /*
-    public static TourRepository getTourRepository() {return tourRepository;}
-    public static PackageRepository getPackageRepository() {return packageRepository;}
-     */
 }
 

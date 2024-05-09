@@ -1,6 +1,8 @@
 package Valo_Server.Valo_packages;
 
 import Valo_Server.Valo_tours.Tour;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,7 @@ public class Package {
     private String deliveryAddress;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tourID")
+    @JsonBackReference
     private Tour tours;
 
     public Package(){}

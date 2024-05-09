@@ -69,39 +69,53 @@ function backToTrucksButtonClick(){
 }
 
 function newTruckButtonClick() {
-    var brandName = document.getElementById('brand').value;
-    var truckCapacity = document.getElementById('capacity').value;
-    var token = localStorage.getItem('token');
+  var brandName = document.getElementById('brand').value;
+  var truckCapacity = document.getElementById('capacity').value;
+  var token = localStorage.getItem('token');
 
-    const truckData = {
-        brandName: brandName,
-        truckCapacity: truckCapacity,
-        token: token
-    };
+  // Validate brand name (at least 3 characters)
+  if (brandName.length < 3) {
+      alert('Brand name must be at least 3 characters long.');
+      return; // Exit the function if validation fails
+  }
 
-    // Send a POST request to the server to add a new truck
-    fetch('http://localhost:8080/trucks/new', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(truckData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error: ' + response.status);
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Redirect to trucks.html after successfully adding a new truck
-        window.location.href = '../Valo_Trucks/trucks.html';
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred, please try again.');
-    });
+  // Validate truck capacity (must be a number bigger than 0)
+  const parsedCapacity = parseFloat(truckCapacity);
+  if (isNaN(parsedCapacity) || parsedCapacity <= 0) {
+      alert('Capacity must be a valid number bigger than 0.');
+      return; // Exit the function if validation fails
+  }
+
+  const truckData = {
+      brandName: brandName,
+      truckCapacity: parsedCapacity,
+      token: token
+  };
+
+  // Send a POST request to the server to add a new truck
+  fetch('http://localhost:8080/trucks/new', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(truckData)
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Error: ' + response.status);
+      }
+      return response.json();
+  })
+  .then(data => {
+      // Redirect to trucks.html after successfully adding a new truck
+      window.location.href = '../Valo_Trucks/trucks.html';
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert('An error occurred, please try again.');
+  });
 }
+
 
 
 

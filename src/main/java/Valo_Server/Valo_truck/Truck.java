@@ -21,8 +21,8 @@ public class Truck {
     }
 
     public Truck(String brandName, Integer truckCapacity){
-        this.truckCapacity = truckCapacity;
         this.brandName = brandName;
+        this.truckCapacity = truckCapacity;
     }
     public Integer getID() {
         return TruckID;
@@ -37,13 +37,16 @@ public class Truck {
     public String getBrandName() {
         return brandName;
     }
-    public void setBrandName(String truckName) {
+    public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
     public Integer getTruckCapacity() {
         return truckCapacity;
     }
     public void setTruckCapacity(int truckCapacity) {this.truckCapacity = truckCapacity;}
+
+    @Override
+    public String toString(){ return "Truck: " + this.brandName + " | " + this.truckCapacity;}
 
 }
 

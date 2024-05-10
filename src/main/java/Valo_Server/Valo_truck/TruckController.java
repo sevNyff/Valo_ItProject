@@ -24,6 +24,7 @@ public class TruckController {
     @PostMapping("/trucks/new")
     public int newTruck(@RequestBody Truck truck) {
         if (Token.validate(truck.getToken())) {
+            System.out.println(truck.toString());
             Truck truck1 = new Truck(truck.getBrandName(), truck.getTruckCapacity());
             repository.save(truck1);
             return truck1.getID();

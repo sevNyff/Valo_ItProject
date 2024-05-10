@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Populate truck card with truck information
             truckCard.innerHTML = `
               <div class="truck-info">
-                <p><strong>ID:</strong> ${truck.id}</p>
+                <h3>Truck ${truck.id}</h3>
                 <p><strong>Brand:</strong> ${truck.brandName}</p>
                 <p><strong>Capacity:</strong> ${truck.truckCapacity}</p>
               </div>

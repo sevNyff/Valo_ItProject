@@ -345,6 +345,7 @@ for less code and because the login and register are almost the same, the same c
 #module-trucks {
   background-image: linear-gradient(0deg, #333 10%, #ffffff 90%)
 }
+
 .table-container{
   position: absolute;
   top: 50%;
@@ -399,6 +400,38 @@ tbody tr:hover {
 
 /*End of Table Styling*/
 
+.trucks-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Adjust width as needed */
+  max-height: 60vh; /* Maximum height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+/* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+
+/* Individual Truck Card Styles */
+.truck-card {
+  width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.truck-info {
+  margin-bottom: 10px;
+}
+
 .addTruck-button{
   position: fixed;
   top: 150px;
@@ -419,9 +452,142 @@ tbody tr:hover {
   width: 150px;
 }
 
+/*packages styling*/
+.packages-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Adjust width as needed */
+  max-height: 60vh; /* Maximum height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+/* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
 
 
+/* Individual packages Card Styles */
+.package-card {
+  width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
 
+.package-info {
+  margin-bottom: 10px;
+}
+
+/*tours styling*/
+.tours-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Adjust width as needed */
+  max-height: 60vh; /* Maximum height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+/* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+
+/* Individual tours Card Styles */
+.tour-card {
+  width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.tour-info {
+  margin-bottom: 10px;
+  background-color: #f1f2ed;
+  border-radius: 8px;
+  padding-left: 5px;
+}
+
+.addTour-button{
+  position: fixed;
+  top: 150px;
+  right: 30px;
+  color: green;
+}
+
+/*new planning styling*/
+.planning-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Adjust width as needed */
+  max-height: 60vh; /* Maximum height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+/* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+/* Individual new planning Card Styles */
+.planning-card {
+  width: 300px;
+  max-height: 500px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  /* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+.planningPackage-info {
+  margin-bottom: 10px;
+  background-color: #f1f2ed;
+  border-radius: 8px;
+  padding-left: 5px;
+
+}
+
+.newPlanning-button{
+  width: 300px;
+  height: 300px;
+  
+  color: #31ec31;
+  font-size: 15rem;
+  background-color: #f1f2ed;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.calculateTours-button{
+  position: fixed;
+  top: 150px;
+  right: 30px;
+}
 /*End of Page Styling*/
 
 .space-after-module {

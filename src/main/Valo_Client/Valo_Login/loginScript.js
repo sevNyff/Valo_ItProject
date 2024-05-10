@@ -53,7 +53,7 @@ function loginButtonClick() {
         document.getElementById('loginRegisterButton').textContent = 'Logout';
 
         // Redirect to another page after login
-        // window.location.href = '../Valo_Home/home.html';
+        window.location.href = '../Valo_Home/home.html';
     })
     .catch(error => {
         console.error('Error:', error);

@@ -1,10 +1,43 @@
-document.addEventListener('DOMContentLoaded', function(){
-    const packagesTableBody = document.getElementById('packagesTableBody')
-})
-function getPackages(){
-    fetch('http://localhost:8080/packages')
-    //ergänzen sobald Severin die packages gemacht hat
-}
+//Load packages into the table
+document.addEventListener('DOMContentLoaded', function() {
+    const packagesContainer = document.getElementById('packagesContainer');
+  
+    function fetchPackages() {
+      fetch('http://localhost:8080/packages')
+        .then(response => response.json())
+        .then(packages => {
+          packagesContainer.innerHTML = ''; // Clear previous content
+  
+          packages.forEach(package => {
+            // Create a div element for each package card
+            const packageCard = document.createElement('div');
+            packageCard.classList.add('package-card');
+  
+            // Populate package card with package information
+            packageCard.innerHTML = `
+              <div class="package-info">
+                <h2>Package ${package.packageID}</h2>
+                <p><strong>Weight:</strong> ${package.packageWeight} kg</p>
+                <p><strong>Delivery Adress:</strong> ${package.deliveryAddress}</p>
+              </div>
+              
+            `;
+  
+            // Append package card to packagesContainer
+            packagesContainer.appendChild(packageCard);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching packages:', error);
+        });
+    }
+  
+    
+  
+    // Load packages when DOM content is loaded
+    fetchPackages();
+  });
+
 
 
 

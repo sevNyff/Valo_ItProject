@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Valo</title>
     <link rel="stylesheet" href="../resources/styles.css" />
-    <script type="text/javascript" src="routes.js"></script>
   </head>
   <body>
     <!-- Navigation Bar -->
@@ -17,7 +16,7 @@
         <ul class="ul-navbar">
             <li class="li-navbar"><a href="../Valo_Trucks/trucks.html" class="a-navbar">Trucks</a></li>
             <li class="li-navbar"><a href="../Valo_Packages/packages.html" class="a-navbar">Packages</a></li>
-            <li class="li-navbar"><a href="../Valo_Routes/routes.html" class="a-navbar">Routes</a></li>
+            <li class="li-navbar"><a href="../Valo_Routes/routes.html" class="a-navbar">Tours</a></li>
         </ul>
       </div>
       <div class="right-section">
@@ -25,23 +24,11 @@
       </div>
     </nav>
     <!-- Website Content -->
-    <div class="module" id="module"></div>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Brand</th>
-            <th>Capacity</th>
-            <th>Delete</th>
-            <!--<th>Available</th> wieder einklammern und hinzufügen-->
-          </tr>
-        </thead>
-        <tbody id="toursTableBody"></tbody>
-        <!-- Package Data will bepopulated dynamically-->
-      </table>
+    <div class="module" id="module-trucks"></div>
+    <div id="toursContainer" class="tours-container">
+      <!-- Tour cards will be dynamically added here -->
     </div>
-
+      <button class="addTour-button" onclick="changeToTruckplanningWindow()">New Tour</button>
     <!-- Footer-->
     <footer class="footer">
       <div class="footer-content">

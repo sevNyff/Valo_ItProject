@@ -1,68 +1,64 @@
 
 //Load Trucks into the table
-document.addEventListener('DOMContentLoaded', function(){
-    const trucksTableBody = document.getElementById('trucksTableBody');
-
-
-    function fetchTrucks(){
-        fetch('http://localhost:8080/trucks')
+document.addEventListener('DOMContentLoaded', function() {
+    const trucksContainer = document.getElementById('trucksContainer');
+  
+    function fetchTrucks() {
+      fetch('http://localhost:8080/trucks')
         .then(response => response.json())
         .then(trucks => {
-            trucksTableBody.innerHTML = '';
-
-            trucks.forEach(truck => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                <td>${truck.id}</td>
-                <td>${truck.brandName}</td>
-                <td>${truck.truckCapacity}</td>
-                <td>
-                    <button class="delete-button" data-truck-id="${truck.id}">Delete</button>
-                </td>
-                `;     
-                trucksTableBody.appendChild(row);
-
-            });
-
-            // Attach event listeners to the "Delete" buttons
-            const deleteButtons = document.querySelectorAll('.delete-button');
-            deleteButtons.forEach((button) => {
-            button.addEventListener('click', handleDeleteButtonClick);
-            });
-        
+          trucksContainer.innerHTML = ''; // Clear previous content
+  
+          trucks.forEach(truck => {
+            // Create a div element for each truck card
+            const truckCard = document.createElement('div');
+            truckCard.classList.add('truck-card');
+  
+            // Populate truck card with truck information
+            truckCard.innerHTML = `
+              <div class="truck-info">
+                <h3>Truck ${truck.id}</h3>
+                <p><strong>Brand:</strong> ${truck.brandName}</p>
+                <p><strong>Capacity:</strong> ${truck.truckCapacity}</p>
+              </div>
+              <button class="delete-button" data-truck-id="${truck.id}">Delete</button>
+            `;
+  
+            // Append truck card to trucksContainer
+            trucksContainer.appendChild(truckCard);
+  
+            // Attach event listener to the delete button
+            const deleteButton = truckCard.querySelector('.delete-button');
+            deleteButton.addEventListener('click', handleDeleteButtonClick);
+          });
         })
         .catch(error => {
-           console.error('Error fetching trucks:', error)
-        })
-    
+          console.error('Error fetching trucks:', error);
+        });
     }
-
-// Function to handle the "Delete" button click
-function handleDeleteButtonClick(event) {
-    const truckId = event.target.dataset.truckId;
-
-    // Send a DELETE request to the server to delete the car
-    fetch(`http://localhost:8080/trucks/delete/${truckId}`, {
-      method: 'GET'
-    })
-      .then(response => response.text())
-      .then(message => {
-        // Handle the response from the server
-        alert(message); // Display a success message
-        // Remove the corresponding row from the table
-        const row = event.target.parentNode.parentNode;
-        row.parentNode.removeChild(row);
+  
+    // Function to handle the "Delete" button click
+    function handleDeleteButtonClick(event) {
+      const truckId = event.target.dataset.truckId;
+  
+      fetch(`http://localhost:8080/trucks/delete/${truckId}`, {
+        method: 'GET'
       })
-      .catch(error => {
-        // Handle any errors that occurred during the request
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-      });
-  }
-
-
+        .then(response => response.text())
+        .then(message => {
+          alert(message); // Display success message
+          event.target.closest('.truck-card').remove(); // Remove truck card from DOM
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred. Please try again.');
+        });
+    }
+  
+    // Load trucks when DOM content is loaded
     fetchTrucks();
-});
+  });
+  
 
 function changeToAddTruckPage(){
     window.location.href = '../Valo_Trucks/addTruck.html';
@@ -73,39 +69,53 @@ function backToTrucksButtonClick(){
 }
 
 function newTruckButtonClick() {
-    var brandName = document.getElementById('brand').value;
-    var truckCapacity = document.getElementById('capacity').value;
-    var token = localStorage.getItem('token');
+  var brandName = document.getElementById('brand').value;
+  var truckCapacity = document.getElementById('capacity').value;
+  var token = localStorage.getItem('token');
 
-    const truckData = {
-        brandName: brandName,
-        truckCapacity: truckCapacity,
-        token: token
-    };
+  // Validate brand name (at least 3 characters)
+  if (brandName.length < 3) {
+      alert('Brand name must be at least 3 characters long.');
+      return; // Exit the function if validation fails
+  }
 
-    // Send a POST request to the server to add a new truck
-    fetch('http://localhost:8080/trucks/new', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(truckData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error: ' + response.status);
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Redirect to trucks.html after successfully adding a new truck
-        window.location.href = '../Valo_Trucks/trucks.html';
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred, please try again.');
-    });
+  // Validate truck capacity (must be a number bigger than 0)
+  const parsedCapacity = parseFloat(truckCapacity);
+  if (isNaN(parsedCapacity) || parsedCapacity <= 0) {
+      alert('Capacity must be a valid number bigger than 0.');
+      return; // Exit the function if validation fails
+  }
+
+  const truckData = {
+      brandName: brandName,
+      truckCapacity: parsedCapacity,
+      token: token
+  };
+
+  // Send a POST request to the server to add a new truck
+  fetch('http://localhost:8080/trucks/new', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(truckData)
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Error: ' + response.status);
+      }
+      return response.json();
+  })
+  .then(data => {
+      // Redirect to trucks.html after successfully adding a new truck
+      window.location.href = '../Valo_Trucks/trucks.html';
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert('An error occurred, please try again.');
+  });
 }
+
 
 
 

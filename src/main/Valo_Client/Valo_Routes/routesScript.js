@@ -1,3 +1,76 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const toursContainer = document.getElementById('toursContainer');
+
+    async function fetchTours() {
+        fetch('http://localhost:8080/tours')
+            .then(response => response.json())
+            .then(tours => {
+                toursContainer.innerHTML = ''; // Clear previous content
+
+                tours.forEach(tour => {
+                    // Create a div element for each tour
+                    const tourCard = document.createElement('div');
+                    tourCard.classList.add('tour-card');
+
+                    // Create a title for the tour
+                    const tourTitle = document.createElement('h2');
+                    tourTitle.textContent = `Tour ${tour.id}`;
+                    tourCard.appendChild(tourTitle);
+
+                    const truckTitle = document.createElement('h3');
+                    truckTitle.textContent = `Truck ${tour.truckID}`;
+                    tourCard.appendChild(truckTitle);
+                    
+                    // Create a div for packages associated with the tour
+                    const packageContainer = document.createElement('div');
+                    packageContainer.classList.add('tour-container');
+                    
+                        
+
+                    // Filter packages belonging to the current tour
+                    const tourPackages = tour.packages.filter(package => package.tourID === tour.tourID);
+
+                    // Populate packageContainer with package information
+                    tourPackages.forEach((package, index) => {
+                        const packageInfo = document.createElement('div');
+                        packageInfo.classList.add('tour-info');
+                        
+
+                        // Populate packageInfo with package details
+                        packageInfo.innerHTML += `
+                            <h3>Package ${package.packageID}</h3>
+                            <p><strong>Weight:</strong> ${package.packageWeight} kg</p>
+                            <p><strong>Delivery Address:</strong> ${package.deliveryAddress}</p>
+                        `;
+                        
+                        // Append packageInfo to packageContainer
+                        packageContainer.appendChild(packageInfo);
+                    });
+
+                    // Append packageContainer to tourCard
+                    tourCard.appendChild(packageContainer);
+
+                    // Append tourCard to toursContainer
+                    toursContainer.appendChild(tourCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching tours:', error);
+            });
+    }
+    
+    // Load tours when DOM content is loaded
+    fetchTours();
+
+    
+});
+
+
+function changeToTruckplanningWindow(){
+    window.location.href = "../Valo_Truckplanning/truckplanning.html"
+}
+
+
 
 //LOGIN FUNCTIONS
   document.addEventListener('DOMContentLoaded', function() {

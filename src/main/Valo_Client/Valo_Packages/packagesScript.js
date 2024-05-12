@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h2>Package ${package.packageID}</h2>
                 <p><strong>Weight:</strong> ${package.packageWeight} kg</p>
                 <p><strong>Delivery Adress:</strong> ${package.deliveryAddress}</p>
+                <p><strong>Tour ID:</strong> ${package.tours}</p>
               </div>
               
             `;

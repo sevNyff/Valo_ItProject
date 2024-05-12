@@ -1,4 +1,6 @@
-// truckplanningScript.js
+function backToToursClick(){
+    window.location.href = '../Valo_Routes/routes.html';
+}
 
 function startNewPlanning() {
     // Create a new planning card element

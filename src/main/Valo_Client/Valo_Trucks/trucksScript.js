@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p><strong>Brand:</strong> ${truck.brandName}</p>
                 <p><strong>Capacity:</strong> ${truck.truckCapacity}</p>
               </div>
-              <button class="delete-button" data-truck-id="${truck.id}">Delete</button>
+              <button class="delete-button" data-truck-id="${truck.id}">x</button>
             `;
   
             // Append truck card to trucksContainer

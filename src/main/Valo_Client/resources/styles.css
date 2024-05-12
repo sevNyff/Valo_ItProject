@@ -393,9 +393,7 @@ tbody tr:hover {
   }
 }
 
-.delete-button{
-  color: red;
-}
+
 
 
 /*End of Table Styling*/
@@ -426,10 +424,12 @@ tbody tr:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   padding: 20px;
+  position: relative;
 }
 
 .truck-info {
   margin-bottom: 10px;
+  
 }
 
 .addTruck-button{
@@ -604,6 +604,12 @@ tbody tr:hover {
   position: fixed;
   top: 150px;
   right: 30px;
+}
+
+.backToTours-button{
+  position: fixed;
+  top: 150px;
+  left: 30px;
 }
 /*End of Page Styling*/
 

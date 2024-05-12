@@ -2,6 +2,8 @@ function newPlanning(){
     console.log(localStorage.getItem('userName'))
     console.log(localStorage.getItem('token'))
     console.log(localStorage.getItem('loginStatus'))
+    
+    window.location.href = "../Valo_Truckplanning/truckplanning.html";
 }
  
 

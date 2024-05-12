@@ -6,7 +6,7 @@ function registerButtonClick() {
 
     if (username.length < 3 || password.length < 3) {
         // Display alert message if username or password is too short
-        alert('Username and password must be at least 3 characters long.');
+        showAlert('Username and password must be at least 3 characters long.');
         return; // Exit the function without attempting login
     }
 
@@ -33,13 +33,13 @@ function registerButtonClick() {
         // Check if the response contains an error message indicating incorrect password
         if (data.error && data.error_description.includes('already exists')) {
             // Display alert for incorrect password
-            alert('User already exists');
+            showAlert('User already exists');
             return; // Exit the function without setting the token
         }
         
 
         // Alert success message (replace with your actual success handling)
-        alert('Registration successful!');
+        showAlert('Registration successful!');
 
         // Clear input fields after successful login
         document.getElementById('username').value = '';
@@ -53,9 +53,28 @@ function registerButtonClick() {
         console.error('Error:', error);
 
         // Display a generic error message for any other types of errors
-        alert('An error occurred, please try again.');
+        showAlert('An error occurred, please try again.');
     });
 }
+
+
+//ALERT FUNCTIONS
+function showAlert(message) {
+    const customAlert = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+
+    alertMessage.textContent = message;
+    customAlert.style.display = 'block';
+}
+
+function hideAlert() {
+    const customAlert = document.getElementById('customAlert');
+    customAlert.style.display = 'none';
+}
+
+// Event listener for closing the custom alert
+document.getElementById('closeAlertButton').addEventListener('click', hideAlert);
+
 
 //LOGIN FUNCTIONS
 document.addEventListener('DOMContentLoaded', function() {
@@ -95,7 +114,7 @@ function loginRegisterButtonClick(){
             
     
             // Alert success message (replace with your actual success handling)
-            alert('Logout successful!');
+            showAlert('Logout successful!');
     
             
             localStorage.setItem('loginStatus', 'Login');
@@ -109,7 +128,7 @@ function loginRegisterButtonClick(){
             console.error('Error:', error);
     
             // Display a generic error message for any other types of errors
-            alert('An error occurred, please try again.');
+            showAlert('An error occurred, please try again.');
         });
     }  else{
         window.location.href = '../Valo_Login/login.html';

@@ -620,6 +620,35 @@ tbody tr:hover {
     height: 100vh; /* Adjust this value based on your needs */
 }
 
+/*Start of alert Styles*/
+.custom-alert {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #ffffff; 
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.alert-message {
+  margin: 0;
+  
+}
+
+.close-alert-button {
+  margin-top: 10px;
+  color: blueviolet;
+  opacity: 0.75;
+  float: right;
+}
+
+  
+/*End of alert Styles*/
+
 /* Footer Styles */
 footer {
     background-color: #333;

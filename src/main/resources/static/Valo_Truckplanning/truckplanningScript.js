@@ -218,8 +218,6 @@ function saveTour(planningCard) {
     const saveButton = event.target;
 
     // Find the parent planning card (tour) of the save button
-    
-
     if (!planningCard) {
         console.error('Planning card not found.');
         return;
@@ -247,8 +245,11 @@ function saveTour(planningCard) {
 
     // Check if total package weight exceeds truck capacity
     const truckCapacity = parseFloat(selectedTruckOption.dataset.capacity);
-    if (totalPackageWeight > truckCapacity) {
-        alert('Total package weight exceeds truck capacity. Please adjust the packages or select another truck.');
+    if (totalPackageWeight === 0) {
+        showAlert('Please add at least one package before saving.');
+        return; // Exit the function without saving
+    } else if (totalPackageWeight > truckCapacity) {
+        showAlert('Total package weight exceeds truck capacity. Please adjust the packages or select another truck.');
         return; // Exit the function without saving
     }
 
@@ -277,7 +278,7 @@ function saveTour(planningCard) {
     });
 
     if (!isValid) {
-        alert('Please ensure all package details are valid (weight > 0, address not empty) before saving.');
+        showAlert('Please ensure all package details are valid (weight > 0, address not empty) before saving.');
         return;
     }
 
@@ -302,15 +303,18 @@ function saveTour(planningCard) {
     })
     .then(data => {
         console.log('Save Tour Successful:', data);
-        alert('Tour saved successfully!');
+        showAlert('Tour saved successfully!');
         // Remove the parent planning card (tour) from the DOM
         planningCard.remove();
+        
     })
     .catch(error => {
         console.error('Error saving tour:', error);
-        alert('Failed to save tour. Please try again.');
+        showAlert('Failed to save tour. Please try again.');
+        
     });
 }
+
 
 
 
@@ -341,6 +345,22 @@ function extractTruckId(optionText) {
 
 
 
+//ALERT FUNCTIONS
+function showAlert(message) {
+    const customAlert = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+
+    alertMessage.textContent = message;
+    customAlert.style.display = 'block';
+}
+
+function hideAlert() {
+    const customAlert = document.getElementById('customAlert');
+    customAlert.style.display = 'none';
+}
+
+// Event listener for closing the custom alert
+document.getElementById('closeAlertButton').addEventListener('click', hideAlert);
 
 
 
@@ -383,7 +403,7 @@ function loginRegisterButtonClick(){
             
     
             // Alert success message (replace with your actual success handling)
-            alert('Logout successful!');
+            showAlert('Logout successful!');
     
             
             localStorage.setItem('loginStatus', 'Login');
@@ -397,7 +417,7 @@ function loginRegisterButtonClick(){
             console.error('Error:', error);
     
             // Display a generic error message for any other types of errors
-            alert('An error occurred, please try again.');
+            showAlert('An error occurred, please try again.');
         });
     }  else{
         window.location.href = '../Valo_Login/login.html';

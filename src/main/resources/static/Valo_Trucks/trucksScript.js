@@ -46,12 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
       })
         .then(response => response.text())
         .then(message => {
-          alert(message); // Display success message
+          showAlert(message); // Display success message
           event.target.closest('.truck-card').remove(); // Remove truck card from DOM
         })
         .catch(error => {
           console.error('Error:', error);
-          alert('An error occurred. Please try again.');
+          showAlert('An error occurred. Please try again.');
         });
     }
   
@@ -75,14 +75,14 @@ function newTruckButtonClick() {
 
   // Validate brand name (at least 3 characters)
   if (brandName.length < 3) {
-      alert('Brand name must be at least 3 characters long.');
+      showAlert('Brand name must be at least 3 characters long.');
       return; // Exit the function if validation fails
   }
 
   // Validate truck capacity (must be a number bigger than 0)
   const parsedCapacity = parseFloat(truckCapacity);
   if (isNaN(parsedCapacity) || parsedCapacity <= 0) {
-      alert('Capacity must be a valid number bigger than 0.');
+      showAlert('Capacity must be a valid number bigger than 0.');
       return; // Exit the function if validation fails
   }
 
@@ -112,7 +112,7 @@ function newTruckButtonClick() {
   })
   .catch(error => {
       console.error('Error:', error);
-      alert('An error occurred, please try again.');
+      showAlert('An error occurred, please try again.');
   });
 }
 
@@ -120,6 +120,22 @@ function newTruckButtonClick() {
 
 
  
+//ALERT FUNCTIONS
+function showAlert(message) {
+  const customAlert = document.getElementById('customAlert');
+  const alertMessage = document.getElementById('alertMessage');
+
+  alertMessage.textContent = message;
+  customAlert.style.display = 'block';
+}
+
+function hideAlert() {
+  const customAlert = document.getElementById('customAlert');
+  customAlert.style.display = 'none';
+}
+
+// Event listener for closing the custom alert
+document.getElementById('closeAlertButton').addEventListener('click', hideAlert);
 
 
 
@@ -162,7 +178,7 @@ function loginRegisterButtonClick(){
             
     
             // Alert success message (replace with your actual success handling)
-            alert('Logout successful!');
+            showAlert('Logout successful!');
     
             
             localStorage.setItem('loginStatus', 'Login');
@@ -176,7 +192,7 @@ function loginRegisterButtonClick(){
             console.error('Error:', error);
     
             // Display a generic error message for any other types of errors
-            alert('An error occurred, please try again.');
+            showAlert('An error occurred, please try again.');
         });
     }  else{
         window.location.href = '../Valo_Login/login.html';

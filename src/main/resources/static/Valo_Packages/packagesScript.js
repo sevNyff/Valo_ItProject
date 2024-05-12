@@ -41,6 +41,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+//ALERT FUNCTIONS
+function showAlert(message) {
+  const customAlert = document.getElementById('customAlert');
+  const alertMessage = document.getElementById('alertMessage');
+
+  alertMessage.textContent = message;
+  customAlert.style.display = 'block';
+}
+
+function hideAlert() {
+  const customAlert = document.getElementById('customAlert');
+  customAlert.style.display = 'none';
+}
+
+// Event listener for closing the custom alert
+document.getElementById('closeAlertButton').addEventListener('click', hideAlert);
 
 
 
@@ -82,7 +98,7 @@ function loginRegisterButtonClick(){
             
     
             // Alert success message (replace with your actual success handling)
-            alert('Logout successful!');
+            showAlert('Logout successful!');
     
             
             localStorage.setItem('loginStatus', 'Login');
@@ -96,7 +112,7 @@ function loginRegisterButtonClick(){
             console.error('Error:', error);
     
             // Display a generic error message for any other types of errors
-            alert('An error occurred, please try again.');
+            showAlert('An error occurred, please try again.');
         });
     }  else{
         window.location.href = '../Valo_Login/login.html';

@@ -15,7 +15,7 @@
       <div class="middle-section">
         <ul class="ul-navbar">
           <li class="li-navbar">
-            <a href="../Valo_Trucks/trucks.html" class="a-navbar">Trucks</a>
+            <a href="trucks.html" class="a-navbar">Trucks</a>
           </li>
           <li class="li-navbar">
             <a href="../Valo_Packages/packages.html" class="a-navbar"
@@ -38,15 +38,27 @@
       </div>
     </nav>
     <!-- Website Content -->
-    <div class="module" id="module-trucks"></div>
+    <div class="module" id="module-login"></div>
 
-    
-        <div id="trucksContainer" class="trucks-container">
-          <!-- Truck cards will be dynamically added here -->
-        </div>
-    </div>
-    
-    <button class="addTruck-button" onclick="changeToAddTruckPage()">Add Truck</button>
+    <div class="div-form">
+        <h1 class="h1-form">New Truck</h1>
+        
+        <div class="form__group field">
+            <input type="input" class="form__field" placeholder="Brand" name="brand" id='brand' required />
+            <label for="brand" class="form__label">Brand</label>
+            
+            <input type="input" class="form__field" placeholder="Capacity" name="capacity" id='capacity' required />
+            <label for="capacity" class="form__label">Capacity</label>
+            
+          </div>
+          <div class="buttonDiv">
+            <button class="button-backToTrucks" onclick="backToTrucksButtonClick()">Back</button>
+            <button class="button-newTruck" onclick="newTruckButtonClick()">Add Truck</button>    
+          </div>
+        
+        
+      </div>
+
     <!-- Footer-->
     <footer class="footer">
       <div class="footer-content">

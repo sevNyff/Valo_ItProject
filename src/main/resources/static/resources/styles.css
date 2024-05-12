@@ -584,6 +584,9 @@ tbody tr:hover {
   right: 8px; /* Adjust right position for desired spacing from right */
   cursor: pointer; /* Change cursor to pointer on hover */
 }
+.saveTour-button{
+  color: green;
+}
 
 
 

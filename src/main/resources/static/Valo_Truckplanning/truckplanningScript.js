@@ -14,7 +14,7 @@ function startNewPlanning() {
     <select id="truckSelect" onchange="updateAvailableCapacity(this.options[this.selectedIndex])"></select>
     <p id="availableCapacityLabel">Available Capacity: 0 kg</p>
     <button onclick="createPackage()">Create Package</button>
-    <button onclick="saveTour(event)" data-action="saveTour">Save Tour</button>
+    <button onclick="saveTour(event)" data-action="saveTour" class="saveTour-button">Save Tour</button>
     
 `;
 

@@ -1,4 +1,4 @@
-package Valo_Server.Valo_tourEngine.Data;
+package Valo_Server.Valo_tourEngine.SearchAlgorithms;
 
 
 import java.util.ArrayList;

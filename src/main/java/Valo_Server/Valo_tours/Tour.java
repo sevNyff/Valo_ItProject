@@ -14,6 +14,10 @@ public class Tour {
     private Integer ID;
     @Column(name = "truck")
     private Integer truckID;
+    @Column(name = "time")
+    private Double timeTour;
+    @Column(name = "distance")
+    private Double distanceTour;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "tours", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Package> packages;
@@ -38,12 +42,24 @@ public class Tour {
     public void setTruckID(int truckID) {
         this.truckID = truckID;
     }
+    public Double getTimeTour() {
+        return timeTour;
+    }
+    public void setTimeTour(double timeTour) {
+        this.timeTour = timeTour;
+    }
+    public Double getDistanceTour() {
+        return distanceTour;
+    }
+    public void setDistanceTour(double distanceTour) {
+        this.distanceTour = distanceTour;
+    }
     public List<Package> getPackages() {return packages;}
     public void setPackages(List<Package> pck){this.packages = pck;}
 
     @Override
     public String toString() {
-        return "Tour{" + "id=" + ID + ", truckID='" + truckID + '\'' + '}';
+        return "Tour{" + "id=" + ID + ", truckID='" + truckID + ", time='" + timeTour + ", distance='" + distanceTour + '\'' + '}';
     }
 }
 

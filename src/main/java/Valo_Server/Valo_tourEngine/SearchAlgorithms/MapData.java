@@ -1,4 +1,4 @@
-package Valo_Server.Valo_tourEngine.Data;
+package Valo_Server.Valo_tourEngine.SearchAlgorithms;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -18,10 +18,12 @@ import java.util.Map;
  * easy to understand and use.
  */
 public class MapData {
-    //private static final String EdgeFile = "/Users/Severin/Desktop/edges.csv";
-    //private static final String NodeFile = "/Users/Severin/Desktop/nodes.csv";
-    private static final String EdgeFile = "/Users/Kevin/Desktop/edges.csv";
-    private static final String NodeFile = "/Users/Kevin/Desktop/nodes.csv";
+    private static final String EdgeFile = "C:\\Users\\User\\OneDrive\\Desktop\\edges.csv";
+    private static final String NodeFile = "C:\\Users\\User\\OneDrive\\Desktop\\nodes.csv";
+    //private static final String EdgeFile = "SearchAlgorithms/edges.csv";
+    //private static final String NodeFile = "SearchAlgorithms/nodes.csv";
+    //private static final String EdgeFile = "/Users/Kevin/Desktop/edges.csv";
+    ///private static final String NodeFile = "/Users/Kevin/Desktop/nodes.csv";
     //private static final String EdgeFile = "C:\\Users\\Kevin\\OneDrive\\Desktop\\BruggEdges.csv";
     //private static final String NodeFile = "C:\\Users\\Kevin\\OneDrive\\Desktop\\BruggNodes.csv";
 

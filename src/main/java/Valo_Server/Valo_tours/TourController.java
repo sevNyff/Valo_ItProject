@@ -31,7 +31,7 @@ public class TourController {
     }
 
     @PostMapping("/tours/save")
-    public int tourSave(@RequestBody Tour tour) {
+    Tour tourSave(@RequestBody Tour tour) {
         if (Token.validate(tour.getToken())) {
             System.out.println("Received Tour object: " + tour);
 
@@ -45,13 +45,13 @@ public class TourController {
             }
             tourIn.setPackages(packages);
 
-            //tourIn = tourGenerator.generateTour(tourIn);
+            tourIn = tourGenerator.generateTour(tourIn);
 
             tourRepository.save(tourIn);
 
             System.out.println("Tour saved");
 
-            return tourIn.getID();
+            return tourIn;
         } else {
             throw new TourException("Invalid token");
         }

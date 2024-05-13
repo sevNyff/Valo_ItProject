@@ -393,9 +393,7 @@ tbody tr:hover {
   }
 }
 
-.delete-button{
-  color: red;
-}
+
 
 
 /*End of Table Styling*/
@@ -426,10 +424,12 @@ tbody tr:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   padding: 20px;
+  position: relative;
 }
 
 .truck-info {
   margin-bottom: 10px;
+  
 }
 
 .addTruck-button{
@@ -492,7 +492,7 @@ tbody tr:hover {
   left: 50%;
   transform: translateX(-50%);
   width: 80%; /* Adjust width as needed */
-  max-height: 60vh; /* Maximum height of the container */
+  max-height: 70vh; /* Maximum height of the container */
   overflow-y: auto; /* Enable vertical scrolling */
   display: flex;
   flex-wrap: wrap;
@@ -508,11 +508,16 @@ tbody tr:hover {
 /* Individual tours Card Styles */
 .tour-card {
   width: 300px;
+  max-height: 30vh;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   padding: 20px;
+  /* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
 }
 
 .tour-info {
@@ -567,8 +572,23 @@ tbody tr:hover {
   background-color: #f1f2ed;
   border-radius: 8px;
   padding-left: 5px;
-
+  position: relative; /* Add this line to make the container relative */
 }
+.delete-button {
+  color: red;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  position: absolute;
+  top: 8px; /* Adjust top position for desired spacing from top */
+  right: 8px; /* Adjust right position for desired spacing from right */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+.saveTour-button{
+  color: green;
+}
+
+
 
 .newPlanning-button{
   width: 300px;
@@ -588,11 +608,46 @@ tbody tr:hover {
   top: 150px;
   right: 30px;
 }
+
+.backToTours-button{
+  position: fixed;
+  top: 150px;
+  left: 30px;
+}
 /*End of Page Styling*/
 
 .space-after-module {
     height: 100vh; /* Adjust this value based on your needs */
 }
+
+/*Start of alert Styles*/
+.custom-alert {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #ffffff; 
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.alert-message {
+  margin: 0;
+  
+}
+
+.close-alert-button {
+  margin-top: 10px;
+  color: blueviolet;
+  opacity: 0.75;
+  float: right;
+}
+
+  
+/*End of alert Styles*/
 
 /* Footer Styles */
 footer {

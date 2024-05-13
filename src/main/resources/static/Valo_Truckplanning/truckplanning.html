@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Valo</title>
     <link rel="stylesheet" href="../resources/styles.css" />
+    
   </head>
   <body>
     <!-- Navigation Bar -->
@@ -24,11 +25,19 @@
       </div>
     </nav>
     <!-- Website Content -->
-    <div class="module" id="module-trucks"></div>
-    <div id="toursContainer" class="tours-container">
-      <!-- Tour cards will be dynamically added here -->
+    <div class="module" id="module-login"></div>
+    <div id="plannningContainer" class="planning-container">
+      <button class="newPlanning-button" onclick="startNewPlanning()">+</button>
+      <!-- The planning page will be dynamically added here -->
     </div>
-      <button class="addTour-button" onclick="changeToTruckplanningWindow()">New Tour</button>
+    <button class="calculateTours-button" onclick="calculateRoutesClick()">Calculate Tours</button>
+    <button class="backToTours-button" onclick="backToToursClick()">Back</button>
+
+    <!-- Window for alerts -->
+    <div id="customAlert" class="custom-alert">
+      <p id="alertMessage" class="alert-message"></p>
+      <button id="closeAlertButton" class="close-alert-button">Close</button>
+  </div>
     <!-- Footer-->
     <footer class="footer">
       <div class="footer-content">
@@ -53,6 +62,6 @@
         <p>&copy; 2024 Valo. All rights reserved.</p>
       </div>
     </footer>
-    <script type="text/javascript" src="routesScript.js"></script>
+    <script type="text/javascript" src="truckplanningScript.js"></script>
   </body>
 </html>

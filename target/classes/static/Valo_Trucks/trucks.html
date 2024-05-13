@@ -14,22 +14,39 @@
       </div>
       <div class="middle-section">
         <ul class="ul-navbar">
-            <li class="li-navbar"><a href="../Valo_Trucks/trucks.html" class="a-navbar">Trucks</a></li>
-            <li class="li-navbar"><a href="../Valo_Packages/packages.html" class="a-navbar">Packages</a></li>
-            <li class="li-navbar"><a href="../Valo_Routes/routes.html" class="a-navbar">Tours</a></li>
+          <li class="li-navbar">
+            <a href="trucks.html" class="a-navbar">Trucks</a>
+          </li>
+          <li class="li-navbar">
+            <a href="../Valo_Packages/packages.html" class="a-navbar"
+              >Packages</a
+            >
+          </li>
+          <li class="li-navbar">
+            <a href="../Valo_Routes/routes.html" class="a-navbar">Tours</a>
+          </li>
         </ul>
       </div>
       <div class="right-section">
-        <a href="#" class="a-navbar-right" id="loginRegisterButton" onclick="loginRegisterButtonClick()">Login</a>
+        <a
+          href="#"
+          class="a-navbar-right"
+          id="loginRegisterButton"
+          onclick="loginRegisterButtonClick()"
+          >Login</a
+        >
       </div>
     </nav>
     <!-- Website Content -->
     <div class="module" id="module-trucks"></div>
-    <div id="packagesContainer" class="packages-container">
-      <!-- Truck cards will be dynamically added here -->
-    </div>
-    </div>
 
+    
+        <div id="trucksContainer" class="trucks-container">
+          <!-- Truck cards will be dynamically added here -->
+        </div>
+    </div>
+    
+    <button class="addTruck-button" onclick="changeToAddTruckPage()">Add Truck</button>
     <!-- Footer-->
     <footer class="footer">
       <div class="footer-content">
@@ -40,7 +57,9 @@
         </div>
         <div class="footer-section">
           <h2>Follow Us</h2>
-          <a href="https://www.facebook.com/?locale=de_DE" class="social-icon">Facebook</a>
+          <a href="https://www.facebook.com/?locale=de_DE" class="social-icon"
+            >Facebook</a
+          >
           <a href="https://twitter.com/?lang=de" class="social-icon">Twitter</a>
           <a href="https://www.instagram.com/" class="social-icon">Instagram</a>
         </div>
@@ -54,6 +73,6 @@
         <p>&copy; 2024 Valo. All rights reserved.</p>
       </div>
     </footer>
-    <script type="text/javascript" src="packagesScript.js"></script>
+    <script type="text/javascript" src="trucksScript.js"></script>
   </body>
 </html>

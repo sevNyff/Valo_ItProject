@@ -1,0 +1,698 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Work Sans', sans-serif;
+    background-color: #f1f2ed;
+    
+}
+
+/*Navigation Bar Styles*/
+
+.navbar {
+    background-color: #f1f2ed;
+    overflow: hidden;
+    padding: 10px;
+    position: fixed;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 98px;
+    width: 100vw;
+    z-index: 1;
+    transition: height 0.3s ease;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+.navbar.small {
+    height: 40px; /* Adjust the smaller height as needed */
+  }
+  
+  
+
+.middle-section ul.ul-navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.left-section {
+    float: left;
+}
+
+.middle-section {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.right-section {
+    margin-left: auto;
+}
+
+.logo {
+    color: #333;
+    text-decoration: none;
+    font-size: 40px;
+    margin-left: 20px;
+    text-transform: uppercase;
+}
+.logo:hover{
+  color: blueviolet;
+}
+
+.ul-navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.li-navbar {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.li-navbar .a-navbar {
+    display: block;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    text-transform: uppercase;
+    transition: 0.25s ease;
+}
+
+.ul-navbar:hover .a-navbar {
+    color: #9e9e9e;
+}
+
+.ul-navbar:hover .a-navbar:hover {
+    color: #000000;
+    box-shadow: 0 2px 0 0 currentColor;
+}
+
+.a-navbar-right {
+    color: #333;
+    text-decoration: none;
+    margin-right: 50px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.a-navbar-right:hover {
+    color: #000000;
+}
+/*End of Navigation Bar Styles*/
+
+/*Page Styling*/
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+.div-home {
+    animation: fadeIn 0.75s ease; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: 50vh;
+    
+     /* Increased padding for better aesthetics */
+    text-align: center; /* Center text content horizontally */
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.123);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.2px);
+    -webkit-backdrop-filter: blur(7.2px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+     /* Background color for better visibility */
+}
+
+.h1-welcome {
+    color: #ffffff;
+    font-weight: lighter;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    font-size: 5vw;
+    margin-bottom: 20px; /* Added margin for spacing */
+    padding-bottom: 50px;
+}
+
+.button-new-planning{
+    width: 200px;
+    align-self: center;
+}
+
+/* Button styling from https://getcssscan.com/css-buttons-examples button 30 */
+button {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: rgb(55, 2, 105);
+
+  cursor: pointer;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+button:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+button:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+
+
+
+.module {
+    
+    background-color: #ffffff;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    top: 0;
+    /* Add any other styles you need for your module */
+}
+#module-home {
+  background-image: url('../resources/home-background.jpg');
+  background-size: cover;
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat;
+    position: fixed;
+}
+  
+/*Login Styling
+for less code and because the login and register are almost the same, the same classnames are used*/
+
+.div-form {
+  animation: fadeIn 0.75s ease; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  height: 50vh;
+  
+   /* Increased padding for better aesthetics */
+  align-items: center;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.123);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.2px);
+  -webkit-backdrop-filter: blur(7.2px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+   /* Background color for better visibility */
+}
+
+.h1-form {
+  color: #333;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  font-size: 5vw;
+  margin-bottom: 20px; /* Added margin for spacing */
+  padding-bottom: 30px;
+  
+}
+#module-login {
+  background-image: linear-gradient(35deg, #333 50%, #ffffff 50%)
+}
+/*Form styles from https://codepen.io/lucasyem/pen/ZEEYKdj adjusted*/
+
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 35%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 1.3rem;
+  color: #fff;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.form__label {
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.form__field:focus {
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #fff, blueviolet);
+  border-image-slice: 1;
+}
+/* reset input */
+.form__field{
+  &:required,&:invalid { box-shadow:none; }
+}
+.login_register{
+  padding-top: 15px;
+  display: flex;
+  align-items: center;
+}
+.p_login{
+  color: #fff;
+  margin-right: 1rem;
+}
+.a_login{
+  
+  color: #b086ff;
+}
+.button-login{
+  width: 30%;
+  align-self: center;
+}
+.button-register{
+  width: 30%;
+  align-self: center;
+}
+
+
+
+
+/*End of Login Styling*/
+
+/*Table Styling*/
+
+#module-trucks {
+  background-image: linear-gradient(0deg, #333 10%, #ffffff 90%)
+}
+
+.table-container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+table {
+   
+  max-width: 800px;
+  margin: 50px auto; 
+  border-collapse: collapse; 
+  background-color: #fff; 
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+}
+
+th, td {
+  padding: 12px 20px; 
+  text-align: left; 
+  font-size: 3rem;
+  border-bottom: 1px solid #ddd;
+}
+
+thead {
+  background-color: #f1f2ed; 
+}
+
+
+tbody tr {
+  transition: background-color 0.3s ease; 
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; 
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1; 
+}
+
+/* Responsive table design */
+@media screen and (max-width: 600px) {
+  table {
+    width: 100%; 
+  }
+}
+
+
+
+
+/*End of Table Styling*/
+
+.trucks-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Adjust width as needed */
+  max-height: 60vh; /* Maximum height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+/* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+
+/* Individual Truck Card Styles */
+.truck-card {
+  width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  position: relative;
+}
+
+.truck-info {
+  margin-bottom: 10px;
+  
+}
+
+.addTruck-button{
+  position: fixed;
+  top: 150px;
+  right: 30px;
+  color: green;
+}
+
+.buttonDiv{
+  padding-top: 50px;
+  
+}
+.button-backToTrucks{
+  margin-right: 10px;
+  width: 150px;
+}
+.button-newTruck{
+  margin-left: 10px;
+  width: 150px;
+}
+
+/*packages styling*/
+.packages-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Adjust width as needed */
+  max-height: 60vh; /* Maximum height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+/* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+
+/* Individual packages Card Styles */
+.package-card {
+  width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.package-info {
+  margin-bottom: 10px;
+}
+
+/*tours styling*/
+.tours-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Adjust width as needed */
+  max-height: 70vh; /* Maximum height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+/* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+
+/* Individual tours Card Styles */
+.tour-card {
+  width: 300px;
+  max-height: 30vh;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  /* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+.tour-info {
+  margin-bottom: 10px;
+  background-color: #f1f2ed;
+  border-radius: 8px;
+  padding-left: 5px;
+}
+
+.addTour-button{
+  position: fixed;
+  top: 150px;
+  right: 30px;
+  color: green;
+}
+
+/*new planning styling*/
+.planning-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Adjust width as needed */
+  max-height: 60vh; /* Maximum height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+/* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+/* Individual new planning Card Styles */
+.planning-card {
+  width: 300px;
+  max-height: 500px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  /* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+.planningPackage-info {
+  margin-bottom: 10px;
+  background-color: #f1f2ed;
+  border-radius: 8px;
+  padding-left: 5px;
+  position: relative; /* Add this line to make the container relative */
+}
+.delete-button {
+  color: red;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  position: absolute;
+  top: 8px; /* Adjust top position for desired spacing from top */
+  right: 8px; /* Adjust right position for desired spacing from right */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+.saveTour-button{
+  color: green;
+}
+
+
+
+.newPlanning-button{
+  width: 300px;
+  height: 300px;
+  
+  color: #31ec31;
+  font-size: 15rem;
+  background-color: #f1f2ed;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.calculateTours-button{
+  position: fixed;
+  top: 150px;
+  right: 30px;
+}
+
+.backToTours-button{
+  position: fixed;
+  top: 150px;
+  left: 30px;
+}
+/*End of Page Styling*/
+
+.space-after-module {
+    height: 100vh; /* Adjust this value based on your needs */
+}
+
+/*Start of alert Styles*/
+.custom-alert {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #ffffff; 
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.alert-message {
+  margin: 0;
+  
+}
+
+.close-alert-button {
+  margin-top: 10px;
+  color: blueviolet;
+  opacity: 0.75;
+  float: right;
+}
+
+  
+/*End of alert Styles*/
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    width: 100%;
+    position: relative; /* Change from fixed to relative */
+}
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer-section {
+    flex: 1;
+    margin-right: 30px;
+  }
+  
+  .footer-section h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .social-icon,
+  .link {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .footer-bottom p {
+    font-size: 14px;
+  }
+  
+  /* End of Footer Styles */
+  
+  

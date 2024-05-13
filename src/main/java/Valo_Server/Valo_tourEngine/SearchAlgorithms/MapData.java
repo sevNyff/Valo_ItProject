@@ -18,10 +18,10 @@ import java.util.Map;
  * easy to understand and use.
  */
 public class MapData {
+    //private static final String EdgeFile = "../edges.csv";
+    //private static final String NodeFile = "../nodes.csv";
     private static final String EdgeFile = "C:\\Users\\User\\OneDrive\\Desktop\\edges.csv";
     private static final String NodeFile = "C:\\Users\\User\\OneDrive\\Desktop\\nodes.csv";
-    //private static final String EdgeFile = "SearchAlgorithms/edges.csv";
-    //private static final String NodeFile = "SearchAlgorithms/nodes.csv";
     //private static final String EdgeFile = "/Users/Kevin/Desktop/edges.csv";
     ///private static final String NodeFile = "/Users/Kevin/Desktop/nodes.csv";
     //private static final String EdgeFile = "C:\\Users\\Kevin\\OneDrive\\Desktop\\BruggEdges.csv";

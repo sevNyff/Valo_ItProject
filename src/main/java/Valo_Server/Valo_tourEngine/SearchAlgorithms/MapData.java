@@ -20,8 +20,8 @@ import java.util.Map;
 public class MapData {
     //private static final String EdgeFile = "../edges.csv";
     //private static final String NodeFile = "../nodes.csv";
-    private static final String EdgeFile = "C:\\Users\\User\\OneDrive\\Desktop\\edges.csv";
-    private static final String NodeFile = "C:\\Users\\User\\OneDrive\\Desktop\\nodes.csv";
+    private static final String EdgeFile = "src/main/resources/edges.csv";
+    private static final String NodeFile = "src/main/resources/nodes.csv";
     //private static final String EdgeFile = "/Users/Kevin/Desktop/edges.csv";
     ///private static final String NodeFile = "/Users/Kevin/Desktop/nodes.csv";
     //private static final String EdgeFile = "C:\\Users\\Kevin\\OneDrive\\Desktop\\BruggEdges.csv";

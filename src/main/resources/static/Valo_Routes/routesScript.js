@@ -24,6 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 tourTitle.textContent = `Tour ${tour.id}`;
                 tourCard.appendChild(tourTitle);
 
+                const tourDistance = document.createElement('p');
+                tourDistance.textContent = `Distance: ${tour.distanceTour} km`;
+                tourCard.appendChild(tourDistance);
+
+                const tourTime = document.createElement('p');
+                tourTime.textContent = `Time: ${tour.timeTour} h`;
+                tourCard.appendChild(tourTime);
+
+
                 // Display truck details if found
                 if (truck) {
                     const truckTitle = document.createElement('h3');
@@ -47,6 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     tourCard.appendChild(truckInfo);
                 }
 
+                const packagesTitle = document.createElement('h2');
+                packagesTitle.textContent = `Packages in Tour:`;
+                packagesTitle.classList.add('packages-title')
+                tourCard.appendChild(packagesTitle);
+
                 // Create a div for packages associated with the tour
                 const packageContainer = document.createElement('div');
                 packageContainer.classList.add('tour-container');
@@ -61,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3>Package ${package.packageID}</h3>
                         <p><strong>Weight:</strong> ${package.packageWeight} kg</p>
                         <p><strong>Delivery Address:</strong> ${package.deliveryAddress}</p>
+                        
                     `;
 
                     // Append packageInfo to packageContainer

@@ -107,15 +107,7 @@ body {
 /*End of Navigation Bar Styles*/
 
 /*Page Styling*/
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
+  
 .div-home {
     animation: fadeIn 0.75s ease; 
     position: absolute;
@@ -222,8 +214,7 @@ button:active {
     position: fixed;
 }
   
-/*Login Styling
-for less code and because the login and register are almost the same, the same classnames are used*/
+/*Form Styling for Login, Registration, Trucks, ...*/
 
 .div-form {
   animation: fadeIn 0.75s ease; 
@@ -263,7 +254,6 @@ for less code and because the login and register are almost the same, the same c
   background-image: linear-gradient(35deg, #333 50%, #ffffff 50%)
 }
 /*Form styles from https://codepen.io/lucasyem/pen/ZEEYKdj adjusted*/
-
 .form__group {
   position: relative;
   padding: 15px 0 0;
@@ -313,6 +303,7 @@ for less code and because the login and register are almost the same, the same c
 .form__field{
   &:required,&:invalid { box-shadow:none; }
 }
+
 .login_register{
   padding-top: 15px;
   display: flex;
@@ -534,6 +525,10 @@ tbody tr:hover {
   color: green;
 }
 
+.packages-title{
+  padding-top: 20px;
+}
+
 /*new planning styling*/
 .planning-container {
   position: absolute;
@@ -561,6 +556,7 @@ tbody tr:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   padding: 20px;
+  position: relative;
   /* remove the scrollbar from: https://blog.hubspot.com/website/hide-scrollbar-css#:~:text=To%20hide%20the%20scrollbar%20and%20disable%20scrolling%2C%20we%20can%20use,page)%20or%20a%20container%20element.*/
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */
@@ -603,6 +599,25 @@ tbody tr:hover {
   padding: 20px;
 }
 
+.planning-p {
+  color: #f1f1f1;
+  position: fixed;
+  bottom: 10px;
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  text-transform: uppercase; /* Uppercase text */
+  font-family: inherit;
+}
+
+.planningPackage-info.dragging {
+  /* Remove opacity */
+  opacity: 1;
+  /* Optionally add a border or box-shadow for visual indication */
+  border: 2px dashed #333; /* Example: dashed border */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Example: shadow effect */
+  /* Additional styling as needed */
+}
+
 .calculateTours-button{
   position: fixed;
   top: 150px;
@@ -628,22 +643,43 @@ tbody tr:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid #ffffff; 
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-out forwards;
+  transition: transform 0.3s ease-out;
+
 }
 
 .alert-message {
   margin: 0;
-  
+  font-size: 16px;
+  color: #333; /* Adjust text color */
 }
 
 .close-alert-button {
-  margin-top: 10px;
   color: blueviolet;
   opacity: 0.75;
+  cursor: pointer;
   float: right;
+  transition: opacity 0.2s ease; /* Smooth opacity transition on hover */
+}
+
+.close-alert-button:hover {
+  opacity: 1;
+}
+
+/* Define the fadeIn animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%); /* Start position */
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%); /* End position */
+  }
 }
 
   

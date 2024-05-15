@@ -17,9 +17,9 @@ public class TruckExceptionHandler {
 
     @ExceptionHandler(value = {TruckException.class})
     @ResponseBody
-    ResponseEntity<ErrorResponse> gameError(TruckException ex) {
-        LOG.error("Game exception " , ex);
-        ErrorResponse response = new ErrorResponse("Game error", ex.getMessage());
+    ResponseEntity<ErrorResponse> truckError(TruckException ex) {
+        LOG.error("Truck exception " , ex);
+        ErrorResponse response = new ErrorResponse("Truck error", ex.getMessage());
         return new ResponseEntity<ErrorResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

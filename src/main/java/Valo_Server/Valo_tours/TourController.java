@@ -1,5 +1,6 @@
 package Valo_Server.Valo_tours;
 
+import Valo_Server.Valo_customer.Customer;
 import Valo_Server.Valo_helper.Token;
 import Valo_Server.Valo_packages.Package;
 import Valo_Server.Valo_packages.PackageException;
@@ -33,9 +34,8 @@ public class TourController {
     @PostMapping("/tours/save")
     Tour tourSave(@RequestBody Tour tour) {
         if (Token.validate(tour.getToken())) {
-            System.out.println("Received Tour object: " + tour);
 
-            Tour tourIn = new Tour(tour.getTruckID());
+            Tour tourIn = new Tour(tour.getTruckID(), tour.getCustomerID());
 
             List<Package> packages = new ArrayList<>();
             for (Package packageIn : tour.getPackages()) {
@@ -45,9 +45,11 @@ public class TourController {
             }
             tourIn.setPackages(packages);
 
+
             tourIn = tourGenerator.generateTour(tourIn);
 
             tourRepository.save(tourIn);
+            System.out.println("Received Tour object: " + tourIn);
 
             System.out.println("Tour saved");
 

@@ -1,5 +1,6 @@
 package Valo_Server.Valo_packages;
 
+import Valo_Server.Valo_customer.Customer;
 import Valo_Server.Valo_tours.Tour;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -12,8 +13,6 @@ public class Package {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="packageID")
     private Integer packageID;
-    @Column(name = "token")
-    private String token;
     @Column(name = "weight")
     private Integer packageWeight;
     @Column(name = "delivery_address")
@@ -22,6 +21,7 @@ public class Package {
     @JoinColumn(name = "tourID")
     @JsonBackReference
     private Tour tours;
+    private String token;
 
     public Package(){}
     public Package(int packageWeight, String deliveryAddress){

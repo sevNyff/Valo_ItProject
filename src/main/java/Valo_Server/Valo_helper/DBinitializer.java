@@ -1,5 +1,7 @@
 package Valo_Server.Valo_helper;
 
+import Valo_Server.Valo_customer.Customer;
+import Valo_Server.Valo_customer.CustomerRepository;
 import Valo_Server.Valo_truck.Truck;
 import Valo_Server.Valo_truck.TruckRepository;
 import org.slf4j.Logger;
@@ -32,6 +34,17 @@ public class DBinitializer {
             Truck tr2 = new Truck("Scania", 8);
             log.info("Preloading " + truck.save(tr));
             log.info("Preloading " + truck.save(tr2));
+        };
+
+    }
+    @Bean
+    CommandLineRunner initDatabseCustomer(CustomerRepository customer) {
+
+        return args -> {
+            Customer customer1 = new Customer("Severin Nyffenegger", "Hauptstrasse 2", "Brugg");
+            Customer customer2 = new Customer("Kevin Bernet", "Waldweg 69", "Luzern");
+            log.info("Preloading " + customer.save(customer1));
+            log.info("Preloading " + customer.save(customer2));
         };
 
     }

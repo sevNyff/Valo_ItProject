@@ -17,9 +17,9 @@ public class TourExceptionHandler {
 
     @ExceptionHandler(value = {TourException.class})
     @ResponseBody
-    ResponseEntity<ErrorResponse> gameError(TourException ex) {
-        LOG.error("Game exception " , ex);
-        ErrorResponse response = new ErrorResponse("Game error", ex.getMessage());
+    ResponseEntity<ErrorResponse> tourError(TourException ex) {
+        LOG.error("Tour exception " , ex);
+        ErrorResponse response = new ErrorResponse("Tour error", ex.getMessage());
         return new ResponseEntity<ErrorResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

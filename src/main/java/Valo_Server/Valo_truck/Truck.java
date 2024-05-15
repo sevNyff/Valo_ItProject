@@ -24,6 +24,10 @@ public class Truck {
         this.brandName = brandName;
         this.truckCapacity = truckCapacity;
     }
+
+    public Truck(String addressName, String cityName) {
+    }
+
     public Integer getID() {
         return TruckID;
     }

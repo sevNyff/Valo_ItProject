@@ -130,7 +130,7 @@ public class AStar {
             yDiff = lastPos.north() - goalPos.north();
             distance = xDiff * xDiff + yDiff * yDiff;
         }catch(NullPointerException e){
-            System.out.println("NullPointerException caught");
+            //System.out.println("NullPointerException caught");
         }
         return distance;
 

@@ -1,53 +1,54 @@
 
-//Load Trucks into the table
+//Load customers into the table
 document.addEventListener('DOMContentLoaded', function() {
-    const trucksContainer = document.getElementById('trucksContainer');
+    const customersContainer = document.getElementById('customersContainer');
   
-    function fetchTrucks() {
-      fetch('http://localhost:8080/trucks')
+    function fetchcustomers() {
+      fetch('http://localhost:8080/customers')
         .then(response => response.json())
-        .then(trucks => {
-          trucksContainer.innerHTML = ''; // Clear previous content
+        .then(customers => {
+          customersContainer.innerHTML = ''; // Clear previous content
   
-          trucks.forEach(truck => {
-            // Create a div element for each truck card
-            const truckCard = document.createElement('div');
-            truckCard.classList.add('truck-card');
+          customers.forEach(customer => {
+            // Create a div element for each customer card
+            const customerCard = document.createElement('div');
+            customerCard.classList.add('customer-card');
   
-            // Populate truck card with truck information
-            truckCard.innerHTML = `
-              <div class="truck-info">
-                <h3>Truck ${truck.id}</h3>
-                <p><strong>Brand:</strong> ${truck.brandName}</p>
-                <p><strong>Capacity:</strong> ${truck.truckCapacity}</p>
+            // Populate customer card with customer information
+            customerCard.innerHTML = `
+              <div class="customer-info">
+                <h3>Customer ${customer.customerID}</h3>
+                <p><strong>Name:</strong> ${customer.customerName}</p>
+                <p><strong>Address:</strong> ${customer.addressName}</p>
+                <p><strong>City:</strong> ${customer.cityName}</p>
               </div>
-              <button class="delete-button" data-truck-id="${truck.id}">x</button>
+              <button class="delete-button" data-customer-id="${customer.customerID}">x</button>
             `;
   
-            // Append truck card to trucksContainer
-            trucksContainer.appendChild(truckCard);
+            // Append customer card to customersContainer
+            customersContainer.appendChild(customerCard);
   
             // Attach event listener to the delete button
-            const deleteButton = truckCard.querySelector('.delete-button');
+            const deleteButton = customerCard.querySelector('.delete-button');
             deleteButton.addEventListener('click', handleDeleteButtonClick);
           });
         })
         .catch(error => {
-          console.error('Error fetching trucks:', error);
+          console.error('Error fetching customers:', error);
         });
     }
   
     // Function to handle the "Delete" button click
     function handleDeleteButtonClick(event) {
-      const truckId = event.target.dataset.truckId;
+      const customerId = event.target.dataset.customerId;
   
-      fetch(`http://localhost:8080/trucks/delete/${truckId}`, {
+      fetch(`http://localhost:8080/customers/delete/${customerId}`, {
         method: 'GET'
       })
         .then(response => response.text())
         .then(message => {
           showAlert(message); // Display success message
-          event.target.closest('.truck-card').remove(); // Remove truck card from DOM
+          event.target.closest('.customer-card').remove(); // Remove customer card from DOM
         })
         .catch(error => {
           console.error('Error:', error);
@@ -55,59 +56,52 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
   
-    // Load trucks when DOM content is loaded
-    fetchTrucks();
+    // Load customers when DOM content is loaded
+    fetchcustomers();
   });
   
 
-function changeToAddTruckPage(){
+function changeToAddCustomerPage(){
   var token = localStorage.getItem('token');
     
   if (token === null || token === 'null') {
       showAlert("You need to login first!");
   } else {
-    window.location.href = '../Valo_Trucks/addTruck.html';
+    window.location.href = '../Valo_Customer/addCustomer.html';
   }
-
-
     
 }
 
-function backToTrucksButtonClick(){
-    window.location.href = '../Valo_Trucks/trucks.html';
+function backToCustomersButtonClick(){
+    window.location.href = '../Valo_Customer/customers.html';
 }
 
-function newTruckButtonClick() {
-  var brandName = document.getElementById('brand').value;
-  var truckCapacity = document.getElementById('capacity').value;
+function newCustomerButtonClick() {
+  var customerName = document.getElementById('name').value;
+  var customerAddress = document.getElementById('address').value;
+  var customerCity = document.getElementById('city').value;
+
+  if (!customerName || !customerAddress || !customerCity) {
+    showAlert('All fields are required. Please fill in all fields.');
+    return; // Prevent the request from being sent
+}
+
   var token = localStorage.getItem('token');
 
-  // Validate brand name (at least 3 characters)
-  if (brandName.length < 3) {
-      showAlert('Brand name must be at least 3 characters long.');
-      return; // Exit the function if validation fails
-  }
-
-  // Validate truck capacity (must be a number bigger than 0)
-  const parsedCapacity = parseFloat(truckCapacity);
-  if (isNaN(parsedCapacity) || parsedCapacity <= 0) {
-      showAlert('Capacity must be a valid number bigger than 0.');
-      return; // Exit the function if validation fails
-  }
-
-  const truckData = {
-      brandName: brandName,
-      truckCapacity: parsedCapacity,
+  const customerData = {
+      customerName: customerName,
+      addressName: customerAddress,
+      cityName: customerCity,
       token: token
   };
 
-  // Send a POST request to the server to add a new truck
-  fetch('http://localhost:8080/trucks/new', {
+  // Send a POST request to the server to add a new customer
+  fetch('http://localhost:8080/customers/new', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
       },
-      body: JSON.stringify(truckData)
+      body: JSON.stringify(customerData)
   })
   .then(response => {
       if (!response.ok) {
@@ -116,8 +110,8 @@ function newTruckButtonClick() {
       return response.json();
   })
   .then(data => {
-      // Redirect to trucks.html after successfully adding a new truck
-      window.location.href = '../Valo_Trucks/trucks.html';
+      // Redirect to customers.html after successfully adding a new customer
+      window.location.href = '../Valo_Customer/customers.html';
   })
   .catch(error => {
       console.error('Error:', error);

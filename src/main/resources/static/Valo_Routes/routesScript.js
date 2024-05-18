@@ -98,7 +98,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function changeToTruckplanningWindow() {
+    var token = localStorage.getItem('token');
+    
+  if (token === null || token === 'null') {
+      showAlert("You need to login first!");
+  } else {
     window.location.href = "../Valo_Truckplanning/truckplanning.html";
+  }
+    
 }
 
 

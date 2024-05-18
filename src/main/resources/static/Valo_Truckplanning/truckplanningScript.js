@@ -13,6 +13,8 @@ function startNewPlanning() {
             <h3>New Planning</h3>
             <p>Select Truck:</p>
             <select id="truckSelect" onchange="updateAvailableCapacity(this.options[this.selectedIndex])"></select>
+            <p>Select Customer:</p>
+            <select id="customerSelect"></select>
             <p id="availableCapacityLabel">Available Capacity: 0 kg</p>
             <button onclick="createPackage()">Create Package</button>
             <button onclick="saveTour(event)" data-action="saveTour" class="saveTour-button">Save Tour</button>
@@ -27,8 +29,9 @@ function startNewPlanning() {
     // Insert the new planning card before the button
     planningContainer.insertBefore(newPlanningCard, planningContainer.firstChild);
 
-    // Fetch trucks and populate the dropdown
+    // Fetch trucks and customers and populate the dropdowns
     fetchTrucksForDropdown();
+    fetchCustomersForDropdown();
 }
 
 async function fetchTrucksForDropdown() {
@@ -53,6 +56,28 @@ async function fetchTrucksForDropdown() {
         updateTruckCapacity(truckSelect.options[0]); // Check if options exist
     } catch (error) {
         console.error('Error fetching trucks for dropdown:', error);
+    }
+}
+
+async function fetchCustomersForDropdown() {
+    try {
+        const response = await fetch('http://localhost:8080/customers');
+        const customers = await response.json();
+
+        console.log('Fetched Customers:', customers); // Check fetched customers
+
+        const customerSelect = document.getElementById('customerSelect');
+        customerSelect.innerHTML = ''; // Clear existing options
+
+        customers.forEach(customer => {
+            const option = document.createElement('option');
+            option.value = customer.customerID;
+            option.textContent = `Customer ${customer.customerID} - ${customer.customerName}`;
+            customerSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error('Error fetching customers for dropdown:', error);
     }
 }
 
@@ -243,6 +268,14 @@ function saveTour(planningCard, event) {
     const truckOptionText = selectedTruckOption.textContent;
     const selectedTruckId = extractTruckId(truckOptionText);
 
+    // Get the selected customer option from the dropdown within the planning card
+    const customerSelect = planningCard.querySelector('#customerSelect');
+    const selectedCustomerOption = customerSelect.options[customerSelect.selectedIndex];
+
+    // Extract the customer ID from the selected option text
+    const customerOptionText = selectedCustomerOption.textContent;
+    const selectedCustomerId = extractCustomerId(customerOptionText);
+
     // Get all package info containers under the current planning card
     const packageContainers = planningCard.querySelectorAll('.planningPackage-info');
 
@@ -297,6 +330,7 @@ function saveTour(planningCard, event) {
     const payload = {
         token: token,
         truckID: selectedTruckId,
+        customerID: selectedCustomerId,
         packages: packages
     };
 
@@ -417,6 +451,15 @@ document.addEventListener('dragend', function(event) {
 // Helper function to extract truck ID from the option text
 function extractTruckId(optionText) {
     const regex = /Truck (\d+) -/;
+    const match = optionText.match(regex);
+    if (match && match[1]) {
+        return match[1]; // Return the captured ID part
+    }
+    return null; // Return null if no match found (shouldn't happen with consistent format)
+}
+
+function extractCustomerId(optionText) {
+    const regex = /Customer (\d+) -/;
     const match = optionText.match(regex);
     if (match && match[1]) {
         return match[1]; // Return the captured ID part

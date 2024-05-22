@@ -9,14 +9,19 @@ function startNewPlanning() {
 
     // HTML content for the new planning card
     newPlanningCard.innerHTML = `
-    <h3>New Planning</h3>
-    <p>Select Truck:</p>
-    <select id="truckSelect" onchange="updateAvailableCapacity(this.options[this.selectedIndex])"></select>
-    <p id="availableCapacityLabel">Available Capacity: 0 kg</p>
-    <button onclick="createPackage()">Create Package</button>
-    <button onclick="saveTour(event)" data-action="saveTour" class="saveTour-button">Save Tour</button>
-    
-`;
+        <div class="card-header">
+            <h3>New Planning</h3>
+            <p>Select Truck:</p>
+            <select id="truckSelect" onchange="updateAvailableCapacity(this.options[this.selectedIndex])"></select>
+            <p>Select Customer:</p>
+            <select id="customerSelect"></select>
+            <p id="availableCapacityLabel">Available Capacity: 0 kg</p>
+            <button onclick="createPackage()">Create Package</button>
+            <button onclick="saveTour(event)" data-action="saveTour" class="saveTour-button">Save Tour</button>
+            <button onclick="deleteTour(event)" data-action="deleteTour" class="delete-button">x</button>
+        </div>
+        <div class="package-container"></div>
+    `;
 
     // Get the planning container
     const planningContainer = document.getElementById('plannningContainer');
@@ -24,8 +29,9 @@ function startNewPlanning() {
     // Insert the new planning card before the button
     planningContainer.insertBefore(newPlanningCard, planningContainer.firstChild);
 
-    // Fetch trucks and populate the dropdown
+    // Fetch trucks and customers and populate the dropdowns
     fetchTrucksForDropdown();
+    fetchCustomersForDropdown();
 }
 
 async function fetchTrucksForDropdown() {
@@ -50,6 +56,28 @@ async function fetchTrucksForDropdown() {
         updateTruckCapacity(truckSelect.options[0]); // Check if options exist
     } catch (error) {
         console.error('Error fetching trucks for dropdown:', error);
+    }
+}
+
+async function fetchCustomersForDropdown() {
+    try {
+        const response = await fetch('http://localhost:8080/customers');
+        const customers = await response.json();
+
+        console.log('Fetched Customers:', customers); // Check fetched customers
+
+        const customerSelect = document.getElementById('customerSelect');
+        customerSelect.innerHTML = ''; // Clear existing options
+
+        customers.forEach(customer => {
+            const option = document.createElement('option');
+            option.value = customer.customerID;
+            option.textContent = `Customer ${customer.customerID} - ${customer.customerName}`;
+            customerSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error('Error fetching customers for dropdown:', error);
     }
 }
 
@@ -78,61 +106,44 @@ document.addEventListener('change', function(event) {
     }
 });
 
-function createPackage(planningCard) {
-    
-    const truckSelect = document.getElementById('truckSelect');
-    const selectedTruckOption = truckSelect.options[truckSelect.selectedIndex];
-    const selectedTruckId = selectedTruckOption.value;
+function createPackage() {
+    const planningCard = event.target.closest('.planning-card');
+    const packageContainer = planningCard.querySelector('.package-container');
+    const existingPackages = planningCard.querySelectorAll('.planningPackage-info');
 
-    
-    const packageInfoContainer = document.createElement('div');
-    packageInfoContainer.classList.add('planningPackage-info');
-
-    const existingPackages = planningCard.querySelectorAll('.planningPackage-info').length;
-    const packageNumber = existingPackages + 1;
-
-    const packageHeading = document.createElement('h3');
-    packageHeading.textContent = `Package ${packageNumber}`;
-
-    const weightLabel = document.createElement('label');
-    weightLabel.textContent = 'Package Weight (kg):';
-    const weightInput = document.createElement('input');
-    weightInput.type = 'number';
-    weightInput.id = `packageWeight${packageNumber}`;
-    weightInput.addEventListener('input', () => {
-        updateAvailableCapacity(selectedTruckOption);
+    // Determine the next available package number within this planning card
+    let nextPackageNumber = 1;
+    existingPackages.forEach(packageElement => {
+        const packageNumber = parseInt(packageElement.querySelector('h3').textContent.split(' ')[1]);
+        if (packageNumber >= nextPackageNumber) {
+            nextPackageNumber = packageNumber + 1;
+        }
     });
 
-    const addressLabel = document.createElement('label');
-    addressLabel.textContent = 'Delivery Address:';
-    const addressInput = document.createElement('input');
-    addressInput.type = 'text';
-    addressInput.id = `deliveryAddress${packageNumber}`;
+    const newPackage = document.createElement('div');
+    newPackage.classList.add('planningPackage-info');
 
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'x';
-    deleteButton.classList.add('delete-button');
-    deleteButton.onclick = function() {
-        // Add back the weight to available capacity when package is deleted
-        const packageWeight = parseFloat(weightInput.value) || 0;
-        selectedTruckOption.dataset.capacity = parseFloat(selectedTruckOption.dataset.capacity) + packageWeight;
-        
-        packageInfoContainer.remove();
-        updatePackageNumbers(planningCard);
-        updateAvailableCapacity(selectedTruckOption);
-    };
+    // Make the package container draggable
+    newPackage.draggable = true;
+    newPackage.addEventListener('dragstart', function(event) {
+        event.dataTransfer.setData('text/plain', ''); // Required for Firefox to allow drag
+    });
 
-    packageInfoContainer.appendChild(packageHeading);
-    packageInfoContainer.appendChild(deleteButton);
-    packageInfoContainer.appendChild(weightLabel);
-    packageInfoContainer.appendChild(weightInput);
-    packageInfoContainer.appendChild(document.createElement('br'));
-    packageInfoContainer.appendChild(addressLabel);
-    packageInfoContainer.appendChild(addressInput);
+    newPackage.innerHTML = `
+        <h3>Package ${nextPackageNumber}</h3>
+        <label>Package Weight (kg):</label>
+        <input type="number" id="packageWeight${nextPackageNumber}" onchange="updateAvailableCapacity(this)">
+        <br>
+        <label>Delivery Address:</label>
+        <input type="text" id="deliveryAddress${nextPackageNumber}">
+        <button class="delete-button" onclick="deletePackage(event)">x</button>
+    `;
 
-    planningCard.insertBefore(packageInfoContainer, event.target);
+    // Insert the new package below the fixed buttons
+    packageContainer.appendChild(newPackage);
 
-    updateAvailableCapacity(selectedTruckOption);
+    // Update available capacity
+    updateAvailableCapacity(planningCard);
 }
 
 function updateAvailableCapacity(planningCard) {
@@ -149,7 +160,14 @@ function updateAvailableCapacity(planningCard) {
     let usedCapacity = 0;
 
     packageInputs.forEach(input => {
-        const packageWeight = parseFloat(input.value) || 0;
+        let packageWeight = parseFloat(input.value) || 0;
+        
+        // Validate package weight to ensure it's not below 0
+        if (packageWeight < 0) {
+            packageWeight = 0; // Reset to 0 if below 0
+            input.value = packageWeight; // Update input value
+        }
+
         usedCapacity += packageWeight;
     });
 
@@ -182,11 +200,10 @@ document.addEventListener('input', function(event) {
 });
 
 // Event listener for creating a new package within a planning card (tour)
-document.addEventListener('click', function(event) {
-    const target = event.target;
-    if (target && target.tagName === 'BUTTON' && target.textContent === 'Create Package') {
-        const planningCard = target.closest('.planning-card');
-        createPackage(planningCard);
+document.addEventListener('DOMContentLoaded', function() {
+    const createPackageButton = document.getElementById('createPackageButton');
+    if (createPackageButton) {
+        createPackageButton.addEventListener('click', createPackage);
     }
 });
 
@@ -195,7 +212,7 @@ document.addEventListener('click', function(event) {
     const target = event.target;
     if (target && target.tagName === 'BUTTON' && target.dataset.action === 'saveTour') {
         const planningCard = target.closest('.planning-card');
-        saveTour(planningCard);
+        saveTour(planningCard, event); // Pass the planningCard and event objects
     }
 });
 
@@ -209,8 +226,28 @@ function updatePackageNumbers(planningCard) {
     });
 }
 
+function deletePackage(event) {
+    const packageElement = event.target.closest('.planningPackage-info');
+    packageElement.remove();
 
-function saveTour(planningCard) {
+    // Update package numbers and available capacity
+    const planningCard = event.target.closest('.planning-card');
+    updatePackageNumbers(planningCard);
+    updateAvailableCapacity(planningCard);
+}
+
+function deleteTour(event) {
+    const planningCard = event.target.closest('.planning-card'); // Find the closest parent with the class 'planning-card'
+    
+    if (planningCard) {
+        planningCard.remove(); // Remove the entire planning card element
+    } else {
+        console.error('Planning card not found.');
+    }
+}
+
+
+function saveTour(planningCard, event) {
     // Get the authentication token from localStorage
     const token = localStorage.getItem('token');
 
@@ -230,6 +267,14 @@ function saveTour(planningCard) {
     // Extract the truck ID from the selected option text
     const truckOptionText = selectedTruckOption.textContent;
     const selectedTruckId = extractTruckId(truckOptionText);
+
+    // Get the selected customer option from the dropdown within the planning card
+    const customerSelect = planningCard.querySelector('#customerSelect');
+    const selectedCustomerOption = customerSelect.options[customerSelect.selectedIndex];
+
+    // Extract the customer ID from the selected option text
+    const customerOptionText = selectedCustomerOption.textContent;
+    const selectedCustomerId = extractCustomerId(customerOptionText);
 
     // Get all package info containers under the current planning card
     const packageContainers = planningCard.querySelectorAll('.planningPackage-info');
@@ -285,6 +330,7 @@ function saveTour(planningCard) {
     const payload = {
         token: token,
         truckID: selectedTruckId,
+        customerID: selectedCustomerId,
         packages: packages
     };
 
@@ -316,7 +362,87 @@ function saveTour(planningCard) {
 }
 
 
+// Event listener for dragover to show drop indicator
+document.addEventListener('dragover', function(event) {
+    event.preventDefault(); // Allow drop behavior
+    const target = event.target;
+    const draggedPackage = document.querySelector('.planningPackage-info.dragging');
 
+    if (target.closest('.planning-card') && draggedPackage) {
+        // Calculate the drop position
+        const rect = target.getBoundingClientRect();
+        const offset = event.clientY - rect.top;
+        const isBelowMidpoint = offset > rect.height / 2;
+
+        // Create or update the drop indicator element
+        let dropIndicator = document.querySelector('.drop-indicator');
+        if (!dropIndicator) {
+            dropIndicator = document.createElement('div');
+            dropIndicator.classList.add('drop-indicator');
+            target.closest('.planning-card').appendChild(dropIndicator);
+        }
+
+        // Position the drop indicator based on mouse position
+        if (isBelowMidpoint) {
+            dropIndicator.style.top = rect.height + 'px';
+            dropIndicator.style.transform = 'translateY(-100%)';
+        } else {
+            dropIndicator.style.top = '0';
+            dropIndicator.style.transform = 'translateY(0)';
+        }
+    }
+});
+
+// Event listener for drop to handle package placement
+document.addEventListener('drop', function(event) {
+    event.preventDefault(); // Prevent default drop behavior
+    const target = event.target;
+    const draggedPackage = document.querySelector('.planningPackage-info.dragging');
+    const dropIndicator = document.querySelector('.drop-indicator');
+
+    if (target.closest('.planning-card') && draggedPackage) {
+        const newPlanningCard = target.closest('.planning-card');
+        const originalPlanningCard = draggedPackage.closest('.planning-card');
+        const position = dropIndicator.getBoundingClientRect().top - newPlanningCard.getBoundingClientRect().top;
+
+        // Insert the dragged package at the calculated position
+        if (position > 0) {
+            newPlanningCard.insertBefore(draggedPackage, dropIndicator.nextSibling);
+        } else {
+            newPlanningCard.insertBefore(draggedPackage, dropIndicator);
+        }
+
+        // Remove the drop indicator
+        dropIndicator.remove();
+
+        // Update package numbers and available capacity for both planning cards
+        updatePackageNumbers(originalPlanningCard);
+        updateAvailableCapacity(originalPlanningCard);
+        updatePackageNumbers(newPlanningCard);
+        updateAvailableCapacity(newPlanningCard);
+    }
+});
+
+
+// Event listeners to handle dragging status
+document.addEventListener('dragstart', function(event) {
+    const target = event.target;
+    if (target.classList.contains('planningPackage-info')) {
+        target.classList.add('dragging');
+    }
+});
+
+document.addEventListener('dragend', function(event) {
+    const target = event.target;
+    if (target.classList.contains('planningPackage-info')) {
+        target.classList.remove('dragging');
+        // Remove any remaining drop indicator on drag end
+        const dropIndicator = document.querySelector('.drop-indicator');
+        if (dropIndicator) {
+            dropIndicator.remove();
+        }
+    }
+});
 
 
 
@@ -325,6 +451,15 @@ function saveTour(planningCard) {
 // Helper function to extract truck ID from the option text
 function extractTruckId(optionText) {
     const regex = /Truck (\d+) -/;
+    const match = optionText.match(regex);
+    if (match && match[1]) {
+        return match[1]; // Return the captured ID part
+    }
+    return null; // Return null if no match found (shouldn't happen with consistent format)
+}
+
+function extractCustomerId(optionText) {
+    const regex = /Customer (\d+) -/;
     const match = optionText.match(regex);
     if (match && match[1]) {
         return match[1]; // Return the captured ID part

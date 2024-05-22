@@ -1,0 +1,43 @@
+﻿Olten SO;Basel;34.04
+Olten SO;Brugg AG;27.36
+Olten SO;Zürich;47.75
+Olten SO;Luzern;44.93
+Olten SO;Delémont JU;43.15
+Basel;Brugg AG;48.36
+Brugg AG;Zürich;27.42
+Brugg AG;Schaffhausen;39.82
+Schaffhausen;Zürich;36.15
+Schaffhausen;Frauenfeld TG;25.14
+Zürich;Näfels GL;50.37
+Zürich;Zug;23.4
+Frauenfeld TG;St. Gallen;38.85
+St. Gallen;Appenzell AR;4.04
+Appenzell AR;Appenzell IR;7.01
+Appenzell IR;Näfels GL;36.21
+Appenzell IR;Chur;54.26
+Chur;Näfels GL;45.18
+Chur;Bellinzona TI;82.86
+Bellinzona TI;Chiasso TI;38.88
+Bellinzona TI;Altdorf UR;83.36
+Bellinzona TI;Sion VS;128.18
+Sion VS;Lausanne VD;64.77
+Lausanne VD;Genf;49.58
+Lausanne VD;Neuenburg;57.92
+Lausanne VD;Fribourg;52.39
+Fribourg;Neuenburg;27.3
+Fribourg;Bern;26.59
+Bern;Neuenburg;39.33
+Bern;Delémont JU;46.82
+Bern;Olten;56.84
+Neuenburg;Delémont JU;51.4
+Luzern;Schwyz;26.47
+Luzern;Stans NW;11.3
+Luzern;Sarnen OW;17.99
+Sarnen OW;Stans NW;11.58
+Sarnen OW;Altdorf UR;28.76
+Stans NW;Altdorf UR;20.98
+Altdorf UR;Schwyz;14.7
+Basel;Delémont JU;28.24
+Zürich;Frauenfeld TG;33.64
+Luzern;Zug;20.86
+Schwyz;Zug;19.41

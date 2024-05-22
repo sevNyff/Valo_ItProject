@@ -35,11 +35,35 @@ public class TourController {
     Tour tourSave(@RequestBody Tour tour) {
         if (Token.validate(tour.getToken())) {
 
-            Tour tourIn = new Tour(tour.getTruckID(), tour.getCustomerID());
+            Tour tourIn = new Tour(tour.getTruckID());
 
             List<Package> packages = new ArrayList<>();
             for (Package packageIn : tour.getPackages()) {
-                Package pck = new Package(packageIn.getPackageWeight(), packageIn.getDeliveryAddress());
+                Package pck = new Package(packageIn.getPackageWeight(), packageIn.getDeliveryAddress(), packageIn.getCustomerID());
+                pck.setTours(tourIn);
+                packages.add(pck);
+            }
+            tourIn.setPackages(packages);
+
+            tourRepository.save(tourIn);
+            System.out.println("Received Tour object: " + tourIn);
+
+            System.out.println("Tour saved");
+
+            return tourIn;
+        } else {
+            throw new TourException("Invalid token");
+        }
+    }
+    @PostMapping("/tours/generate")
+    Tour tourGenerate(@RequestBody Tour tour) {
+        if (Token.validate(tour.getToken())) {
+
+            Tour tourIn = new Tour(tour.getTruckID());
+
+            List<Package> packages = new ArrayList<>();
+            for (Package packageIn : tour.getPackages()) {
+                Package pck = new Package(packageIn.getPackageWeight(), packageIn.getDeliveryAddress(), packageIn.getCustomerID());
                 pck.setTours(tourIn);
                 packages.add(pck);
             }

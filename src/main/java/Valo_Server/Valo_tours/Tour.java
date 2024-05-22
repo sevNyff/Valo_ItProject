@@ -14,8 +14,6 @@ public class Tour {
     private Integer ID;
     @Column(name = "truck")
     private Integer truckID;
-    @Column(name = "customer")
-    private Integer customerID;
     @Column(name = "time")
     private Double timeTour;
     @Column(name = "distance")
@@ -26,9 +24,8 @@ public class Tour {
     private String token;
 
     public Tour(){}
-    public Tour(int truckID, int customerID){
+    public Tour(int truckID){
         this.truckID = truckID;
-        this.customerID = customerID;
     }
     public Integer getID() {return ID;}
     public void setID(int ID) {this.ID = ID;}
@@ -43,12 +40,6 @@ public class Tour {
     }
     public void setTruckID(int truckID) {
         this.truckID = truckID;
-    }
-    public Integer getCustomerID() {
-        return customerID;
-    }
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
     }
     public Double getTimeTour() {
         return timeTour;

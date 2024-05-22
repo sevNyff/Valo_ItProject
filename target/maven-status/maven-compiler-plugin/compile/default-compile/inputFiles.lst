@@ -1,10 +1,15 @@
+C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_customer\Customer.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_truck\TruckException.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_truck\TruckExceptionHandler.java
+C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_customer\CustomerExceptionHandler.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_user\UserExceptionHandler.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_tours\TourRepository.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_user\UserException.java
+C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_tourEngine\SearchAlgorithms\MapData.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_tourEngine\tourGenerator.java
+C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_customer\CustomerController.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\ServerStart.java
+C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_customer\CustomerException.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_packages\PackageExceptionHandler.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_packages\Package.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_truck\TruckController.java
@@ -15,6 +20,8 @@ C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_user\User.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_packages\PackageException.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_tours\TourExceptionHandler.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_tours\Tour.java
+C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_tourEngine\SearchAlgorithms\AStar.java
+C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_tourEngine\SearchAlgorithms\BestFirst.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_tours\TourException.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_truck\TruckRepository.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_helper\Token.java
@@ -23,3 +30,4 @@ C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_helper\ErrorRe
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_packages\PackageController.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_truck\Truck.java
 C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_user\UserRepository.java
+C:\FHNW\Programming\Valo_ItProject\src\main\java\Valo_Server\Valo_customer\CustomerRepository.java

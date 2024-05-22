@@ -17,6 +17,8 @@ public class Package {
     private Integer packageWeight;
     @Column(name = "delivery_address")
     private String deliveryAddress;
+    @Column(name = "customer")
+    private Integer customerID;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tourID")
     @JsonBackReference
@@ -24,9 +26,10 @@ public class Package {
     private String token;
 
     public Package(){}
-    public Package(int packageWeight, String deliveryAddress){
+    public Package(int packageWeight, String deliveryAddress, int customerID){
         this.packageWeight = packageWeight;
         this.deliveryAddress = deliveryAddress;
+        this.customerID = customerID;
     }
     public Integer getPackageID() {
         return packageID;
@@ -46,6 +49,12 @@ public class Package {
     }
     public String getDeliveryAddress() {return deliveryAddress;}
     public void setDeliveryAddress(String deliveryAddress){this.deliveryAddress = deliveryAddress;}
+    public Integer getCustomerID() {
+        return customerID;
+    }
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
     public Tour getTours() {return tours; }
     public void setTours(Tour tours){this.tours = tours;}
 

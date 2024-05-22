@@ -3,28 +3,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function fetchTours() {
         try {
-            const toursResponse = await fetch('http://localhost:8080/tours');
-            const trucksResponse = await fetch('http://localhost:8080/trucks');
+            const [toursResponse, trucksResponse, customersResponse] = await Promise.all([
+                fetch('http://localhost:8080/tours'),
+                fetch('http://localhost:8080/trucks'),
+                fetch('http://localhost:8080/customers')
+            ]);
+
+            if (!toursResponse.ok || !trucksResponse.ok || !customersResponse.ok) {
+                throw new Error('Error fetching data from the server');
+            }
 
             const tours = await toursResponse.json();
             const trucks = await trucksResponse.json();
+            const customers = await customersResponse.json();
+
+            console.log('Fetched tours:', tours);  // Debugging step
+            console.log('Fetched trucks:', trucks);  // Debugging step
+            console.log('Fetched customers:', customers);  // Debugging step
 
             toursContainer.innerHTML = ''; // Clear previous content
 
             tours.forEach(tour => {
-                // Find the associated truck for the tour
                 const truck = trucks.find(truck => truck.id === tour.truckID);
+                const customer = customers.find(customer => customer.customerID === tour.customerID);
 
-                // Create a div element for each tour
                 const tourCard = document.createElement('div');
                 tourCard.classList.add('tour-card');
 
-                // Create a title for the tour
                 const tourTitle = document.createElement('h2');
                 tourTitle.textContent = `Tour ${tour.id}`;
                 tourCard.appendChild(tourTitle);
 
-                // Display truck details if found
+                const tourDistance = document.createElement('p');
+                tourDistance.textContent = `Distance: ${tour.distanceTour} km`;
+                tourCard.appendChild(tourDistance);
+
+                const tourTime = document.createElement('p');
+                tourTime.textContent = `Time: ${tour.timeTour} h`;
+                tourCard.appendChild(tourTime);
+
                 if (truck) {
                     const truckTitle = document.createElement('h3');
                     truckTitle.textContent = `Truck ${truck.id}: ${truck.brandName}`;
@@ -34,56 +51,68 @@ document.addEventListener('DOMContentLoaded', function() {
                     truckCapacityInfo.textContent = `Capacity: ${truck.truckCapacity} kg`;
                     tourCard.appendChild(truckCapacityInfo);
 
-                    // Calculate used capacity for the tour
                     const usedCapacity = tour.packages.reduce((totalWeight, pkg) => totalWeight + pkg.packageWeight, 0);
                     const availableCapacity = truck.truckCapacity - usedCapacity;
                     const usedCapacityInfo = document.createElement('p');
                     usedCapacityInfo.textContent = `Available Capacity: ${availableCapacity} kg`;
                     tourCard.appendChild(usedCapacityInfo);
                 } else {
-                    // Display a message if truck not found (should not happen ideally)
                     const truckInfo = document.createElement('p');
                     truckInfo.textContent = `Truck details not found for Tour ${tour.id}`;
                     tourCard.appendChild(truckInfo);
                 }
 
-                // Create a div for packages associated with the tour
+                if (customer) {
+                    const customerTitle = document.createElement('h3');
+                    customerTitle.textContent = `Customer ${customer.customerID}: ${customer.customerName}`;
+                    tourCard.appendChild(customerTitle);
+                } else {
+                    const customerInfo = document.createElement('p');
+                    customerInfo.textContent = `Customer details not found for Tour ${tour.id}`;
+                    tourCard.appendChild(customerInfo);
+                }
+
+                const packagesTitle = document.createElement('h2');
+                packagesTitle.textContent = `Packages in Tour:`;
+                packagesTitle.classList.add('packages-title');
+                tourCard.appendChild(packagesTitle);
+
                 const packageContainer = document.createElement('div');
                 packageContainer.classList.add('tour-container');
 
-                // Populate packageContainer with package information
-                tour.packages.forEach((package, index) => {
+                tour.packages.forEach(pkg => {
                     const packageInfo = document.createElement('div');
                     packageInfo.classList.add('tour-info');
 
-                    // Populate packageInfo with package details
-                    packageInfo.innerHTML += `
-                        <h3>Package ${package.packageID}</h3>
-                        <p><strong>Weight:</strong> ${package.packageWeight} kg</p>
-                        <p><strong>Delivery Address:</strong> ${package.deliveryAddress}</p>
+                    packageInfo.innerHTML = `
+                        <h3>Package ${pkg.packageID}</h3>
+                        <p><strong>Weight:</strong> ${pkg.packageWeight} kg</p>
+                        <p><strong>Delivery Address:</strong> ${pkg.deliveryAddress}</p>
                     `;
 
-                    // Append packageInfo to packageContainer
                     packageContainer.appendChild(packageInfo);
                 });
 
-                // Append packageContainer to tourCard
                 tourCard.appendChild(packageContainer);
-
-                // Append tourCard to toursContainer
                 toursContainer.appendChild(tourCard);
             });
         } catch (error) {
             console.error('Error fetching tours:', error);
         }
     }
-    
-    // Load tours when DOM content is loaded
+
     fetchTours();
 });
 
 function changeToTruckplanningWindow() {
+    var token = localStorage.getItem('token');
+    
+  if (token === null || token === 'null') {
+      showAlert("You need to login first!");
+  } else {
     window.location.href = "../Valo_Truckplanning/truckplanning.html";
+  }
+    
 }
 
 

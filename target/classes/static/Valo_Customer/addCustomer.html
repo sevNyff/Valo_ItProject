@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valo</title>
+    <link rel="stylesheet" href="../resources/styles.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="left-section">
+        <a href="../Valo_Home/home.html" class="logo">Valo</a>
+      </div>
+      <div class="middle-section">
+        <ul class="ul-navbar">
+          <li class="li-navbar">
+            <a href="../Valo_Trucks/trucks.html" class="a-navbar">Trucks</a>
+          </li>
+          <li class="li-navbar">
+            <a href="../Valo_Packages/packages.html" class="a-navbar"
+              >Packages</a
+            >
+          </li>
+          <li class="li-navbar">
+            <a href="../Valo_Routes/routes.html" class="a-navbar">Tours</a>
+          </li>
+          <li class="li-navbar">
+            <a href="../Valo_Customer/customers.html" class="a-navbar">Customers</a>
+          </li>
+        </ul>
+      </div>
+      <div class="right-section">
+        <a
+          href="#"
+          class="a-navbar-right"
+          id="loginRegisterButton"
+          onclick="loginRegisterButtonClick()"
+          >Login</a
+        >
+      </div>
+    </nav>
+    <!-- Website Content -->
+    <div class="module" id="module-login"></div>
+
+    <div class="div-form">
+        <h1 class="h1-form">New Customer</h1>
+        
+        <div class="form__group field">
+            <input type="input" class="form__field" placeholder="Name" name="name" id='name' required />
+            <label for="name" class="form__label">Name</label>
+            
+            <input type="input" class="form__field" placeholder="Address" name="address" id='address' required />
+            <label for="address" class="form__label">Address</label>
+
+            <input type="input" class="form__field" placeholder="City" name="city" id='city' required />
+            <label for="city" class="form__label">City</label>
+            
+          </div>
+          <div class="buttonDiv">
+            <button class="button-backToCustomers" onclick="backToCustomersButtonClick()">Back</button>
+            <button class="button-newCustomer" onclick="newCustomerButtonClick()">Add Customer</button>    
+          </div>
+        
+        
+      </div>
+
+      <!-- Window for alerts -->
+    <div id="customAlert" class="custom-alert">
+      <p id="alertMessage" class="alert-message"></p>
+      <button id="closeAlertButton" class="close-alert-button">Close</button>
+  </div>
+
+    <!-- Footer-->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h2>Contact Us</h2>
+          <p>Email: info@valodeliveries.com</p>
+          <p>Phone: +41 76 773 88 99</p>
+        </div>
+        <div class="footer-section">
+          <h2>Follow Us</h2>
+          <a href="https://www.facebook.com/?locale=de_DE" class="social-icon"
+            >Facebook</a
+          >
+          <a href="https://twitter.com/?lang=de" class="social-icon">Twitter</a>
+          <a href="https://www.instagram.com/" class="social-icon">Instagram</a>
+        </div>
+        <div class="footer-section">
+          <h2>Quick Links</h2>
+          <a class="link" href="#">Terms of Service</a>
+          <a class="link" href="#">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Valo. All rights reserved.</p>
+      </div>
+    </footer>
+    <script type="text/javascript" src="customerScript.js"></script>
+  </body>
+</html>

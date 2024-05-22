@@ -1,9 +1,12 @@
 function newPlanning(){
-    console.log(localStorage.getItem('userName'))
-    console.log(localStorage.getItem('token'))
-    console.log(localStorage.getItem('loginStatus'))
+    var token = localStorage.getItem('token');
     
-    window.location.href = "../Valo_Truckplanning/truckplanning.html";
+    if (token === null || token === 'null') {
+        showAlert("You need to login first!");
+    } else {
+        window.location.href = "../Valo_Truckplanning/truckplanning.html";
+    }
+    
 }
  
 

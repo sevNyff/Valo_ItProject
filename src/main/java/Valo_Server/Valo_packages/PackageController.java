@@ -32,7 +32,7 @@ public class PackageController {
             Tour tourTemp = tourRepository.getById(ID);
 
             List<Package> packages = new ArrayList<>();
-            Package pck = new Package(aPackage.getPackageWeight(), aPackage.getDeliveryAddress());
+            Package pck = new Package(aPackage.getPackageWeight(), aPackage.getDeliveryAddress(), aPackage.getCustomerID());
 
             pck.setTours(tourTemp);
             packages.add(pck);

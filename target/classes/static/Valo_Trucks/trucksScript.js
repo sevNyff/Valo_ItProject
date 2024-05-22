@@ -61,7 +61,16 @@ document.addEventListener('DOMContentLoaded', function() {
   
 
 function changeToAddTruckPage(){
+  var token = localStorage.getItem('token');
+    
+  if (token === null || token === 'null') {
+      showAlert("You need to login first!");
+  } else {
     window.location.href = '../Valo_Trucks/addTruck.html';
+  }
+
+
+    
 }
 
 function backToTrucksButtonClick(){

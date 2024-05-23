@@ -72,7 +72,7 @@ public class TourController {
 
             tourIn = tourGenerator.generateTour(tourIn);
 
-            tourRepository.save(tourIn);
+            //tourRepository.save(tourIn);
             System.out.println("Received Tour object: " + tourIn);
 
             System.out.println("Tour saved");

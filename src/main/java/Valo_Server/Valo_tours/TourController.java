@@ -44,6 +44,8 @@ public class TourController {
                 packages.add(pck);
             }
             tourIn.setPackages(packages);
+            tourIn.setDistanceTour(tour.getDistanceTour());
+            tourIn.setTimeTour(tour.getTimeTour());
 
             tourRepository.save(tourIn);
             System.out.println("Received Tour object: " + tourIn);

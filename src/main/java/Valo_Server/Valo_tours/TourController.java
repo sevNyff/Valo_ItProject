@@ -49,7 +49,7 @@ public class TourController {
             tourIn = tourGenerator.generateTour(tourIn);
 
             tourRepository.save(tourIn);
-            System.out.println("Generated Tour object: " + tourIn);
+            System.out.println("Saved Tour object: " + tourIn);
 
             return tourIn;
         } else {

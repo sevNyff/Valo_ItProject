@@ -6,39 +6,45 @@ import Valo_Server.Valo_tours.Tour;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class tourGenerator {
-    public static Tour generateTour(Tour tour){
-
+    public static Tour generateTour(Tour tour) {
         List<Package> packages = tour.getPackages();
         ArrayList<String> destinations = new ArrayList<>();
-        Map<String, Package> addressToPackageMap = new HashMap<>();
+        Map<String, List<Package>> addressToPackageMap = new HashMap<>();
 
-        for(Package pck : packages){
+        // Create a mapping from address to List<Package> and collect addresses
+        for (Package pck : packages) {
             String address = pck.getDeliveryAddress();
             destinations.add(address);
-            addressToPackageMap.put(address, pck);
+            addressToPackageMap.computeIfAbsent(address, k -> new ArrayList<>()).add(pck); //Falls destinations noch nicht existiert, dann eine neue List erstellen.
         }
 
-        double totalDistance = 0;
-
-        //System.out.println("Stops" + destinations);
-        ArrayList<String> result = TSP.runTSP("Olten SO", destinations);
+        // Get the optimal route from TSP
+        System.out.println("Stops: " + destinations);
+        ArrayList<String> result = TSP.runTSP("Bern", destinations);
         String distance = result.get(result.size() - 1);
-        totalDistance = Double.parseDouble(distance);
+        double totalDistance = Double.parseDouble(distance);
         result.remove(distance);
 
+        // Rearrange packages according to the optimal route
         List<Package> optimalRoutePackages = new ArrayList<>();
         for (String address : result) {
-            optimalRoutePackages.add(addressToPackageMap.get(address));
+            List<Package> packageList = addressToPackageMap.get(address);
+            if (packageList != null && !packageList.isEmpty()) {
+                optimalRoutePackages.add(packageList.remove(0)); // Remove the package from the list after adding to the optimal route
+            }
         }
 
         // Update the tour with the optimal route packages
         tour.setPackages(optimalRoutePackages);
 
-        double time = totalDistance / 80;  //Approximately 80 kmh on average
+        // Calculate the total travel time
+        double time = totalDistance / 80;  // Approximately 80 km/h on average
         time = round(time, 2);
         totalDistance = round(totalDistance, 2);
 
@@ -55,6 +61,4 @@ public class tourGenerator {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-
-
 }

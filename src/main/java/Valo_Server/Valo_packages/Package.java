@@ -23,6 +23,7 @@ public class Package {
     @JoinColumn(name = "tourID")
     @JsonBackReference
     private Tour tours;
+    @Transient
     private String token;
 
     public Package(){}

@@ -13,7 +13,7 @@ public class Truck {
     private String brandName;
     @Column(name = "capacity")
     private Integer truckCapacity;
-    @Column(name = "token")
+    @Transient
     private String token;
 
     public Truck() {

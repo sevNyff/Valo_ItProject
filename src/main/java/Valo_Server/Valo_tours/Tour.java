@@ -21,6 +21,7 @@ public class Tour {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "tours", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Package> packages;
+    @Transient
     private String token;
 
     public Tour(){}

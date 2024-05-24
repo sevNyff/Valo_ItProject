@@ -44,13 +44,12 @@ public class TourController {
                 packages.add(pck);
             }
             tourIn.setPackages(packages);
-            tourIn.setDistanceTour(tour.getDistanceTour());
-            tourIn.setTimeTour(tour.getTimeTour());
+
+
+            tourIn = tourGenerator.generateTour(tourIn);
 
             tourRepository.save(tourIn);
-            System.out.println("Received Tour object: " + tourIn);
-
-            System.out.println("Tour saved");
+            System.out.println("Generated Tour object: " + tourIn);
 
             return tourIn;
         } else {

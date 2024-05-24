@@ -62,16 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     tourCard.appendChild(truckInfo);
                 }
 
-                if (customer) {
-                    const customerTitle = document.createElement('h3');
-                    customerTitle.textContent = `Customer ${customer.customerID}: ${customer.customerName}`;
-                    tourCard.appendChild(customerTitle);
-                } else {
-                    const customerInfo = document.createElement('p');
-                    customerInfo.textContent = `Customer details not found for Tour ${tour.id}`;
-                    tourCard.appendChild(customerInfo);
-                }
-
                 const packagesTitle = document.createElement('h2');
                 packagesTitle.textContent = `Packages in Tour:`;
                 packagesTitle.classList.add('packages-title');
@@ -84,10 +74,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     const packageInfo = document.createElement('div');
                     packageInfo.classList.add('tour-info');
 
+                    // Find customer for this package
+                    const packageCustomer = customers.find(customer => customer.customerID === pkg.customerID);
+
                     packageInfo.innerHTML = `
                         <h3>Package ${pkg.packageID}</h3>
                         <p><strong>Weight:</strong> ${pkg.packageWeight} kg</p>
                         <p><strong>Delivery Address:</strong> ${pkg.deliveryAddress}</p>
+                        <p><strong>Customer:</strong> ${packageCustomer ? packageCustomer.customerName : 'Customer details not found'}</p>
                     `;
 
                     packageContainer.appendChild(packageInfo);
@@ -112,11 +106,9 @@ function changeToTruckplanningWindow() {
   } else {
     window.location.href = "../Valo_Truckplanning/truckplanning.html";
   }
-    
 }
 
-
-//ALERT FUNCTIONS
+// ALERT FUNCTIONS
 function showAlert(message) {
     const customAlert = document.getElementById('customAlert');
     const alertMessage = document.getElementById('alertMessage');
@@ -133,10 +125,8 @@ function hideAlert() {
 // Event listener for closing the custom alert
 document.getElementById('closeAlertButton').addEventListener('click', hideAlert);
 
-
-
-//LOGIN FUNCTIONS
-  document.addEventListener('DOMContentLoaded', function() {
+// LOGIN FUNCTIONS
+document.addEventListener('DOMContentLoaded', function() {
     // Update login/register button text based on login status in localStorage
     const loginButton = document.getElementById('loginRegisterButton');
     const loginStatus = localStorage.getItem('loginStatus');
@@ -148,13 +138,13 @@ document.getElementById('closeAlertButton').addEventListener('click', hideAlert)
     }
 });
 
-function loginRegisterButtonClick(){
-    if (document.getElementById('loginRegisterButton').textContent === 'Logout'){
+function loginRegisterButtonClick() {
+    if (document.getElementById('loginRegisterButton').textContent === 'Logout') {
         var username = localStorage.getItem('userName')
         const logoutData = {
             userName: username,
         };
-    
+
         fetch('http://localhost:8080/users/logout', {
             method: 'POST',
             headers: {
@@ -170,26 +160,22 @@ function loginRegisterButtonClick(){
             return response.json(); // Parse response JSON
         })
         .then(data => {
-            
-    
             // Alert success message (replace with your actual success handling)
             showAlert('Logout successful!');
-    
-            
+
             localStorage.setItem('loginStatus', 'Login');
             localStorage.setItem('userName', null)
             localStorage.setItem('token', null)
             // Update login/register button text to 'Login'
             document.getElementById('loginRegisterButton').textContent = 'Login';
-
         })
         .catch(error => {
             console.error('Error:', error);
-    
+
             // Display a generic error message for any other types of errors
             showAlert('An error occurred, please try again.');
         });
-    }  else{
+    } else {
         window.location.href = '../Valo_Login/login.html';
     }
 }

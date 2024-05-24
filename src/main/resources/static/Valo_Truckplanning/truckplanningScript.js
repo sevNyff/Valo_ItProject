@@ -168,13 +168,14 @@ async function calculateRoute(event) {
     // Iterate over each package info container to extract package data
     packageContainers.forEach(container => {
         const packageWeightInput = container.querySelector('input[type="number"]');
-        const deliveryAddressInput = container.querySelector('input[type="text"]');
+        const deliveryAddressSelect = container.querySelector('select[id^=deliveryAddress]');
 
         const packageWeight = parseFloat(packageWeightInput.value);
-        const deliveryAddress = deliveryAddressInput.value.trim();
+        const deliveryAddress = deliveryAddressSelect.options[deliveryAddressSelect.selectedIndex];
+        const deliveryAddressText = deliveryAddress.textContent;
 
         // Get the selected customer option from the dropdown within the package
-        const customerSelect = container.querySelector('select');
+        const customerSelect = container.querySelector('select[id^=customerSelect]');
         const selectedCustomerOption = customerSelect.options[customerSelect.selectedIndex];
 
         // Extract the customer ID from the selected option text
@@ -184,7 +185,7 @@ async function calculateRoute(event) {
         if (packageWeight > 0 && deliveryAddress !== '') {
             const packageData = {
                 packageWeight: packageWeight,
-                deliveryAddress: deliveryAddress,
+                deliveryAddress: deliveryAddressText,
                 customerID: selectedCustomerId
             };
             packages.push(packageData);
@@ -222,39 +223,47 @@ async function calculateRoute(event) {
         console.log('Generated Route Data:', responseData);
 
         
-// Recreate packages in the tour based on the response data
-responseData.packages.forEach((packageData, index) => {
-    // Skip the first package (null)
-    if (index === 0 || !packageData) {
-        return;
-    }
+    // Recreate packages in the tour based on the response data
+    responseData.packages.forEach((packageData, index) => {
+        if (!packageData) {
+            return;
+        }
 
-    // Find the corresponding package container based on index
-    const packageContainer = planningCard.querySelectorAll('.planningPackage-info')[index - 1];
-    if (!packageContainer) {
-        console.warn(`Package container not found for index ${index}. Skipping.`);
-        return; // Skip this iteration if package container is not found
-    }
+        // Find the corresponding package container based on index
+        const packageContainer = planningCard.querySelectorAll('.planningPackage-info')[index];
+        if (!packageContainer) {
+            console.warn(`Package container not found for index ${index}. Skipping.`);
+            return; // Skip this iteration if package container is not found
+        }
 
-    // Fill in the package details in the corresponding package container
-    const packageWeightInput = packageContainer.querySelector('input[type="number"]');
-    const deliveryAddressInput = packageContainer.querySelector('input[type="text"]');
+        // Fill in the package details in the corresponding package container
+        const packageWeightInput = packageContainer.querySelector('input[type="number"]');
 
-    packageWeightInput.value = packageData.packageWeight || 0;
-    deliveryAddressInput.value = packageData.deliveryAddress || '';
+        packageWeightInput.value = packageData.packageWeight || 0;
 
-    // Find the corresponding customer and select it
-    const customerSelect = packageContainer.querySelector('select');
-    const optionIndex = [...customerSelect.options].findIndex(option => option.textContent.includes(`Customer ${packageData.customerID}`));
-    if (optionIndex !== -1) {
-        customerSelect.selectedIndex = optionIndex;
-    } else {
-        console.warn(`Customer ${packageData.customerID} not found in dropdown.`);
-    }
-});
+        // Find the corresponding deliveryAddress and select it
+        const deliveryAddressSelect = packageContainer.querySelector('select[id^=deliveryAddress]');
+        const optionIndexAddress = [...deliveryAddressSelect.options].findIndex(option => option.textContent === deliveryAddressText);
+        if (optionIndexAddress !== -1) {
+            deliveryAddressSelect.selectedIndex = optionIndex;
+        } else {
+            console.warn(`Delivery address '${deliveryAddressText}' not found in dropdown.`);
+        }
 
-// Update available capacity after updating packages
-updateAvailableCapacity(planningCard);
+        
+
+        // Find the corresponding customer and select it
+        const customerSelect = packageContainer.querySelector('select[id^=customerSelect]');
+        const optionIndexCustomer = [...customerSelect.options].findIndex(option => option.textContent.includes(`Customer ${packageData.customerID}`));
+        if (optionIndexCustomer !== -1) {
+            customerSelect.selectedIndex = optionIndex;
+        } else {
+            console.warn(`Customer ${packageData.customerID} not found in dropdown.`);
+        }
+    });
+
+    // Update available capacity after updating packages
+    updateAvailableCapacity(planningCard);
 
 
     } catch (error) {
@@ -292,10 +301,13 @@ function createPackage() {
     newPackage.innerHTML = `
         <h3>Package ${nextPackageNumber}</h3>
         <label>Package Weight (kg):</label>
+        <br>
         <input type="number" id="packageWeight${nextPackageNumber}" onchange="updateAvailableCapacity(this)">
         <br>
         <label>Delivery Address:</label>
-        <input type="text" id="deliveryAddress${nextPackageNumber}">
+        <br>
+        <select id="deliveryAddress${nextPackageNumber}"></select>
+        <br>
         <p>Select Customer:</p>
         <select id="customerSelect${nextPackageNumber}"></select>
         <button class="delete-button" onclick="deletePackage(event)">x</button>
@@ -312,7 +324,60 @@ function createPackage() {
 
     // Update available capacity
     updateAvailableCapacity(planningCard);
+
+    // Fetch and populate delivery addresses for the new package only
+    const deliveryAddressSelect = newPackage.querySelector(`#deliveryAddress${nextPackageNumber}`);
+    fetchAndPopulateDeliveryAddresses(deliveryAddressSelect);
 }
+
+async function fetchAndPopulateDeliveryAddresses(selectElement = null) {
+    try {
+        // Fetch the CSV file
+        const response = await fetch('../resources/nodesTours.csv');
+        if (!response.ok) {
+            throw new Error('Failed to fetch CSV file');
+        }
+
+        const csvText = await response.text();
+
+        // Parse the CSV data
+        const parsedData = Papa.parse(csvText, {
+            header: false, // Indicate no headers in the CSV file
+            skipEmptyLines: true
+        });
+
+        if (parsedData.errors.length) {
+            console.error('Errors while parsing CSV:', parsedData.errors);
+            return;
+        }
+
+        // Extract the first column data
+        const addresses = parsedData.data.map(row => row[0]);
+
+        // Populate the select elements
+        populateSelectElements(addresses, selectElement);
+
+    } catch (error) {
+        console.error('Error fetching or parsing CSV:', error);
+    }
+}
+
+function populateSelectElements(addresses, selectElement) {
+    const selectElements = selectElement ? [selectElement] : document.querySelectorAll('[id^=deliveryAddress]');
+    selectElements.forEach(select => {
+        // Clear existing options
+        select.innerHTML = '';
+
+        addresses.forEach(address => {
+            const option = document.createElement('option');
+            option.value = address;
+            option.textContent = address;
+            select.appendChild(option);
+        });
+    });
+}
+
+
 
 
 function updateAvailableCapacity(planningCard) {
@@ -458,29 +523,30 @@ function saveTour(event) {
     // Iterate over each package info container to extract package data
     packageContainers.forEach(container => {
         const packageWeightInput = container.querySelector('input[type="number"]');
-        const deliveryAddressInput = container.querySelector('input[type="text"]');
+        const deliveryAddressSelect = container.querySelector('select[id^=deliveryAddress]');
 
         const packageWeight = parseFloat(packageWeightInput.value);
-        const deliveryAddress = deliveryAddressInput.value.trim();
+        const deliveryAddress = deliveryAddressSelect.options[deliveryAddressSelect.selectedIndex];
+        const deliveryAddressText = deliveryAddress.textContent;
 
         // Get the selected customer option from the dropdown within the package
-        const customerSelect = container.querySelector('select');
+        const customerSelect = container.querySelector('select[id^=customerSelect]');
         const selectedCustomerOption = customerSelect.options[customerSelect.selectedIndex];
 
         // Extract the customer ID from the selected option text
         const customerOptionText = selectedCustomerOption.textContent;
         const selectedCustomerId = extractCustomerId(customerOptionText);
 
-        if (packageWeight > 0 && deliveryAddress !== '') {
+        if (packageWeight > 0 && deliveryAddressText !== '') {
             const packageData = {
                 packageWeight: packageWeight,
-                deliveryAddress: deliveryAddress,
+                deliveryAddress: deliveryAddressText,
                 customerID: selectedCustomerId
             };
             packages.push(packageData);
         } else {
             isValid = false;
-            console.warn('Invalid package data found:', packageWeight, deliveryAddress);
+            console.warn('Invalid package data found:', packageWeight, deliveryAddressText);
         }
     });
 

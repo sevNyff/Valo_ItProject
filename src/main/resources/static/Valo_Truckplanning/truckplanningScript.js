@@ -121,6 +121,7 @@ document.addEventListener('click', function(event) {
 
 
 async function calculateRoute(event) {
+    showLoader();
     // Ensure event is passed correctly
     if (!event) {
         console.error('Event object not provided.');
@@ -206,6 +207,8 @@ async function calculateRoute(event) {
         packages: packages
     };
 
+    
+
     try {
         const response = await fetch('http://localhost:8080/tours/generate', {
             method: 'POST',
@@ -243,9 +246,9 @@ async function calculateRoute(event) {
 
         // Find the corresponding deliveryAddress and select it
         const deliveryAddressSelect = packageContainer.querySelector('select[id^=deliveryAddress]');
-        const optionIndexAddress = [...deliveryAddressSelect.options].findIndex(option => option.textContent === deliveryAddressText);
+        const optionIndexAddress = [...deliveryAddressSelect.options].findIndex(option => option.textContent === packageData.deliveryAddress);
         if (optionIndexAddress !== -1) {
-            deliveryAddressSelect.selectedIndex = optionIndex;
+            deliveryAddressSelect.selectedIndex = optionIndexAddress;
         } else {
             console.warn(`Delivery address '${deliveryAddressText}' not found in dropdown.`);
         }
@@ -256,7 +259,7 @@ async function calculateRoute(event) {
         const customerSelect = packageContainer.querySelector('select[id^=customerSelect]');
         const optionIndexCustomer = [...customerSelect.options].findIndex(option => option.textContent.includes(`Customer ${packageData.customerID}`));
         if (optionIndexCustomer !== -1) {
-            customerSelect.selectedIndex = optionIndex;
+            customerSelect.selectedIndex = optionIndexCustomer;
         } else {
             console.warn(`Customer ${packageData.customerID} not found in dropdown.`);
         }
@@ -264,11 +267,14 @@ async function calculateRoute(event) {
 
     // Update available capacity after updating packages
     updateAvailableCapacity(planningCard);
-
+    
 
     } catch (error) {
         console.error('Error calculating route:', error);
         showAlert('Failed to calculate route. Please try again.');
+        
+    } finally{
+        hideLoader();
     }
 }
 
@@ -467,6 +473,7 @@ function deleteTour(event) {
 
 
 function saveTour(event) {
+    showLoader();
     // Ensure event is passed correctly
     if (!event) {
         console.error('Event object not provided.');
@@ -560,7 +567,7 @@ function saveTour(event) {
         truckID: selectedTruckId,
         packages: packages
     };
-
+    
     fetch('http://localhost:8080/tours/save', {
         method: 'POST',
         headers: {
@@ -584,8 +591,26 @@ function saveTour(event) {
     .catch(error => {
         console.error('Error saving tour:', error);
         showAlert('Failed to save tour. Please try again.');
-        
-    });
+    })
+    .finally(
+        hideLoader()
+    );
+}
+
+
+
+
+//Loader functions from https://www.youtube.com/watch?v=yDL04vG1ed4
+
+function showLoader(){
+    const loaderDiv = document.getElementById('loader');
+    console.log('showLoader called');
+    loaderDiv.classList.add('show');
+}
+function hideLoader(){
+    const loaderDiv = document.getElementById('loader');
+    console.log('hideLoader called');
+    loaderDiv.classList.remove('show');
 }
 
 

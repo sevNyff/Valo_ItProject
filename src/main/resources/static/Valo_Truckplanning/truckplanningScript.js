@@ -13,8 +13,6 @@ function startNewPlanning() {
             <h3>New Planning</h3>
             <p>Select Truck:</p>
             <select id="truckSelect" onchange="updateAvailableCapacity(this.options[this.selectedIndex])"></select>
-            <p>Select Customer:</p>
-            <select id="customerSelect"></select>
             <p id="availableCapacityLabel">Available Capacity: 0 kg</p>
             <button onclick="createPackage()">Create Package</button>
             <button onclick="saveTour(event)" data-action="saveTour" class="saveTour-button">Save Tour</button>
@@ -31,7 +29,7 @@ function startNewPlanning() {
 
     // Fetch trucks and customers and populate the dropdowns
     fetchTrucksForDropdown();
-    fetchCustomersForDropdown();
+    
 }
 
 async function fetchTrucksForDropdown() {
@@ -59,14 +57,13 @@ async function fetchTrucksForDropdown() {
     }
 }
 
-async function fetchCustomersForDropdown() {
+async function fetchCustomersForDropdown(customerSelect) {
     try {
         const response = await fetch('http://localhost:8080/customers');
         const customers = await response.json();
 
         console.log('Fetched Customers:', customers); // Check fetched customers
 
-        const customerSelect = document.getElementById('customerSelect');
         customerSelect.innerHTML = ''; // Clear existing options
 
         customers.forEach(customer => {
@@ -80,6 +77,7 @@ async function fetchCustomersForDropdown() {
         console.error('Error fetching customers for dropdown:', error);
     }
 }
+
 
 function handleTruckSelectionChange(event) {
     const selectedOption = event.target.options[event.target.selectedIndex];
@@ -136,15 +134,24 @@ function createPackage() {
         <br>
         <label>Delivery Address:</label>
         <input type="text" id="deliveryAddress${nextPackageNumber}">
+        <p>Select Customer:</p>
+        <select id="customerSelect${nextPackageNumber}"></select>
         <button class="delete-button" onclick="deletePackage(event)">x</button>
     `;
 
     // Insert the new package below the fixed buttons
     packageContainer.appendChild(newPackage);
 
+    // Get the newly created customer select element
+    const customerSelect = newPackage.querySelector(`#customerSelect${nextPackageNumber}`);
+
+    // Fetch customers for the newly created dropdown
+    fetchCustomersForDropdown(customerSelect);
+
     // Update available capacity
     updateAvailableCapacity(planningCard);
 }
+
 
 function updateAvailableCapacity(planningCard) {
     const truckSelect = planningCard.querySelector('#truckSelect');
@@ -247,7 +254,13 @@ function deleteTour(event) {
 }
 
 
-function saveTour(planningCard, event) {
+function saveTour(event) {
+    // Ensure event is passed correctly
+    if (!event) {
+        console.error('Event object not provided.');
+        return;
+    }
+    
     // Get the authentication token from localStorage
     const token = localStorage.getItem('token');
 
@@ -255,6 +268,7 @@ function saveTour(planningCard, event) {
     const saveButton = event.target;
 
     // Find the parent planning card (tour) of the save button
+    const planningCard = saveButton.closest('.planning-card');
     if (!planningCard) {
         console.error('Planning card not found.');
         return;
@@ -267,14 +281,6 @@ function saveTour(planningCard, event) {
     // Extract the truck ID from the selected option text
     const truckOptionText = selectedTruckOption.textContent;
     const selectedTruckId = extractTruckId(truckOptionText);
-
-    // Get the selected customer option from the dropdown within the planning card
-    const customerSelect = planningCard.querySelector('#customerSelect');
-    const selectedCustomerOption = customerSelect.options[customerSelect.selectedIndex];
-
-    // Extract the customer ID from the selected option text
-    const customerOptionText = selectedCustomerOption.textContent;
-    const selectedCustomerId = extractCustomerId(customerOptionText);
 
     // Get all package info containers under the current planning card
     const packageContainers = planningCard.querySelectorAll('.planningPackage-info');
@@ -310,10 +316,19 @@ function saveTour(planningCard, event) {
         const packageWeight = parseFloat(packageWeightInput.value);
         const deliveryAddress = deliveryAddressInput.value.trim();
 
+        // Get the selected customer option from the dropdown within the package
+        const customerSelect = container.querySelector('select');
+        const selectedCustomerOption = customerSelect.options[customerSelect.selectedIndex];
+
+        // Extract the customer ID from the selected option text
+        const customerOptionText = selectedCustomerOption.textContent;
+        const selectedCustomerId = extractCustomerId(customerOptionText);
+
         if (packageWeight > 0 && deliveryAddress !== '') {
             const packageData = {
                 packageWeight: packageWeight,
-                deliveryAddress: deliveryAddress
+                deliveryAddress: deliveryAddress,
+                customerID: selectedCustomerId
             };
             packages.push(packageData);
         } else {
@@ -330,7 +345,6 @@ function saveTour(planningCard, event) {
     const payload = {
         token: token,
         truckID: selectedTruckId,
-        customerID: selectedCustomerId,
         packages: packages
     };
 
@@ -360,6 +374,7 @@ function saveTour(planningCard, event) {
         
     });
 }
+
 
 
 // Event listener for dragover to show drop indicator

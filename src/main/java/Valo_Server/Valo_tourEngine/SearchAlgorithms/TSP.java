@@ -13,7 +13,6 @@ public class TSP {
     private static Map<String, MapData.GPS> nodeList;
 
     public static ArrayList<String> runTSP(String start, ArrayList<String> stops) {
-        // Compute the shortest path covering all stops using a simple heuristic approach
         ArrayList<String> result = new ArrayList<>();
         MapData data = null;
         try {
@@ -31,7 +30,7 @@ public class TSP {
         String currentNode = start;
 
             for (String stop : orderedStops) {
-                Path path = TSP(currentNode, stop);
+                Path path = AStar(currentNode, stop);
                 if (path == null) {
                     System.out.println("No path found from " + currentNode + " to " + stop);
                     return result;
@@ -61,7 +60,7 @@ public class TSP {
         return nodes;
     }
 
-    private static Path TSP(String start, String end) {
+    private static Path AStar(String start, String end) {
         ArrayList<Path> paths = new ArrayList<>();
         ArrayList<String> startingNodeList = new ArrayList<>();
         startingNodeList.add(start);

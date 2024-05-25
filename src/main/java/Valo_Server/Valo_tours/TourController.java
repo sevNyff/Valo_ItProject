@@ -22,7 +22,6 @@ public class TourController {
 
     @PostMapping("/tours/quit")
     Tour tourDelete(@RequestBody Tour tour) {
-        // Villicht ned mid em token validate sondern mit de ID
         if (Token.validate(tour.getToken())) {
             tourRepository.delete(tour);
             return tour;
@@ -30,7 +29,6 @@ public class TourController {
             throw new TourException("Invalid token");
         }
     }
-
     @PostMapping("/tours/save")
     Tour tourSave(@RequestBody Tour tour) {
         if (Token.validate(tour.getToken())) {

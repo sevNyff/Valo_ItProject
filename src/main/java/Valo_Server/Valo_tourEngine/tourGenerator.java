@@ -17,33 +17,28 @@ public class tourGenerator {
         ArrayList<String> destinations = new ArrayList<>();
         Map<String, List<Package>> addressToPackageMap = new HashMap<>();
 
-        // Create a mapping from address to List<Package> and collect addresses
         for (Package pck : packages) {
             String address = pck.getDeliveryAddress();
             destinations.add(address);
             addressToPackageMap.computeIfAbsent(address, k -> new ArrayList<>()).add(pck); //Falls destinations noch nicht existiert, dann eine neue List erstellen.
         }
 
-        // Get the optimal route from TSP
         System.out.println("Stops: " + destinations);
         ArrayList<String> result = TSP.runTSP("Bern", destinations);
         String distance = result.get(result.size() - 1);
         double totalDistance = Double.parseDouble(distance);
         result.remove(distance);
 
-        // Rearrange packages according to the optimal route
         List<Package> optimalRoutePackages = new ArrayList<>();
         for (String address : result) {
             List<Package> packageList = addressToPackageMap.get(address);
             if (packageList != null && !packageList.isEmpty()) {
-                optimalRoutePackages.add(packageList.remove(0)); // Remove the package from the list after adding to the optimal route
+                optimalRoutePackages.add(packageList.remove(0));
             }
         }
 
-        // Update the tour with the optimal route packages
         tour.setPackages(optimalRoutePackages);
 
-        // Calculate the total travel time
         double time = totalDistance / 80;  // Approximately 80 km/h on average
         time = round(time, 2);
         totalDistance = round(totalDistance, 2);

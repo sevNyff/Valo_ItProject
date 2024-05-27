@@ -3,6 +3,7 @@ Valo_Server\Valo_truck\TruckExceptionHandler.class
 Valo_Server\Valo_customer\Customer.class
 Valo_Server\Valo_packages\PackageExceptionHandler.class
 Valo_Server\Valo_tourEngine\SearchAlgorithms\AStar.class
+Valo_Server\Valo_tourEngine\SearchAlgorithms\TSP.class
 Valo_Server\Valo_tourEngine\SearchAlgorithms\MapData.class
 Valo_Server\Valo_helper\DBinitializer.class
 Valo_Server\Valo_truck\TruckException.class
@@ -19,6 +20,7 @@ Valo_Server\Valo_packages\Package.class
 Valo_Server\Valo_user\User.class
 Valo_Server\Valo_customer\CustomerRepository.class
 Valo_Server\Valo_tourEngine\SearchAlgorithms\BestFirst.class
+Valo_Server\Valo_tourEngine\SearchAlgorithms\TSP$Path.class
 Valo_Server\Valo_tours\TourExceptionHandler.class
 Valo_Server\Valo_tourEngine\tourGenerator.class
 Valo_Server\Valo_tourEngine\SearchAlgorithms\MapData$GPS.class

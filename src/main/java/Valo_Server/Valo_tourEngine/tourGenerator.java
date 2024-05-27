@@ -24,7 +24,7 @@ public class tourGenerator {
         }
 
         System.out.println("Stops: " + destinations);
-        ArrayList<String> result = TSP.runTSP("Bern", destinations);
+        ArrayList<String> result = TSP.runTSP("Olten SO", destinations);
         String distance = result.get(result.size() - 1);
         double totalDistance = Double.parseDouble(distance);
         result.remove(distance);

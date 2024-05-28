@@ -39,7 +39,7 @@ public class PackageController {
             tourTemp.setPackages(packages);
             tourRepository.save(tourTemp);
 
-            return "Package saved";
+            return "{ \"Package\":\"saved\" }";
         } else {
             throw new PackageException("Invalid token");
         }

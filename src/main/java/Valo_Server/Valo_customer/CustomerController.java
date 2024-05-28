@@ -23,12 +23,11 @@ public class CustomerController {
     CustomerController(CustomerRepository repository) {CustomerController.repository = repository;}
 
     @PostMapping("/customers/new")
-    public int newCustomer(@RequestBody Customer customer) {
+    Customer newCustomer(@RequestBody Customer customer) {
         if (Token.validate(customer.getToken())) {
-            System.out.println(customer.toString());
             Customer customer1 = new Customer(customer.getCustomerName(), customer.getAddressName(), customer.getCityName());
             repository.save(customer1);
-            return customer1.getCustomerID();
+            return customer1;
         } else {
             throw new CustomerException("Invalid token");
         }
@@ -39,7 +38,7 @@ public class CustomerController {
         if (oldCustomer.isPresent()) {
             Customer customer = oldCustomer.get();
             repository.delete(customer);
-            return "Customer deleted";
+            return "{ \"Customer\":\"deleted\" }";
         } else {
             throw new NoSuchElementException("No customer found with ID " + CustomerID);
         }

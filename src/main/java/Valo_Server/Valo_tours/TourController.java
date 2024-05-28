@@ -21,10 +21,10 @@ public class TourController {
     private TourRepository tourRepository;
 
     @PostMapping("/tours/quit")
-    Tour tourDelete(@RequestBody Tour tour) {
+    public String tourDelete(@RequestBody Tour tour) {
         if (Token.validate(tour.getToken())) {
             tourRepository.delete(tour);
-            return tour;
+            return "{ \"tour\":\"deleted\" }";
         } else {
             throw new TourException("Invalid token");
         }

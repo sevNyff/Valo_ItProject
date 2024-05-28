@@ -45,7 +45,8 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"userName\":\"tester\",\"password\":\"tester\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName").value("tester"));
+                .andExpect(jsonPath("$.userName").value("tester"))
+                .andExpect(jsonPath("$.password").value(""));
                 //.andExpect(jsonPath("$.password").doesNotExist());
 
     }
@@ -62,7 +63,8 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"userName\":\"tester\",\"password\":\"tester\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName").value("tester"));
+                .andExpect(jsonPath("$.userName").value("tester"))
+                .andExpect(jsonPath("$.password").value(""));
                 //.andExpect(jsonPath("$.token").value(Token.validate()))
     }
 
@@ -90,7 +92,8 @@ public class UserControllerTest {
 
         mvc.perform(MockMvcRequestBuilders.get("/users/tester"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName").value("tester"));
+                .andExpect(jsonPath("$.userName").value("tester"))
+                .andExpect(jsonPath("$.password").value(""));
     }
 
     @Test

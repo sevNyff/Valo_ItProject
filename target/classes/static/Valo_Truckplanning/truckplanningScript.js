@@ -117,7 +117,6 @@ document.addEventListener('click', function(event) {
 
 
 async function calculateRoute(event) {
-    showLoader();
     if (!event) {
         console.error('Event object not provided.');
         return;
@@ -246,9 +245,7 @@ async function calculateRoute(event) {
         console.error('Error calculating route:', error);
         showAlert('Failed to calculate route. Please try again.');
         
-    } finally{
-        hideLoader();
-    }
+    } 
 }
 
 
@@ -668,6 +665,12 @@ document.getElementById('closeAlertButton').addEventListener('click', hideAlert)
   document.addEventListener('DOMContentLoaded', function() {
     const loginButton = document.getElementById('loginRegisterButton');
     const loginStatus = localStorage.getItem('loginStatus');
+
+    // Initialize loginStatus if it's not set in localStorage
+    if (!loginStatus) {
+        localStorage.setItem('loginStatus', 'Login');
+        loginStatus = 'Login';
+    }
 
     if (loginStatus === 'Logout') {
         loginButton.textContent = 'Logout';

@@ -430,7 +430,6 @@ function deleteTour(event) {
 
 
 function saveTour(event) {
-    showLoader();
     if (!event) {
         console.error('Event object not provided.');
         return;
@@ -529,32 +528,14 @@ function saveTour(event) {
         console.log('Save Tour Successful:', data);
         showAlert('Tour saved successfully!');
         planningCard.remove();
-        
     })
     .catch(error => {
         console.error('Error saving tour:', error);
         showAlert('Failed to save tour. Please try again.');
     })
-    .finally(
-        hideLoader()
-    );
+    
 }
 
-
-
-
-//Loader functions from https://www.youtube.com/watch?v=yDL04vG1ed4
-
-function showLoader(){
-    const loaderDiv = document.getElementById('loader');
-    console.log('showLoader called');
-    loaderDiv.classList.add('show');
-}
-function hideLoader(){
-    const loaderDiv = document.getElementById('loader');
-    console.log('hideLoader called');
-    loaderDiv.classList.remove('show');
-}
 
 
 

@@ -38,7 +38,7 @@ public class CustomerController {
         if (oldCustomer.isPresent()) {
             Customer customer = oldCustomer.get();
             repository.delete(customer);
-            return "{ \"Customer\":\"deleted\" }";
+            return "{ \"Package\":\"deleted\" }";
         } else {
             throw new NoSuchElementException("No customer found with ID " + CustomerID);
         }
@@ -48,10 +48,10 @@ public class CustomerController {
         return repository.findAll();
     }
 
-    @GetMapping("customers/{CustomerID}")
-    Customer one(@PathVariable int TruckID) {
-        return repository.findById(TruckID)
-                .orElseThrow(() -> new CustomerException("\"" + TruckID + "\" does not exist"));
+    @GetMapping("/customers/{CustomerID}")
+    Customer one(@PathVariable int CustomerID) {
+        return repository.findById(CustomerID)
+                .orElseThrow(() -> new CustomerException("\"" + CustomerID + "\" does not exist"));
     }
     public static CustomerRepository getRepository() {return repository;}
 }

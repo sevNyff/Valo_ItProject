@@ -8,22 +8,25 @@ To check the H2 Database:
 
 What format does the server accept?
 - To logIn and register: { "userName":"Anna","password":"anna"}
-- To save a tour: 
-{
-  "token":"4973f25082f76000",
-  "truckID":"7888",
+- To save a tour:
+  {
+  "token":"429f0c26e40ec800",
+  "truckID":"2",
   "packages": [
-  {
-  "packageWeight": "34",
-  "deliveryAddress": "Brugg"
-  },
-  {
-  "packageWeight": "23",
-  "deliveryAddress": "Aarau"
-  },
-  {
-  "packageWeight": "235",
-  "deliveryAddress": "Baden"
-  }
+        {
+            "packageWeight": "1",
+            "deliveryAddress": "Brugg AG",
+            "customerID":"3"
+        },
+        {
+            "packageWeight": "1",
+            "deliveryAddress": "Bern",
+            "customerID":"3"
+        },
+        {
+            "packageWeight": "1",
+            "deliveryAddress": "Zürich",
+            "customerID":"3"
+        }
   ]
   }

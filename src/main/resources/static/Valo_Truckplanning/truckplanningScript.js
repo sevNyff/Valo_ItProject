@@ -117,7 +117,6 @@ document.addEventListener('click', function(event) {
 
 
 async function calculateRoute(event) {
-    showLoader();
     if (!event) {
         console.error('Event object not provided.');
         return;
@@ -246,9 +245,7 @@ async function calculateRoute(event) {
         console.error('Error calculating route:', error);
         showAlert('Failed to calculate route. Please try again.');
         
-    } finally{
-        hideLoader();
-    }
+    } 
 }
 
 

@@ -34,22 +34,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     // Function to handle the "Delete" button click
-    function handleDeleteButtonClick(event) {
-      const truckId = event.target.dataset.truckId;
-  
-      fetch(`http://localhost:8080/trucks/delete/${truckId}`, {
-        method: 'GET'
-      })
-        .then(response => response.text())
-        .then(message => {
-          showAlert(message);
-          event.target.closest('.truck-card').remove();
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          showAlert('An error occurred. Please try again.');
-        });
-    }
+function handleDeleteButtonClick(event) {
+  const truckId = event.target.dataset.truckId;
+
+  fetch(`http://localhost:8080/trucks/delete/${truckId}`, {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.truck === "deleted") {
+        showAlert('Truck has been successfully deleted.');
+        event.target.closest('.truck-card').remove();
+      } else {
+        showAlert('Unexpected response from server.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showAlert('An error occurred. Please try again.');
+    });
+}
 
     fetchTrucks();
   });

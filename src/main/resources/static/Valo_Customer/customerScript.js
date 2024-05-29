@@ -34,17 +34,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
   
-    // Function to handle the "Delete" button click
     function handleDeleteButtonClick(event) {
       const customerId = event.target.dataset.customerId;
-  
+    
       fetch(`http://localhost:8080/customers/delete/${customerId}`, {
         method: 'GET'
       })
-        .then(response => response.text())
-        .then(message => {
-          showAlert(message);
-          event.target.closest('.customer-card').remove();
+        .then(response => response.json())
+        .then(data => {
+          if (data.Customer === "deleted") {
+            showAlert('Customer has been successfully deleted.');
+            event.target.closest('.customer-card').remove();
+          } else {
+            showAlert('Unexpected response from server.');
+          }
         })
         .catch(error => {
           console.error('Error:', error);

@@ -94,7 +94,7 @@ public class CustomerControllerTest {
         Customer customer = new Customer("Hans Mustermann", "Hauptstrasse 45", "Zürich");
         customer.setToken(LoginToken);
 
-        when(customerRepository.findById(customer.getCustomerID())).thenReturn(Optional.empty());
+        when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
         when(customerRepository.save(any(Customer.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         mvc.perform(MockMvcRequestBuilders.get("/customers/delete/1"))

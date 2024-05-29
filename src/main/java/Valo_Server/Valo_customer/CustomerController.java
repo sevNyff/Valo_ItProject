@@ -43,7 +43,6 @@ public class CustomerController {
             throw new NoSuchElementException("No customer found with ID " + CustomerID);
         }
     }
-
     @GetMapping("/customers")
     List<Customer> all() {
         return repository.findAll();
@@ -54,7 +53,6 @@ public class CustomerController {
         return repository.findById(TruckID)
                 .orElseThrow(() -> new CustomerException("\"" + TruckID + "\" does not exist"));
     }
-
     public static CustomerRepository getRepository() {return repository;}
 }
 

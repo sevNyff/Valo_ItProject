@@ -16,10 +16,7 @@ public class Truck {
     @Transient
     private String token;
 
-    public Truck() {
-        // Default constructor
-    }
-
+    public Truck() {}
     public Truck(String brandName, Integer truckCapacity){
         this.brandName = brandName;
         this.truckCapacity = truckCapacity;

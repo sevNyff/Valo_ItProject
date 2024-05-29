@@ -25,7 +25,6 @@ public class PackageController {
     @Autowired
     private PackageRepository packageRepository;
 
-
     @PostMapping("/packages/save/{ID}")
     public String savePackage(@RequestBody Package aPackage, @PathVariable int ID) {
         if (Token.validate(aPackage.getToken())) {

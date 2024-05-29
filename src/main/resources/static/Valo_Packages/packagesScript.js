@@ -15,17 +15,14 @@ document.addEventListener('DOMContentLoaded', function() {
           const packages = await packagesResponse.json();
           const customers = await customersResponse.json();
 
-          packagesContainer.innerHTML = ''; // Clear previous content
+          packagesContainer.innerHTML = '';
 
           packages.forEach(package => {
-              // Find the customer for this package
               const packageCustomer = customers.find(customer => customer.customerID === package.customerID);
 
-              // Create a div element for each package card
               const packageCard = document.createElement('div');
               packageCard.classList.add('package-card');
 
-              // Populate package card with package information
               packageCard.innerHTML = `
                   <div class="package-info">
                       <h2>Package ${package.packageID}</h2>
@@ -35,15 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
                   </div>
               `;
 
-              // Append package card to packagesContainer
               packagesContainer.appendChild(packageCard);
           });
       } catch (error) {
           console.error('Error fetching packages:', error);
       }
   }
-
-  // Load packages when DOM content is loaded
   fetchPackages();
 });
 
@@ -61,12 +55,10 @@ function hideAlert() {
   customAlert.style.display = 'none';
 }
 
-// Event listener for closing the custom alert
 document.getElementById('closeAlertButton').addEventListener('click', hideAlert);
 
 // LOGIN FUNCTIONS
 document.addEventListener('DOMContentLoaded', function() {
-  // Update login/register button text based on login status in localStorage
   const loginButton = document.getElementById('loginRegisterButton');
   const loginStatus = localStorage.getItem('loginStatus');
 
@@ -93,25 +85,21 @@ function loginRegisterButtonClick() {
       })
       .then(response => {
           if (!response.ok) {
-              // Server responded with an error status
               throw new Error('Error: ' + response.status);
           }
-          return response.json(); // Parse response JSON
+          return response.json();
       })
       .then(data => {
-          // Alert success message (replace with your actual success handling)
           showAlert('Logout successful!');
 
           localStorage.setItem('loginStatus', 'Login');
           localStorage.setItem('userName', null);
           localStorage.setItem('token', null);
-          // Update login/register button text to 'Login'
+
           document.getElementById('loginRegisterButton').textContent = 'Login';
       })
       .catch(error => {
           console.error('Error:', error);
-
-          // Display a generic error message for any other types of errors
           showAlert('An error occurred, please try again.');
       });
   } else {

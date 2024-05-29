@@ -7,14 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
       fetch('http://localhost:8080/customers')
         .then(response => response.json())
         .then(customers => {
-          customersContainer.innerHTML = ''; // Clear previous content
+          customersContainer.innerHTML = '';
   
           customers.forEach(customer => {
-            // Create a div element for each customer card
             const customerCard = document.createElement('div');
             customerCard.classList.add('customer-card');
   
-            // Populate customer card with customer information
             customerCard.innerHTML = `
               <div class="customer-info">
                 <h3>Customer ${customer.customerID}</h3>
@@ -25,10 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
               <button class="delete-button" data-customer-id="${customer.customerID}">x</button>
             `;
   
-            // Append customer card to customersContainer
             customersContainer.appendChild(customerCard);
   
-            // Attach event listener to the delete button
             const deleteButton = customerCard.querySelector('.delete-button');
             deleteButton.addEventListener('click', handleDeleteButtonClick);
           });
@@ -47,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
       })
         .then(response => response.text())
         .then(message => {
-          showAlert(message); // Display success message
-          event.target.closest('.customer-card').remove(); // Remove customer card from DOM
+          showAlert(message);
+          event.target.closest('.customer-card').remove();
         })
         .catch(error => {
           console.error('Error:', error);
@@ -56,11 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
   
-    // Load customers when DOM content is loaded
     fetchcustomers();
   });
   
-
+// Function to handle the Button to get to the add customer page
 function changeToAddCustomerPage(){
   var token = localStorage.getItem('token');
     
@@ -71,11 +66,11 @@ function changeToAddCustomerPage(){
   }
     
 }
-
+// Function to handle to get back to the custoemr page
 function backToCustomersButtonClick(){
     window.location.href = '../Valo_Customer/customers.html';
 }
-
+// Function to handle newCustomerButton click
 function newCustomerButtonClick() {
   var customerName = document.getElementById('name').value;
   var customerAddress = document.getElementById('address').value;
@@ -110,7 +105,6 @@ function newCustomerButtonClick() {
       return response.json();
   })
   .then(data => {
-      // Redirect to customers.html after successfully adding a new customer
       window.location.href = '../Valo_Customer/customers.html';
   })
   .catch(error => {
@@ -145,7 +139,6 @@ document.getElementById('closeAlertButton').addEventListener('click', hideAlert)
 
 //LOGIN FUNCTIONS
   document.addEventListener('DOMContentLoaded', function() {
-    // Update login/register button text based on login status in localStorage
     const loginButton = document.getElementById('loginRegisterButton');
     const loginStatus = localStorage.getItem('loginStatus');
 
@@ -172,29 +165,22 @@ function loginRegisterButtonClick(){
         })
         .then(response => {
             if (!response.ok) {
-                // Server responded with an error status
                 throw new Error('Error: ' + response.status);
             }
-            return response.json(); // Parse response JSON
+            return response.json();
         })
         .then(data => {
-            
-    
-            // Alert success message (replace with your actual success handling)
             showAlert('Logout successful!');
     
-            
             localStorage.setItem('loginStatus', 'Login');
             localStorage.setItem('userName', null)
             localStorage.setItem('token', null)
-            // Update login/register button text to 'Login'
+            
             document.getElementById('loginRegisterButton').textContent = 'Login';
 
         })
         .catch(error => {
             console.error('Error:', error);
-    
-            // Display a generic error message for any other types of errors
             showAlert('An error occurred, please try again.');
         });
     }  else{

@@ -25,7 +25,7 @@ function hideAlert() {
     customAlert.style.display = 'none';
 }
 
-// Event listener for closing the custom alert
+
 document.getElementById('closeAlertButton').addEventListener('click', hideAlert);
 
 
@@ -33,7 +33,6 @@ document.getElementById('closeAlertButton').addEventListener('click', hideAlert)
 
 //LOGIN FUNCTIONS
 document.addEventListener('DOMContentLoaded', function() {
-    // Update login/register button text based on login status in localStorage
     const loginButton = document.getElementById('loginRegisterButton');
     const loginStatus = localStorage.getItem('loginStatus');
 
@@ -60,29 +59,22 @@ function loginRegisterButtonClick(){
         })
         .then(response => {
             if (!response.ok) {
-                // Server responded with an error status
                 throw new Error('Error: ' + response.status);
             }
-            return response.json(); // Parse response JSON
+            return response.json(); 
         })
         .then(data => {
-            
-    
-            // Alert success message (replace with your actual success handling)
             showAlert('Logout successful!');
     
-            
             localStorage.setItem('loginStatus', 'Login');
             localStorage.setItem('userName', null)
             localStorage.setItem('token', null)
-            // Update login/register button text to 'Login'
             document.getElementById('loginRegisterButton').textContent = 'Login';
 
         })
         .catch(error => {
             console.error('Error:', error);
-    
-            // Display a generic error message for any other types of errors
+
             showAlert('An error occurred, please try again.');
         });
     }  else{

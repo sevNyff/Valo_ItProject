@@ -130,6 +130,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginButton = document.getElementById('loginRegisterButton');
     const loginStatus = localStorage.getItem('loginStatus');
 
+    // Initialize loginStatus if it's not set in localStorage
+    if (!loginStatus) {
+        localStorage.setItem('loginStatus', 'Login');
+        loginStatus = 'Login';
+    }
+
     if (loginStatus === 'Logout') {
         loginButton.textContent = 'Logout';
     } else {

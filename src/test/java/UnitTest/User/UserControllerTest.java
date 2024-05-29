@@ -84,7 +84,7 @@ public class UserControllerTest {
     public void getOneUserTest() throws Exception {
         User existingUser = new User();
         existingUser.setUserName("tester");
-        existingUser.setPassword("tester");
+        existingUser.setPassword("");
 
         when(userRepository.findById("tester")).thenReturn(Optional.of(existingUser));
 

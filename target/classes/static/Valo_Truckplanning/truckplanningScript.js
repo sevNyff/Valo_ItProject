@@ -3,11 +3,9 @@ function backToToursClick(){
 }
 
 function startNewPlanning() {
-    // Create a new planning card element
     const newPlanningCard = document.createElement('div');
     newPlanningCard.classList.add('planning-card');
 
-    // HTML content for the new planning card
     newPlanningCard.innerHTML = `
         <div class="card-header">
             <h3>New Planning</h3>
@@ -22,13 +20,11 @@ function startNewPlanning() {
         <div class="package-container"></div>
     `;
 
-    // Get the planning container
+ 
     const planningContainer = document.getElementById('plannningContainer');
 
-    // Insert the new planning card before the button
     planningContainer.insertBefore(newPlanningCard, planningContainer.firstChild);
 
-    // Fetch trucks and customers and populate the dropdowns
     fetchTrucksForDropdown();
     
 }
@@ -38,21 +34,21 @@ async function fetchTrucksForDropdown() {
         const response = await fetch('http://localhost:8080/trucks');
         const trucks = await response.json();
 
-        console.log('Fetched Trucks:', trucks); // Check fetched trucks
+        //Debugging functionality
+        console.log('Fetched Trucks:', trucks);
 
         const truckSelect = document.getElementById('truckSelect');
-        truckSelect.innerHTML = ''; // Clear existing options
+        truckSelect.innerHTML = ''; 
 
         trucks.forEach(truck => {
             const option = document.createElement('option');
             option.value = truck.truckID;
             option.textContent = `Truck ${truck.id} - ${truck.brandName}`;
-            option.dataset.capacity = truck.truckCapacity; // Store capacity as dataset attribute
+            option.dataset.capacity = truck.truckCapacity;
             truckSelect.appendChild(option);
         });
 
-        // Update the available capacity label initially
-        updateTruckCapacity(truckSelect.options[0]); // Check if options exist
+        updateTruckCapacity(truckSelect.options[0]);
     } catch (error) {
         console.error('Error fetching trucks for dropdown:', error);
     }
@@ -63,9 +59,9 @@ async function fetchCustomersForDropdown(customerSelect) {
         const response = await fetch('http://localhost:8080/customers');
         const customers = await response.json();
 
-        console.log('Fetched Customers:', customers); // Check fetched customers
+        console.log('Fetched Customers:', customers); 
 
-        customerSelect.innerHTML = ''; // Clear existing options
+        customerSelect.innerHTML = ''; 
 
         customers.forEach(customer => {
             const option = document.createElement('option');
@@ -82,7 +78,7 @@ async function fetchCustomersForDropdown(customerSelect) {
 
 function handleTruckSelectionChange(event) {
     const selectedOption = event.target.options[event.target.selectedIndex];
-    console.log('Selected Option:', selectedOption); // Check selected option
+    console.log('Selected Option:', selectedOption); 
     updateTruckCapacity(selectedOption);
 }
 
@@ -122,37 +118,29 @@ document.addEventListener('click', function(event) {
 
 async function calculateRoute(event) {
     showLoader();
-    // Ensure event is passed correctly
     if (!event) {
         console.error('Event object not provided.');
         return;
     }
     
-    // Get the authentication token from localStorage
     const token = localStorage.getItem('token');
 
-    // Get the button element that triggered the saveTour function
     const calculateButton = event.target;
 
-    // Find the parent planning card (tour) of the save button
     const planningCard = calculateButton.closest('.planning-card');
     if (!planningCard) {
         console.error('Planning card not found.');
         return;
     }
 
-    // Get the selected truck option from the dropdown within the planning card
     const truckSelect = planningCard.querySelector('#truckSelect');
     const selectedTruckOption = truckSelect.options[truckSelect.selectedIndex];
 
-    // Extract the truck ID from the selected option text
     const truckOptionText = selectedTruckOption.textContent;
     const selectedTruckId = extractTruckId(truckOptionText);
 
-    // Get all package info containers under the current planning card
     const packageContainers = planningCard.querySelectorAll('.planningPackage-info');
 
-    // Calculate total package weight
     let totalPackageWeight = 0;
 
     packageContainers.forEach(container => {
@@ -161,12 +149,9 @@ async function calculateRoute(event) {
         totalPackageWeight += packageWeight;
     });
     
-
-    // Prepare packages array to hold package details
     const packages = [];
     let isValid = true;
 
-    // Iterate over each package info container to extract package data
     packageContainers.forEach(container => {
         const packageWeightInput = container.querySelector('input[type="number"]');
         const deliveryAddressSelect = container.querySelector('select[id^=deliveryAddress]');
@@ -175,11 +160,9 @@ async function calculateRoute(event) {
         const deliveryAddress = deliveryAddressSelect.options[deliveryAddressSelect.selectedIndex];
         const deliveryAddressText = deliveryAddress.textContent;
 
-        // Get the selected customer option from the dropdown within the package
         const customerSelect = container.querySelector('select[id^=customerSelect]');
         const selectedCustomerOption = customerSelect.options[customerSelect.selectedIndex];
 
-        // Extract the customer ID from the selected option text
         const customerOptionText = selectedCustomerOption.textContent;
         const selectedCustomerId = extractCustomerId(customerOptionText);
 
@@ -225,26 +208,21 @@ async function calculateRoute(event) {
         const responseData = await response.json();
         console.log('Generated Route Data:', responseData);
 
-        
-    // Recreate packages in the tour based on the response data
     responseData.packages.forEach((packageData, index) => {
         if (!packageData) {
             return;
         }
 
-        // Find the corresponding package container based on index
         const packageContainer = planningCard.querySelectorAll('.planningPackage-info')[index];
         if (!packageContainer) {
             console.warn(`Package container not found for index ${index}. Skipping.`);
             return; // Skip this iteration if package container is not found
         }
 
-        // Fill in the package details in the corresponding package container
         const packageWeightInput = packageContainer.querySelector('input[type="number"]');
 
         packageWeightInput.value = packageData.packageWeight || 0;
 
-        // Find the corresponding deliveryAddress and select it
         const deliveryAddressSelect = packageContainer.querySelector('select[id^=deliveryAddress]');
         const optionIndexAddress = [...deliveryAddressSelect.options].findIndex(option => option.textContent === packageData.deliveryAddress);
         if (optionIndexAddress !== -1) {
@@ -253,9 +231,6 @@ async function calculateRoute(event) {
             console.warn(`Delivery address '${deliveryAddressText}' not found in dropdown.`);
         }
 
-        
-
-        // Find the corresponding customer and select it
         const customerSelect = packageContainer.querySelector('select[id^=customerSelect]');
         const optionIndexCustomer = [...customerSelect.options].findIndex(option => option.textContent.includes(`Customer ${packageData.customerID}`));
         if (optionIndexCustomer !== -1) {
@@ -265,10 +240,8 @@ async function calculateRoute(event) {
         }
     });
 
-    // Update available capacity after updating packages
     updateAvailableCapacity(planningCard);
     
-
     } catch (error) {
         console.error('Error calculating route:', error);
         showAlert('Failed to calculate route. Please try again.');
@@ -286,7 +259,6 @@ function createPackage() {
     const packageContainer = planningCard.querySelector('.package-container');
     const existingPackages = planningCard.querySelectorAll('.planningPackage-info');
 
-    // Determine the next available package number within this planning card
     let nextPackageNumber = 1;
     existingPackages.forEach(packageElement => {
         const packageNumber = parseInt(packageElement.querySelector('h3').textContent.split(' ')[1]);
@@ -319,19 +291,14 @@ function createPackage() {
         <button class="delete-button" onclick="deletePackage(event)">x</button>
     `;
 
-    // Insert the new package below the fixed buttons
     packageContainer.appendChild(newPackage);
 
-    // Get the newly created customer select element
     const customerSelect = newPackage.querySelector(`#customerSelect${nextPackageNumber}`);
 
-    // Fetch customers for the newly created dropdown
     fetchCustomersForDropdown(customerSelect);
 
-    // Update available capacity
     updateAvailableCapacity(planningCard);
 
-    // Fetch and populate delivery addresses for the new package only
     const deliveryAddressSelect = newPackage.querySelector(`#deliveryAddress${nextPackageNumber}`);
     fetchAndPopulateDeliveryAddresses(deliveryAddressSelect);
 }
@@ -348,7 +315,7 @@ async function fetchAndPopulateDeliveryAddresses(selectElement = null) {
 
         // Parse the CSV data
         const parsedData = Papa.parse(csvText, {
-            header: false, // Indicate no headers in the CSV file
+            header: false,
             skipEmptyLines: true
         });
 
@@ -357,10 +324,8 @@ async function fetchAndPopulateDeliveryAddresses(selectElement = null) {
             return;
         }
 
-        // Extract the first column data
         const addresses = parsedData.data.map(row => row[0]);
 
-        // Populate the select elements
         populateSelectElements(addresses, selectElement);
 
     } catch (error) {
@@ -371,7 +336,6 @@ async function fetchAndPopulateDeliveryAddresses(selectElement = null) {
 function populateSelectElements(addresses, selectElement) {
     const selectElements = selectElement ? [selectElement] : document.querySelectorAll('[id^=deliveryAddress]');
     selectElements.forEach(select => {
-        // Clear existing options
         select.innerHTML = '';
 
         addresses.forEach(address => {
@@ -382,8 +346,6 @@ function populateSelectElements(addresses, selectElement) {
         });
     });
 }
-
-
 
 
 function updateAvailableCapacity(planningCard) {
@@ -404,8 +366,8 @@ function updateAvailableCapacity(planningCard) {
         
         // Validate package weight to ensure it's not below 0
         if (packageWeight < 0) {
-            packageWeight = 0; // Reset to 0 if below 0
-            input.value = packageWeight; // Update input value
+            packageWeight = 0;
+            input.value = packageWeight;
         }
 
         usedCapacity += packageWeight;
@@ -421,12 +383,8 @@ function updateAvailableCapacity(planningCard) {
         const saveTourButton = planningCard.querySelector('button[data-action="saveTour"]');
         if (usedCapacity > truckCapacity) {
             availableCapacityLabel.style.color = 'red';
-            // Disable save button if needed
-            // saveTourButton.disabled = true;
         } else {
             availableCapacityLabel.style.color = '';
-            // Enable save button if needed
-            // saveTourButton.disabled = false;
         }
     }
 }
@@ -455,7 +413,6 @@ function deletePackage(event) {
     const packageElement = event.target.closest('.planningPackage-info');
     packageElement.remove();
 
-    // Update package numbers and available capacity
     const planningCard = event.target.closest('.planning-card');
     updatePackageNumbers(planningCard);
     updateAvailableCapacity(planningCard);
@@ -465,7 +422,7 @@ function deleteTour(event) {
     const planningCard = event.target.closest('.planning-card'); // Find the closest parent with the class 'planning-card'
     
     if (planningCard) {
-        planningCard.remove(); // Remove the entire planning card element
+        planningCard.remove();
     } else {
         console.error('Planning card not found.');
     }
@@ -473,38 +430,29 @@ function deleteTour(event) {
 
 
 function saveTour(event) {
-    showLoader();
-    // Ensure event is passed correctly
     if (!event) {
         console.error('Event object not provided.');
         return;
     }
     
-    // Get the authentication token from localStorage
     const token = localStorage.getItem('token');
 
-    // Get the button element that triggered the saveTour function
     const saveButton = event.target;
 
-    // Find the parent planning card (tour) of the save button
     const planningCard = saveButton.closest('.planning-card');
     if (!planningCard) {
         console.error('Planning card not found.');
         return;
     }
 
-    // Get the selected truck option from the dropdown within the planning card
     const truckSelect = planningCard.querySelector('#truckSelect');
     const selectedTruckOption = truckSelect.options[truckSelect.selectedIndex];
 
-    // Extract the truck ID from the selected option text
     const truckOptionText = selectedTruckOption.textContent;
     const selectedTruckId = extractTruckId(truckOptionText);
 
-    // Get all package info containers under the current planning card
     const packageContainers = planningCard.querySelectorAll('.planningPackage-info');
 
-    // Calculate total package weight
     let totalPackageWeight = 0;
 
     packageContainers.forEach(container => {
@@ -513,7 +461,6 @@ function saveTour(event) {
         totalPackageWeight += packageWeight;
     });
 
-    // Check if total package weight exceeds truck capacity
     const truckCapacity = parseFloat(selectedTruckOption.dataset.capacity);
     if (totalPackageWeight === 0) {
         showAlert('Please add at least one package before saving.');
@@ -523,11 +470,9 @@ function saveTour(event) {
         return; // Exit the function without saving
     }
 
-    // Prepare packages array to hold package details
     const packages = [];
     let isValid = true;
 
-    // Iterate over each package info container to extract package data
     packageContainers.forEach(container => {
         const packageWeightInput = container.querySelector('input[type="number"]');
         const deliveryAddressSelect = container.querySelector('select[id^=deliveryAddress]');
@@ -536,11 +481,9 @@ function saveTour(event) {
         const deliveryAddress = deliveryAddressSelect.options[deliveryAddressSelect.selectedIndex];
         const deliveryAddressText = deliveryAddress.textContent;
 
-        // Get the selected customer option from the dropdown within the package
         const customerSelect = container.querySelector('select[id^=customerSelect]');
         const selectedCustomerOption = customerSelect.options[customerSelect.selectedIndex];
 
-        // Extract the customer ID from the selected option text
         const customerOptionText = selectedCustomerOption.textContent;
         const selectedCustomerId = extractCustomerId(customerOptionText);
 
@@ -584,34 +527,15 @@ function saveTour(event) {
     .then(data => {
         console.log('Save Tour Successful:', data);
         showAlert('Tour saved successfully!');
-        // Remove the parent planning card (tour) from the DOM
         planningCard.remove();
-        
     })
     .catch(error => {
         console.error('Error saving tour:', error);
         showAlert('Failed to save tour. Please try again.');
     })
-    .finally(
-        hideLoader()
-    );
+    
 }
 
-
-
-
-//Loader functions from https://www.youtube.com/watch?v=yDL04vG1ed4
-
-function showLoader(){
-    const loaderDiv = document.getElementById('loader');
-    console.log('showLoader called');
-    loaderDiv.classList.add('show');
-}
-function hideLoader(){
-    const loaderDiv = document.getElementById('loader');
-    console.log('hideLoader called');
-    loaderDiv.classList.remove('show');
-}
 
 
 
@@ -648,7 +572,7 @@ document.addEventListener('dragover', function(event) {
 
 // Event listener for drop to handle package placement
 document.addEventListener('drop', function(event) {
-    event.preventDefault(); // Prevent default drop behavior
+    event.preventDefault();
     const target = event.target;
     const draggedPackage = document.querySelector('.planningPackage-info.dragging');
     const dropIndicator = document.querySelector('.drop-indicator');
@@ -706,31 +630,19 @@ function extractTruckId(optionText) {
     const regex = /Truck (\d+) -/;
     const match = optionText.match(regex);
     if (match && match[1]) {
-        return match[1]; // Return the captured ID part
+        return match[1];
     }
-    return null; // Return null if no match found (shouldn't happen with consistent format)
+    return null;
 }
 
 function extractCustomerId(optionText) {
     const regex = /Customer (\d+) -/;
     const match = optionText.match(regex);
     if (match && match[1]) {
-        return match[1]; // Return the captured ID part
+        return match[1]; 
     }
-    return null; // Return null if no match found (shouldn't happen with consistent format)
+    return null;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //ALERT FUNCTIONS
@@ -747,7 +659,6 @@ function hideAlert() {
     customAlert.style.display = 'none';
 }
 
-// Event listener for closing the custom alert
 document.getElementById('closeAlertButton').addEventListener('click', hideAlert);
 
 
@@ -755,7 +666,6 @@ document.getElementById('closeAlertButton').addEventListener('click', hideAlert)
 
 //LOGIN FUNCTIONS
   document.addEventListener('DOMContentLoaded', function() {
-    // Update login/register button text based on login status in localStorage
     const loginButton = document.getElementById('loginRegisterButton');
     const loginStatus = localStorage.getItem('loginStatus');
 
@@ -782,29 +692,23 @@ function loginRegisterButtonClick(){
         })
         .then(response => {
             if (!response.ok) {
-                // Server responded with an error status
                 throw new Error('Error: ' + response.status);
             }
-            return response.json(); // Parse response JSON
+            return response.json(); 
         })
         .then(data => {
-            
-    
-            // Alert success message (replace with your actual success handling)
             showAlert('Logout successful!');
     
             
             localStorage.setItem('loginStatus', 'Login');
             localStorage.setItem('userName', null)
             localStorage.setItem('token', null)
-            // Update login/register button text to 'Login'
+
             document.getElementById('loginRegisterButton').textContent = 'Login';
 
         })
         .catch(error => {
             console.error('Error:', error);
-    
-            // Display a generic error message for any other types of errors
             showAlert('An error occurred, please try again.');
         });
     }  else{

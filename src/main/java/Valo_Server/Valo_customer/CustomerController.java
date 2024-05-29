@@ -38,7 +38,7 @@ public class CustomerController {
         if (oldCustomer.isPresent()) {
             Customer customer = oldCustomer.get();
             repository.delete(customer);
-            return "{ \"Package\":\"deleted\" }";
+            return "{ \"Customer\":\"deleted\" }";
         } else {
             throw new NoSuchElementException("No customer found with ID " + CustomerID);
         }

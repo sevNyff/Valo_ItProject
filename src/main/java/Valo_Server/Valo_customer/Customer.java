@@ -19,11 +19,7 @@ public class Customer {
     @Column(name = "City")
     private String cityName;
     private String token;
-
-    public Customer() {
-        // Default constructor
-    }
-
+    public Customer() {}
     public Customer(String customerName, String addressName, String cityName){
         this.customerName = customerName;
         this.addressName = addressName;

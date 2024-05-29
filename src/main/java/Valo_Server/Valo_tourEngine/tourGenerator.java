@@ -20,11 +20,11 @@ public class tourGenerator {
         for (Package pck : packages) {
             String address = pck.getDeliveryAddress();
             destinations.add(address);
-            addressToPackageMap.computeIfAbsent(address, k -> new ArrayList<>()).add(pck); //Falls destinations noch nicht existiert, dann eine neue List erstellen.
+            addressToPackageMap.computeIfAbsent(address, k -> new ArrayList<>()).add(pck); //Falls Abladestation noch nicht existiert, dann eine neue List erstellen.
         }
 
         System.out.println("Stops: " + destinations);
-        ArrayList<String> result = TSP.runTSP("Olten SO", destinations);
+        ArrayList<String> result = TSP.runTSP("Olten SO", destinations); //Startpunkt unserer Tour ist immer Olten.
         String distance = result.get(result.size() - 1);
         double totalDistance = Double.parseDouble(distance);
         result.remove(distance);
@@ -48,6 +48,11 @@ public class tourGenerator {
 
         return tour;
     }
+
+    /**
+     * This method is copied from Stack overflow:
+     * https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+     */
 
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();

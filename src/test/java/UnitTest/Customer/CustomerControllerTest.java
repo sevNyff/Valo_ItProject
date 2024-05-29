@@ -94,12 +94,36 @@ public class CustomerControllerTest {
         Customer customer = new Customer("Hans Mustermann", "Hauptstrasse 45", "Zürich");
         customer.setToken(LoginToken);
 
-        when(customerRepository.findById(customer.getCustomerID())).thenReturn(Optional.empty());
+        when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
         when(customerRepository.save(any(Customer.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         mvc.perform(MockMvcRequestBuilders.get("/customers/delete/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{ \"Customer\":\"deleted\" }"));
+
+    }
+    @Test
+    public void getOneCustomerTest() throws Exception{
+        User newUser = new User();
+        newUser.setUserName("tester");
+        newUser.setPassword("tester");
+        String LoginToken = Token.generate();
+        newUser.setToken(LoginToken);
+        when(userRepository.save(any(User.class))).thenReturn(newUser);
+        when(userRepository.findById("tester")).thenReturn(Optional.of(newUser));
+        when(userRepository.findByToken(LoginToken)).thenReturn(List.of(newUser));
+
+        Customer customer = new Customer("Hans Mustermann", "Hauptstrasse 45", "Zürich");
+        customer.setToken(LoginToken);
+
+        when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+        when(customerRepository.save(any(Customer.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        mvc.perform(MockMvcRequestBuilders.get("/customers/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.customerName").value("Hans Mustermann"))
+                .andExpect(jsonPath("$.addressName").value("Hauptstrasse 45"))
+                .andExpect(jsonPath("$.cityName").value("Zürich"));
 
     }
 }

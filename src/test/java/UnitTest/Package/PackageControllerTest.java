@@ -1,8 +1,10 @@
 package UnitTest.Package;
 
 import Valo_Server.ServerStart;
+import Valo_Server.Valo_customer.Customer;
 import Valo_Server.Valo_helper.Token;
 import Valo_Server.Valo_packages.Package;
+import Valo_Server.Valo_packages.PackageController;
 import Valo_Server.Valo_packages.PackageRepository;
 import Valo_Server.Valo_tours.Tour;
 import Valo_Server.Valo_tours.TourRepository;
@@ -12,6 +14,7 @@ import Valo_Server.Valo_user.User;
 import Valo_Server.Valo_user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +43,8 @@ public class PackageControllerTest {
     private TourRepository tourRepository;
     @MockBean
     private UserRepository userRepository;
+    @InjectMocks
+    private PackageController packageController;
     private Token token;
     private Package aPackage;
 
@@ -54,14 +59,11 @@ public class PackageControllerTest {
         when(userRepository.findById("tester")).thenReturn(Optional.of(newUser));
         when(userRepository.findByToken(LoginToken)).thenReturn(List.of(newUser));
 
-        /*
         Package pck = new Package(1, "Brugg AG", 1);
         pck.setToken(LoginToken);
 
         when(packageRepository.findById(pck.getPackageID())).thenReturn(Optional.empty());
         when(packageRepository.save(any(Package.class))).thenAnswer(invocation -> invocation.getArgument(0));
-
-         */
 
         Tour tour = new Tour(1);
         tour.setToken(LoginToken);
@@ -75,9 +77,7 @@ public class PackageControllerTest {
         packages.add(package3);
         tour.setPackages(packages);
 
-        when(tourRepository.findById(tour.getID())).thenReturn(Optional.empty());
-        when(tourRepository.save(any(Tour.class))).thenAnswer(invocation -> invocation.getArgument(0));
-
+        when(tourRepository.getById(1)).thenReturn(tour);
 
         String tourJson = "{ " +
                 "\"token\":\"" + LoginToken + "\", " +
@@ -91,6 +91,44 @@ public class PackageControllerTest {
                         .content(tourJson))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{ \"Package\":\"saved\" }"));
+
+    }
+    @Test
+    public void deleteCustomerTest() throws Exception{
+        User newUser = new User();
+        newUser.setUserName("tester");
+        newUser.setPassword("tester");
+        String LoginToken = Token.generate();
+        newUser.setToken(LoginToken);
+        when(userRepository.save(any(User.class))).thenReturn(newUser);
+        when(userRepository.findById("tester")).thenReturn(Optional.of(newUser));
+        when(userRepository.findByToken(LoginToken)).thenReturn(List.of(newUser));
+
+        Package pck = new Package(1, "Brugg AG", 1);
+        pck.setToken(LoginToken);
+
+        when(packageRepository.findById(1)).thenReturn(Optional.of(pck));
+        when(packageRepository.save(any(Package.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(packageRepository.findById(pck.getPackageID())).thenReturn(Optional.empty());
+        when(packageRepository.save(any(Package.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Tour tour = new Tour(1);
+        tour.setToken(LoginToken);
+
+        Package package1 = new Package(1, "Brugg AG", 3);
+        Package package2 = new Package(1, "Bern", 3);
+        Package package3 = new Package(1, "Zürich", 3);
+        List<Package> packages = new ArrayList<>();
+        packages.add(package1);
+        packages.add(package2);
+        packages.add(package3);
+        tour.setPackages(packages);
+
+        when(tourRepository.getById(1)).thenReturn(tour);
+
+        mvc.perform(MockMvcRequestBuilders.get("/packages/delete/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{ \"Package\":\"deleted\" }"));
 
     }
     @Test

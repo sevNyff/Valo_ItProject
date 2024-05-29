@@ -1,0 +1,5 @@
+UnitTest\Package\PackageControllerTest.class
+UnitTest\User\UserControllerTest.class
+UnitTest\Tour\TourControllerTest.class
+UnitTest\Truck\TruckControllerTest.class
+UnitTest\Customer\CustomerControllerTest.class

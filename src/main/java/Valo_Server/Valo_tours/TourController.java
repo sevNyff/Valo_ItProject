@@ -29,6 +29,10 @@ public class TourController {
             throw new TourException("Invalid token");
         }
     }
+    /**
+     * To implement the OnetoMany/ManyToOne accurately, we consulted this page:
+     * https://medium.com/@arijit83work/bidirectional-relationship-using-onetomany-manytoone-annotation-in-spring-boot-3b91980ca222
+     */
     @PostMapping("/tours/save")
     Tour tourSave(@RequestBody Tour tour) {
         if (Token.validate(tour.getToken())) {

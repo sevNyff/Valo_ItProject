@@ -19,8 +19,8 @@ public class DBinitializer {
     @Bean
     CommandLineRunner initDatabaseUser(UserRepository userRepository) {
         return args -> {
-            User brad = new User("test", "test");
-            log.info("Preloading User: " + userRepository.save(brad));
+            User test = new User("test", "test");
+            log.info("Preloading User: " + userRepository.save(test));
         };
     }
 

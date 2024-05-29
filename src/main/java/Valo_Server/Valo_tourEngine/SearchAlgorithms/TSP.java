@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
+/**
+ * Based on the A*-Algorithm and extended to a TSP-Algorithm to find the best route over multiple stops.
+ */
 public class TSP {
 
     private record Path(ArrayList<String> nodes, double distanceSoFar, long distanceToGoal, double totalDistance) {};
@@ -59,7 +61,9 @@ public class TSP {
 
         return nodes;
     }
-
+    /**
+     * This is the already known part of the A*-Algorithm. We copied it from our first project in software-engineering.
+     */
     private static Path AStar(String start, String end) {
         ArrayList<Path> paths = new ArrayList<>();
         ArrayList<String> startingNodeList = new ArrayList<>();
@@ -124,6 +128,10 @@ public class TSP {
         }
         return distance;
     }
+
+    /**
+     * This part was created with the help of Chat-GPT.
+     */
 
     private static ArrayList<String> findBestTour(String start, ArrayList<String> stops) {
         ArrayList<String> bestTour = new ArrayList<>();

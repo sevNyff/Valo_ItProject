@@ -47,7 +47,6 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userName").value("tester"))
                 .andExpect(jsonPath("$.password").value(""));
-                //.andExpect(jsonPath("$.password").doesNotExist());
 
     }
 
@@ -65,7 +64,6 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userName").value("tester"))
                 .andExpect(jsonPath("$.password").value(""));
-                //.andExpect(jsonPath("$.token").value(Token.validate()))
     }
 
     @Test
@@ -86,7 +84,7 @@ public class UserControllerTest {
     public void getOneUserTest() throws Exception {
         User existingUser = new User();
         existingUser.setUserName("tester");
-        existingUser.setPassword("tester");
+        existingUser.setPassword("");
 
         when(userRepository.findById("tester")).thenReturn(Optional.of(existingUser));
 
@@ -102,16 +100,4 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("{ \"ping\":\"success\" }"));
     }
-/*
-    @Test
-    public void getNonExistentUser() throws Exception {
-
-        when(userRepository.findById("nonExistentUser")).thenReturn(Optional.empty());
-
-        mvc.perform(MockMvcRequestBuilders.get("/users/nonExistentUser"))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("\"nonExistentUser\" does not exist"));
-    }
-
- */
 }

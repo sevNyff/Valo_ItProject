@@ -1,5 +1,6 @@
 package Valo_Server.Valo_packages;
 
+import Valo_Server.Valo_customer.Customer;
 import Valo_Server.Valo_helper.Token;
 import Valo_Server.Valo_packages.Package;
 import Valo_Server.Valo_packages.PackageException;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*") // Allow cross-origin requests (necessary for web clients)
@@ -24,7 +27,6 @@ public class PackageController {
 
     @Autowired
     private PackageRepository packageRepository;
-
 
     @PostMapping("/packages/save/{ID}")
     public String savePackage(@RequestBody Package aPackage, @PathVariable int ID) {
@@ -42,6 +44,17 @@ public class PackageController {
             return "{ \"Package\":\"saved\" }";
         } else {
             throw new PackageException("Invalid token");
+        }
+    }
+    @GetMapping("/packages/delete/{PackageID}")
+    public String deleteTruck(@PathVariable int PackageID) {
+        Optional<Package> oldPackage = packageRepository.findById(PackageID);
+        if (oldPackage.isPresent()) {
+            Package pck = oldPackage.get();
+            packageRepository.delete(pck);
+            return "{ \"Package\":\"deleted\" }";
+        } else {
+            throw new NoSuchElementException("No customer found with ID " + PackageID);
         }
     }
 

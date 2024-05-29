@@ -24,9 +24,7 @@ public class User {
     @Column(name = "token")
     private String token;
 
-    public User() {
-    }
-
+    public User() {}
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
@@ -35,42 +33,33 @@ public class User {
     public String getUserName() {
         return userName;
     }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
     public String getEmail() {
         return password;
     }
-
     public void setEmail(String password) {
         this.password = password;
     }
-
     public LocalDateTime getUserExpiry() {
         return userExpiry;
     }
-
     public void setUserExpiry(LocalDateTime userExpiry) {
         this.userExpiry = userExpiry;
     }
-
     public String getToken() {
         return token;
     }
-
     public void setToken(String token) {
         this.token = token;
     }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || !(o instanceof User)) return false;

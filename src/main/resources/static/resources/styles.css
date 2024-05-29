@@ -23,9 +23,6 @@ body {
     transition: height 0.3s ease;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
-.navbar.small {
-    height: 40px; /* Adjust the smaller height as needed */
-  }
   
   
 
@@ -128,8 +125,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
-     /* Background color for better visibility */
 }
 
 .h1-welcome {
@@ -138,7 +133,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 10px;
     font-size: 5vw;
-    margin-bottom: 20px; /* Added margin for spacing */
+    margin-bottom: 20px;
     padding-bottom: 50px;
 }
 
@@ -204,12 +199,12 @@ button:active {
     height: 100vh;
     z-index: -1;
     top: 0;
-    /* Add any other styles you need for your module */
+
 }
 #module-home {
   background-image: url('../resources/home-background.jpg');
   background-size: cover;
-    background-position: center; /* Center the background image */
+    background-position: center; 
     background-repeat: no-repeat;
     position: fixed;
 }
@@ -225,9 +220,8 @@ button:active {
   width: 40vw;
   height: 70vh;
   min-height: 600px;
-  
-   /* Increased padding for better aesthetics */
   align-items: center;
+
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.123);
   border-radius: 16px;
@@ -238,7 +232,6 @@ button:active {
   flex-direction: column;
   justify-content: center;
   
-   /* Background color for better visibility */
 }
 
 .h1-form {
@@ -247,13 +240,14 @@ button:active {
   text-transform: uppercase;
   letter-spacing: 10px;
   font-size: 5vw;
-  margin-bottom: 20px; /* Added margin for spacing */
+  margin-bottom: 20px;
   padding-bottom: 30px;
   
 }
 #module-login {
   background-image: linear-gradient(35deg, #333 50%, #ffffff 50%)
 }
+
 /*Form styles from https://codepen.io/lucasyem/pen/ZEEYKdj adjusted*/
 .form__group {
   position: relative;
@@ -304,6 +298,7 @@ button:active {
 .form__field{
   &:required,&:invalid { box-shadow:none; }
 }
+/*until here Form styles from https://codepen.io/lucasyem/pen/ZEEYKdj adjusted*/
 
 .login_register{
   padding-top: 15px;
@@ -327,10 +322,8 @@ button:active {
   align-self: center;
 }
 
-
-
-
 /*End of Login Styling*/
+
 
 /*Table Styling*/
 
@@ -385,19 +378,18 @@ tbody tr:hover {
   }
 }
 
-
-
-
 /*End of Table Styling*/
 
+
+/*Start of Trucks Styling*/
 .trucks-container {
   position: absolute;
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%; /* Adjust width as needed */
-  max-height: 60vh; /* Maximum height of the container */
-  overflow-y: auto; /* Enable vertical scrolling */
+  width: 80%; 
+  max-height: 60vh; 
+  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -444,15 +436,17 @@ tbody tr:hover {
   width: 150px;
 }
 
-/*packages styling*/
+/*End of Trucks Styling*/
+
+/*Start of Packages Styling*/
 .packages-container {
   position: absolute;
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%; /* Adjust width as needed */
-  max-height: 60vh; /* Maximum height of the container */
-  overflow-y: auto; /* Enable vertical scrolling */
+  width: 80%;
+  max-height: 60vh;
+  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -477,15 +471,17 @@ tbody tr:hover {
   margin-bottom: 10px;
 }
 
-/*tours styling*/
+/*End of packages Styling*/
+
+/*Start of Tours Styling*/
 .tours-container {
   position: absolute;
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%; /* Adjust width as needed */
-  max-height: 70vh; /* Maximum height of the container */
-  overflow-y: auto; /* Enable vertical scrolling */
+  width: 80%; 
+  max-height: 70vh; 
+  overflow-y: auto; 
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -530,15 +526,17 @@ tbody tr:hover {
   padding-top: 20px;
 }
 
-/*new planning styling*/
+/*End of Tours Styling*/
+
+/*Start of New Planning Styling*/
 .planning-container {
   position: absolute;
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%; /* Adjust width as needed */
-  max-height: 60vh; /* Maximum height of the container */
-  overflow-y: auto; /* Enable vertical scrolling */
+  width: 80%; 
+  max-height: 60vh; 
+  overflow-y: auto; 
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -569,7 +567,7 @@ tbody tr:hover {
   background-color: #f1f2ed;
   border-radius: 8px;
   padding-left: 5px;
-  position: relative; /* Add this line to make the container relative */
+  position: relative;
 }
 .delete-button {
   color: red;
@@ -577,9 +575,9 @@ tbody tr:hover {
   height: 25px;
   padding: 0;
   position: absolute;
-  top: 8px; /* Adjust top position for desired spacing from top */
-  right: 8px; /* Adjust right position for desired spacing from right */
-  cursor: pointer; /* Change cursor to pointer on hover */
+  top: 8px; 
+  right: 8px; 
+  cursor: pointer;
 }
 .saveTour-button{
   color: green;
@@ -604,19 +602,17 @@ tbody tr:hover {
   color: #f1f1f1;
   position: fixed;
   bottom: 10px;
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Center horizontally */
-  text-transform: uppercase; /* Uppercase text */
+  left: 50%; 
+  transform: translateX(-50%); 
+  text-transform: uppercase;
   font-family: inherit;
 }
 
 .planningPackage-info.dragging {
-  /* Remove opacity */
   opacity: 1;
-  /* Optionally add a border or box-shadow for visual indication */
-  border: 2px dashed #333; /* Example: dashed border */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Example: shadow effect */
-  /* Additional styling as needed */
+  border: 2px dashed #333; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  
 }
 
 .calculateTours-button{
@@ -630,18 +626,18 @@ tbody tr:hover {
   top: 150px;
   left: 30px;
 }
+/*End of New Planning Styling*/
 
 
-
-/*Customer Styling*/
+/*Start of Customer Styling*/
 .customers-container {
   position: absolute;
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%; /* Adjust width as needed */
-  max-height: 60vh; /* Maximum height of the container */
-  overflow-y: auto; /* Enable vertical scrolling */
+  width: 80%; 
+  max-height: 60vh; 
+  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -681,7 +677,7 @@ tbody tr:hover {
   margin-left: 10px;
   width: 150px;
 }
-
+/*End of Customer Styling*/
 
 
 /*End of Page Styling*/
@@ -705,8 +701,8 @@ tbody tr:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   display: block;
-  border: 10px solid #f3f3f3; /* Light grey */
-  border-top: 10px solid blueviolet; /* Blue */
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid blueviolet; 
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -743,7 +739,7 @@ tbody tr:hover {
 .alert-message {
   margin: 0;
   font-size: 16px;
-  color: #333; /* Adjust text color */
+  color: #333;
 }
 
 .close-alert-button {
@@ -751,7 +747,7 @@ tbody tr:hover {
   opacity: 0.75;
   cursor: pointer;
   float: right;
-  transition: opacity 0.2s ease; /* Smooth opacity transition on hover */
+  transition: opacity 0.2s ease;
 }
 
 .close-alert-button:hover {
@@ -779,7 +775,7 @@ footer {
     color: #fff;
     padding: 20px 0;
     width: 100%;
-    position: relative; /* Change from fixed to relative */
+    position: relative;
 }
   
   .footer-content {

@@ -7,14 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
       fetch('http://localhost:8080/trucks')
         .then(response => response.json())
         .then(trucks => {
-          trucksContainer.innerHTML = ''; // Clear previous content
+          trucksContainer.innerHTML = '';
   
           trucks.forEach(truck => {
-            // Create a div element for each truck card
             const truckCard = document.createElement('div');
             truckCard.classList.add('truck-card');
   
-            // Populate truck card with truck information
             truckCard.innerHTML = `
               <div class="truck-info">
                 <h3>Truck ${truck.id}</h3>
@@ -24,10 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
               <button class="delete-button" data-truck-id="${truck.id}">x</button>
             `;
   
-            // Append truck card to trucksContainer
             trucksContainer.appendChild(truckCard);
   
-            // Attach event listener to the delete button
             const deleteButton = truckCard.querySelector('.delete-button');
             deleteButton.addEventListener('click', handleDeleteButtonClick);
           });
@@ -38,24 +34,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     // Function to handle the "Delete" button click
-    function handleDeleteButtonClick(event) {
-      const truckId = event.target.dataset.truckId;
-  
-      fetch(`http://localhost:8080/trucks/delete/${truckId}`, {
-        method: 'GET'
-      })
-        .then(response => response.text())
-        .then(message => {
-          showAlert(message); // Display success message
-          event.target.closest('.truck-card').remove(); // Remove truck card from DOM
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          showAlert('An error occurred. Please try again.');
-        });
-    }
-  
-    // Load trucks when DOM content is loaded
+function handleDeleteButtonClick(event) {
+  const truckId = event.target.dataset.truckId;
+
+  fetch(`http://localhost:8080/trucks/delete/${truckId}`, {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.truck === "deleted") {
+        showAlert('Truck has been successfully deleted.');
+        event.target.closest('.truck-card').remove();
+      } else {
+        showAlert('Unexpected response from server.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showAlert('An error occurred. Please try again.');
+    });
+}
+
     fetchTrucks();
   });
   
@@ -82,13 +81,11 @@ function newTruckButtonClick() {
   var truckCapacity = document.getElementById('capacity').value;
   var token = localStorage.getItem('token');
 
-  // Validate brand name (at least 3 characters)
   if (brandName.length < 3) {
       showAlert('Brand name must be at least 3 characters long.');
       return; // Exit the function if validation fails
   }
 
-  // Validate truck capacity (must be a number bigger than 0)
   const parsedCapacity = parseFloat(truckCapacity);
   if (isNaN(parsedCapacity) || parsedCapacity <= 0) {
       showAlert('Capacity must be a valid number bigger than 0.');
@@ -116,7 +113,6 @@ function newTruckButtonClick() {
       return response.json();
   })
   .then(data => {
-      // Redirect to trucks.html after successfully adding a new truck
       window.location.href = '../Valo_Trucks/trucks.html';
   })
   .catch(error => {
@@ -143,7 +139,6 @@ function hideAlert() {
   customAlert.style.display = 'none';
 }
 
-// Event listener for closing the custom alert
 document.getElementById('closeAlertButton').addEventListener('click', hideAlert);
 
 
@@ -151,7 +146,6 @@ document.getElementById('closeAlertButton').addEventListener('click', hideAlert)
 
 //LOGIN FUNCTIONS
   document.addEventListener('DOMContentLoaded', function() {
-    // Update login/register button text based on login status in localStorage
     const loginButton = document.getElementById('loginRegisterButton');
     const loginStatus = localStorage.getItem('loginStatus');
 
@@ -178,29 +172,22 @@ function loginRegisterButtonClick(){
         })
         .then(response => {
             if (!response.ok) {
-                // Server responded with an error status
                 throw new Error('Error: ' + response.status);
             }
-            return response.json(); // Parse response JSON
+            return response.json();
         })
         .then(data => {
-            
-    
-            // Alert success message (replace with your actual success handling)
             showAlert('Logout successful!');
-    
-            
+
             localStorage.setItem('loginStatus', 'Login');
             localStorage.setItem('userName', null)
             localStorage.setItem('token', null)
-            // Update login/register button text to 'Login'
+
             document.getElementById('loginRegisterButton').textContent = 'Login';
 
         })
         .catch(error => {
             console.error('Error:', error);
-    
-            // Display a generic error message for any other types of errors
             showAlert('An error occurred, please try again.');
         });
     }  else{

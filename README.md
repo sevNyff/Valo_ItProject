@@ -1,5 +1,13 @@
 # Valo_ItProject
 
+To run this programm:
+- Maven must be able to run on this device
+- All Maven dependencies must be installed
+- Start src/main/java/Valo_Server/ServerStart.java File
+- Click on http://localhost:8080/Valo_Home/home.html
+
+
+
 To check the H2 Database:
 - Start the Server
 - First go to http://localhost:8080/h2-console
